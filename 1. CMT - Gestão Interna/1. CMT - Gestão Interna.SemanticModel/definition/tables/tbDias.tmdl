@@ -1,0 +1,162 @@
+table tbDias
+	lineageTag: deeb396f-b8c8-40d3-b4c9-f484d554b465
+
+	column Número
+		lineageTag: 68632b2a-4556-4aaf-a935-57ce253c7978
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: IntervaloFases[Número]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dias
+		formatString: 0
+		lineageTag: 25ec7c58-ce7e-470b-a51c-9a96d8181789
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Dias]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fase
+		lineageTag: 6617e2bc-adf7-4eb9-986f-263578509100
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: IntervaloFases[Fase]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ganho
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 70947ecc-5d8f-46f6-a250-3e79c14042f9
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Ganho]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Mês
+		lineageTag: 25288af7-8390-450f-a599-9de5e4a8ca11
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: IntervaloFases[Mês]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano
+		formatString: 0
+		lineageTag: 90717700-e60b-488d-8041-0f6acc4068c4
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: IntervaloFases[Ano]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 88d1ccd8-ad95-422d-b4d1-e2db05738e92
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Data]
+
+		variation Variation
+			isDefault
+			relationship: 09b08deb-3ac2-4da9-8692-259d05926063
+			defaultHierarchy: LocalDateTable_ef1a949c-7f53-4b6b-9139-97c9acd3b413.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Horas
+		lineageTag: ae960407-902b-4639-a0ac-ef309c8bb475
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Horas]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ID = [Número]	& [Fase]
+		lineageTag: 30807710-465f-4a79-a495-e7ff95f080ce
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column HorasFinal = ```
+			
+			VAR vNumero = [Número]
+			VAR vData = [Data]
+			VAR vFases = 
+			CALCULATE(
+			    DISTINCTCOUNT([Fase]),
+			    FILTER(
+			        tbDias,
+			        [Número] = vNumero && [Data]=vData
+			    )
+			)
+			
+			VAR vResult = tbDias[Horas] / vFases
+			
+			RETURN
+			vResult
+			```
+		formatString: 0
+		lineageTag: 7503fcd1-ea3f-49ec-9a77-d15059266f05
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column GanhoFinal = ```
+			
+			VAR vNumero = [Número]
+			VAR vData = [Data]
+			VAR vFases = 
+			CALCULATE(
+			    DISTINCTCOUNT([Fase]),
+			    FILTER(
+			        tbDias,
+			        [Número] = vNumero && [Data]=vData
+			    )
+			)
+			
+			VAR vResult = tbDias[Ganho] / vFases
+			
+			RETURN
+			vResult
+			```
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 3b0097b0-d49b-4c96-89c4-adc478b27fb1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	partition tbDias = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    FILTER(
+				        SUMMARIZE(
+				                IntervaloFases,
+				                IntervaloFases[Número],
+				                IntervaloFases[Fase],
+				                IntervaloFases[Mês],
+				                IntervaloFases[Ano],
+				                "Dias", COUNTROWS(IntervaloFases),
+				                "Ganho", AVERAGE(IntervaloFases[Ganho Anual]),
+				                "Horas", AVERAGE(IntervaloFases[Ganho em Eficiência de Mão de Obra (horas/mês)])
+				            )
+				        , [Ganho]>0 || [Horas]>0
+				    )
+				    ,"Data", "01/" & [Mês] & "/" & [Ano]
+				)
+
+	annotation PBI_Id = e15616f4f7814ddb88a8db1d9b31c66a
+

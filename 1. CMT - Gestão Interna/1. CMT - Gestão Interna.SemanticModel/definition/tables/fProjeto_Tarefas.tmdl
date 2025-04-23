@@ -1,0 +1,223 @@
+table fProjeto_Tarefas
+	lineageTag: 7111b147-de5d-42be-be3e-8785ecdf5592
+
+	column Número
+		dataType: string
+		lineageTag: f9f75277-03df-4549-a8ee-3e3cc1459011
+		summarizeBy: none
+		sourceColumn: Número
+
+		annotation SummarizationSetBy = Automatic
+
+	column Primário
+		dataType: string
+		lineageTag: dee59428-4819-48f6-88b3-170ca4e18216
+		summarizeBy: none
+		sourceColumn: Primário
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Projeto principal'
+		dataType: string
+		lineageTag: 17c98398-5de0-4f55-8c6c-bff6025de3b7
+		summarizeBy: none
+		sourceColumn: Projeto principal
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descrição resumida'
+		dataType: string
+		lineageTag: 0913b3ad-abb9-487e-a013-a84a4988d314
+		summarizeBy: none
+		sourceColumn: Descrição resumida
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data de início planejada'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c03e87f4-2400-4451-af54-2270226c80bc
+		summarizeBy: none
+		sourceColumn: Data de início planejada
+
+		variation Variation
+			isDefault
+			relationship: 9da63452-6c19-4c14-9d37-b0af965dc479
+			defaultHierarchy: LocalDateTable_00159db1-ed19-4e10-9708-40adf3bce095.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data de término planejada'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 63d94731-ebf7-4211-ba0f-ae82908af965
+		summarizeBy: none
+		sourceColumn: Data de término planejada
+
+		variation Variation
+			isDefault
+			relationship: a491e05c-15eb-4b88-88a0-fa9eb59bff38
+			defaultHierarchy: LocalDateTable_1059e46e-1c18-45a9-b876-89e35dbc6750.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data de início'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 665308ae-6035-4f90-9b8a-b2327aa22246
+		summarizeBy: none
+		sourceColumn: Data de início
+
+		variation Variation
+			isDefault
+			relationship: af51e63a-99e8-45c9-bb92-df3a9c4707cf
+			defaultHierarchy: LocalDateTable_75465971-518e-47ae-b4c6-551ed23979c8.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data de término'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 589f1172-a32b-41d6-a0d3-835911dcfa6f
+		summarizeBy: none
+		sourceColumn: Data de término
+
+		variation Variation
+			isDefault
+			relationship: 9f35f481-54ff-4a4b-97dd-4196f5422559
+			defaultHierarchy: LocalDateTable_216593aa-5416-498e-a10c-e6b9cc943a5d.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Atribuído a'
+		dataType: string
+		lineageTag: 5af4b902-9b9b-404c-b997-12fc37573a9a
+		summarizeBy: none
+		sourceColumn: Atribuído a
+
+		annotation SummarizationSetBy = Automatic
+
+	column E-mail
+		dataType: string
+		lineageTag: 326ca6c1-26ed-4440-b1e8-cff1e7fbd287
+		summarizeBy: none
+		sourceColumn: E-mail
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estado
+		dataType: string
+		lineageTag: f113dc6c-fc74-42f3-af01-f01d0421a28e
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Porcentagem de conclusão em Dias'
+		dataType: double
+		lineageTag: 3fb6e75f-4ab9-4e04-aff4-bed84b186484
+		summarizeBy: sum
+		sourceColumn: Porcentagem de conclusão em Dias
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Descrição
+		dataType: string
+		lineageTag: 71322933-c8f0-4ea4-a73e-aa118bdcdf6b
+		summarizeBy: none
+		sourceColumn: Descrição
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Atualizado em'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: fcbe45b0-2079-470d-bd31-a001c610ff9e
+		summarizeBy: none
+		sourceColumn: Atualizado em
+
+		variation Variation
+			isDefault
+			relationship: f047ad5b-80f8-4f04-91df-7f2d3187e6ed
+			defaultHierarchy: LocalDateTable_7a78bc9e-343c-435d-a5c7-e978de06d07e.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Atualizado por'
+		dataType: string
+		lineageTag: 57457b99-1fbb-40fc-ab79-5c1c6e1c62dc
+		summarizeBy: none
+		sourceColumn: Atualizado por
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Projetos.Nome do Projeto'
+		dataType: string
+		lineageTag: 7a82cae0-e33a-4761-95cb-2bc32e78c01b
+		summarizeBy: none
+		sourceColumn: Projetos.Nome do Projeto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Projeto+tarefa
+		dataType: string
+		lineageTag: 60348267-68f7-4fbc-8345-b1f4885287dd
+		summarizeBy: none
+		sourceColumn: Projeto+tarefa
+
+		annotation SummarizationSetBy = Automatic
+
+	column Índice
+		dataType: int64
+		formatString: 0
+		lineageTag: 614be61a-99d1-4468-ab7e-c8cfd078c393
+		summarizeBy: sum
+		sourceColumn: Índice
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tarefa+Projeto
+		dataType: string
+		lineageTag: c98b69d8-bf8c-4d50-bfbd-b1848f55e968
+		summarizeBy: none
+		sourceColumn: Tarefa+Projeto
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fProjeto_Tarefas = m
+		mode: import
+		queryGroup: Main
+		source =
+				let
+				    Fonte = SharePoint.Files(PROA_FC, [ApiVersion = 15]),
+				    #"DB_proj_tasks_tsp3 xlsx_https://arcelormittal sharepoint com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/" = Fonte{[Name="DB_proj_tasks_tsp3.xlsx",#"Folder Path"="https://arcelormittal.sharepoint.com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"DB_proj_tasks_tsp3 xlsx_https://arcelormittal sharepoint com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/"),
+				    #"Page 1_Sheet" = #"Pasta de Trabalho Importada do Excel"{[Item="Page 1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Page 1_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Número", type text}, {"Projeto principal", type text}, {"Descrição resumida", type text}, {"Data de início planejada", type date}, {"Data de término planejada", type date}, {"Data de início", type date}, {"Data de término", type date}, {"Atribuído a", type text}, {"Estado", type text}, {"Porcentagem de conclusão em Dias", type number}, {"Descrição", type text}, {"Atualizado em", type date}, {"Atualizado por", type text}}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Tipo Alterado", {"Projeto principal"}, fProjeto, {"Projeto #"}, "Projetos", JoinKind.LeftOuter),
+				    #"Projetos Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "Projetos", {"Nome do Projeto"}, {"Projetos.Nome do Projeto"}),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Projetos Expandido", "Mesclado", each Text.Combine({[Projetos.Nome do Projeto], " - ", [Descrição resumida]}), type text),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Coluna Mesclada Inserida",{{"Mesclado", "Projeto+tarefa"}}),
+				    #"Índice Adicionado" = Table.AddIndexColumn(#"Colunas Renomeadas", "Índice", 1, 1, Int64.Type),
+				    #"Coluna Mesclada Inserida1" = Table.AddColumn(#"Índice Adicionado", "Mesclado", each Text.Combine({[Descrição resumida], " - ", [Projetos.Nome do Projeto]}), type text),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Coluna Mesclada Inserida1",{{"Mesclado", "Tarefa+Projeto"}})
+				in
+				    #"Colunas Renomeadas1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,132 @@
+table fCapex
+	lineageTag: 4e34bdd9-6a14-4949-9a73-7142e496fcd7
+
+	measure 'MRF Capex' = CALCULATE(SUM(fCapex[Valor]),fCapex[Tipo]="MRF")/1000000
+		formatString: 0.0
+		lineageTag: 31bcef9d-0c1a-4a35-8043-25271c96098f
+
+	measure 'Actual Capex' = CALCULATE(SUM(fCapex[Valor]),fCapex[Tipo]="Realizado")/1000000
+		formatString: 0.00
+		lineageTag: bf43af37-5c7f-43cf-acc6-2fb938748ed9
+
+	column PEP
+		dataType: string
+		lineageTag: 09cb3bac-a64f-4c2a-ad79-883b8e096a79
+		summarizeBy: none
+		sourceColumn: PEP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Projeto
+		dataType: string
+		lineageTag: bd8e3e5f-1a99-4a6f-843f-e05e4c72fc81
+		summarizeBy: none
+		sourceColumn: Projeto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Budget
+		dataType: double
+		lineageTag: 31572d2b-4eb1-461e-ad4f-3bf46543a8c1
+		summarizeBy: sum
+		sourceColumn: Budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Subdescrição
+		dataType: string
+		lineageTag: 142eded8-5203-4e67-b2f1-942da9d55f97
+		summarizeBy: none
+		sourceColumn: Subdescrição
+
+		annotation SummarizationSetBy = Automatic
+
+	column GG
+		dataType: string
+		lineageTag: 261d3155-e5a6-491d-9c07-1771a7a6766f
+		summarizeBy: none
+		sourceColumn: GG
+
+		annotation SummarizationSetBy = Automatic
+
+	column G
+		dataType: string
+		lineageTag: a1ca37a1-257c-4f17-ae2f-38cabd320c2a
+		summarizeBy: none
+		sourceColumn: G
+
+		annotation SummarizationSetBy = Automatic
+
+	column CMT
+		dataType: string
+		lineageTag: 8fa15998-2dff-4bea-b244-118300e139d7
+		summarizeBy: none
+		sourceColumn: CMT
+
+		annotation SummarizationSetBy = Automatic
+
+	column CP
+		dataType: string
+		lineageTag: 3cb99071-2d4c-4fdd-abdc-251c0f60079a
+		summarizeBy: none
+		sourceColumn: CP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Atributo
+		dataType: string
+		lineageTag: 44497bc6-e3fd-41ec-84f5-de2a76a09299
+		summarizeBy: none
+		sourceColumn: Atributo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valor
+		dataType: double
+		lineageTag: f01a9883-e9b4-4133-b48b-db5c95b8cf84
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Tipo
+		dataType: string
+		lineageTag: c40e8b3e-c76c-45fd-93c6-0a20e9e5f150
+		summarizeBy: none
+		sourceColumn: Tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês
+		dataType: string
+		lineageTag: 43d1283f-bec0-430f-b21a-1f8b5dc38b8b
+		summarizeBy: none
+		sourceColumn: Mês
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fCapex = m
+		mode: import
+		queryGroup: Desembolso
+		source =
+				let
+				    Fonte = Excel.Workbook(Web.Contents("https://arcelormittal.sharepoint.com/sites/ROADMAPDC2021/Shared%20Documents/General/ROADMAP%202025/Comit%C3%AA%20Digital%20-%20Roadmap%20DC%202025.xlsx"), null, true),
+				    #"Projetos Capex - 2025_Sheet" = Fonte{[Item="Projetos Capex - 2025",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Projetos Capex - 2025_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"PEP", type text}, {"Projeto", type text}, {"Budget", type number}, {"Subdescrição", type text}, {"GG", type text}, {"G", type text}, {"CMT", type text}, {"CP", type text}, {"JAN/25#(lf)MRF", Int64.Type}, {"JAN/25#(lf)Realizado", Int64.Type}, {"FEV/25#(lf)MRF", type number}, {"FEV/25#(lf)Realizado", Int64.Type}, {"MAR/25#(lf)MRF", Int64.Type}, {"MAR/25#(lf)Realizado", type number}, {"ABR/25#(lf)MRF", type number}, {"ABR/25#(lf)Realizad", Int64.Type}, {"MAI/25#(lf)MRF", Int64.Type}, {"MAI/25#(lf)Realizado", Int64.Type}, {"JUN/25#(lf)MRF", type number}, {"JUN/25#(lf)Realizado", Int64.Type}, {"JUL/25#(lf)MRF", type number}, {"JUL/25#(lf)Realizado", Int64.Type}, {"AGO/25#(lf)MRF", type number}, {"AGO/25#(lf)Realizado", Int64.Type}, {"SET/25#(lf)MRF", Int64.Type}, {"SET/25#(lf)Realizado", Int64.Type}, {"OUT/25#(lf)MRF", Int64.Type}, {"OUT/25#(lf)Realizado", Int64.Type}, {"NOV/25#(lf)MRF", Int64.Type}, {"NOV/25#(lf)Realizado", Int64.Type}, {"DEZ/25#(lf)MRF", Int64.Type}, {"DEZ/25#(lf)Realizado", Int64.Type}, {"JAN/26#(lf)MRF", Int64.Type}, {"JAN/26#(lf)Realizado", Int64.Type}, {"FEV/26#(lf)MRF", Int64.Type}, {"FEV/26#(lf)Realizado", Int64.Type}, {"MRF FY", type number}, {"Realizado FY", type number}, {"MRF x Orçado", type number}, {"Saldo#(lf)(Real-Orçado)", type number}}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Tipo Alterado", each ([Projeto] <> "Total")),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Linhas Filtradas",{"MRF FY", "Realizado FY", "MRF x Orçado", "Saldo#(lf)(Real-Orçado)"}),
+				    #"Colunas Não Dinâmicas" = Table.UnpivotOtherColumns(#"Colunas Removidas", {"PEP", "Projeto", "Budget", "Subdescrição", "GG", "G", "CMT", "CP"}, "Atributo", "Valor"),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Colunas Não Dinâmicas", "Tipo", each if Text.Contains([Atributo], "MRF") then "MRF" else "Realizado"),
+				    #"Coluna Condicional Adicionada1" = Table.AddColumn(#"Coluna Condicional Adicionada", "Mês", each if Text.Contains([Atributo], "JAN") then 1 else if Text.Contains([Atributo], "FEV") then 2 else if Text.Contains([Atributo], "MAR") then 3 else if Text.Contains([Atributo], "ABR") then 4 else if Text.Contains([Atributo], "MAI") then 5 else if Text.Contains([Atributo], "JUN") then 6 else if Text.Contains([Atributo], "JUL") then 7 else if Text.Contains([Atributo], "AGO") then 8 else if Text.Contains([Atributo], "SET") then 9 else if Text.Contains([Atributo], "OUT") then 10 else if Text.Contains([Atributo], "NOV") then 11 else if Text.Contains([Atributo], "DEZ") then 12 else 0)
+				in
+				    #"Coluna Condicional Adicionada1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,91 @@
+table fCapex_Resumo
+	lineageTag: 70b77e69-d7a3-45c6-88ac-e2e026eccc41
+
+	measure 'Budget Capex' = SUM(fCapex_Resumo[Budget])/1000000
+		formatString: #,0.0
+		lineageTag: 34f43985-e825-4d1f-9cdd-c1ddad5f0ffa
+
+	column PEP
+		dataType: string
+		lineageTag: 4dbfc93a-3d0e-4b45-abc9-e4450c3ac2d2
+		summarizeBy: none
+		sourceColumn: PEP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Projeto
+		dataType: string
+		lineageTag: 6ddd76a1-3aa2-439a-868e-d24d2f40a9ec
+		summarizeBy: none
+		sourceColumn: Projeto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Budget
+		dataType: double
+		lineageTag: d2aa0c0f-3519-445b-9221-659f5b7141f2
+		summarizeBy: sum
+		sourceColumn: Budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Subdescrição
+		dataType: string
+		lineageTag: 5aec5f4f-91db-42c0-b645-5deabcd27b3a
+		summarizeBy: none
+		sourceColumn: Subdescrição
+
+		annotation SummarizationSetBy = Automatic
+
+	column GG
+		dataType: string
+		lineageTag: ddb95db1-89da-407a-b153-1c146c3fd13a
+		summarizeBy: none
+		sourceColumn: GG
+
+		annotation SummarizationSetBy = Automatic
+
+	column G
+		dataType: string
+		lineageTag: 22c5e63d-bf5e-4da7-934e-9c532d649a7c
+		summarizeBy: none
+		sourceColumn: G
+
+		annotation SummarizationSetBy = Automatic
+
+	column CMT
+		dataType: string
+		lineageTag: 5165acc2-eddf-4807-8e5a-9cf4420b45b7
+		summarizeBy: none
+		sourceColumn: CMT
+
+		annotation SummarizationSetBy = Automatic
+
+	column CP
+		dataType: string
+		lineageTag: 1d07cc70-0b4f-4146-83bf-126e13b9b456
+		summarizeBy: none
+		sourceColumn: CP
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fCapex_Resumo = m
+		mode: import
+		queryGroup: Desembolso
+		source =
+				let
+				    Fonte = Excel.Workbook(Web.Contents("https://arcelormittal.sharepoint.com/sites/ROADMAPDC2021/Shared%20Documents/General/ROADMAP%202025/Comit%C3%AA%20Digital%20-%20Roadmap%20DC%202025.xlsx"), null, true),
+				    #"Projetos Capex - 2025_Sheet" = Fonte{[Item="Projetos Capex - 2025",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Projetos Capex - 2025_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"PEP", type text}, {"Projeto", type text}, {"Budget", type number}, {"Subdescrição", type text}, {"GG", type text}, {"G", type text}, {"CMT", type text}, {"CP", type text}, {"JAN/25#(lf)MRF", Int64.Type}, {"JAN/25#(lf)Realizado", Int64.Type}, {"FEV/25#(lf)MRF", type number}, {"FEV/25#(lf)Realizado", Int64.Type}, {"MAR/25#(lf)MRF", Int64.Type}, {"MAR/25#(lf)Realizado", type number}, {"ABR/25#(lf)MRF", type number}, {"ABR/25#(lf)Realizad", Int64.Type}, {"MAI/25#(lf)MRF", Int64.Type}, {"MAI/25#(lf)Realizado", Int64.Type}, {"JUN/25#(lf)MRF", type number}, {"JUN/25#(lf)Realizado", Int64.Type}, {"JUL/25#(lf)MRF", type number}, {"JUL/25#(lf)Realizado", Int64.Type}, {"AGO/25#(lf)MRF", type number}, {"AGO/25#(lf)Realizado", Int64.Type}, {"SET/25#(lf)MRF", Int64.Type}, {"SET/25#(lf)Realizado", Int64.Type}, {"OUT/25#(lf)MRF", Int64.Type}, {"OUT/25#(lf)Realizado", Int64.Type}, {"NOV/25#(lf)MRF", Int64.Type}, {"NOV/25#(lf)Realizado", Int64.Type}, {"DEZ/25#(lf)MRF", Int64.Type}, {"DEZ/25#(lf)Realizado", Int64.Type}, {"JAN/26#(lf)MRF", Int64.Type}, {"JAN/26#(lf)Realizado", Int64.Type}, {"FEV/26#(lf)MRF", Int64.Type}, {"FEV/26#(lf)Realizado", Int64.Type}, {"MRF FY", type number}, {"Realizado FY", type number}, {"MRF x Orçado", type number}, {"Saldo#(lf)(Real-Orçado)", type number}}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Tipo Alterado", each ([Projeto] <> "Total")),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Linhas Filtradas",{"JAN/25#(lf)MRF", "JAN/25#(lf)Realizado", "FEV/25#(lf)MRF", "FEV/25#(lf)Realizado", "MAR/25#(lf)MRF", "MAR/25#(lf)Realizado", "ABR/25#(lf)MRF", "ABR/25#(lf)Realizad", "MAI/25#(lf)MRF", "MAI/25#(lf)Realizado", "JUN/25#(lf)MRF", "JUN/25#(lf)Realizado", "JUL/25#(lf)MRF", "JUL/25#(lf)Realizado", "AGO/25#(lf)MRF", "AGO/25#(lf)Realizado", "SET/25#(lf)MRF", "SET/25#(lf)Realizado", "OUT/25#(lf)MRF", "OUT/25#(lf)Realizado", "NOV/25#(lf)MRF", "NOV/25#(lf)Realizado", "DEZ/25#(lf)MRF", "DEZ/25#(lf)Realizado", "JAN/26#(lf)MRF", "JAN/26#(lf)Realizado", "FEV/26#(lf)MRF", "FEV/26#(lf)Realizado", "MRF FY", "Realizado FY", "MRF x Orçado", "Saldo#(lf)(Real-Orçado)"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

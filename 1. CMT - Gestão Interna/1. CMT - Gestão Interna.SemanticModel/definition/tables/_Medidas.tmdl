@@ -1,0 +1,317 @@
+table _Medidas
+	lineageTag: aa54289d-1654-4e19-9d78-7cfc3f9c6b74
+
+	measure 'Info.Maturidade Digital' =
+			
+			VAR vManual = CALCULATE(DISTINCTCOUNT(DocTabelas[Name]), DocTabelas[MatDigital]="M")
+			VAR vAuto = CALCULATE(DISTINCTCOUNT(DocTabelas[Name]), DocTabelas[MatDigital]="A")
+			VAR vResult = DIVIDE(vAuto,vManual + vAuto)
+			
+			RETURN
+			vResult
+		displayFolder: INFO
+		lineageTag: 3447c2ad-0091-4497-802d-e3337e6d2a63
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Info.Qtd Colunas Calculadas' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(DocColunas[ID]),
+			    DocColunas[Type]="calculatedTableColumn"
+			)
+		formatString: 0
+		displayFolder: INFO
+		lineageTag: 1c7df67d-e3bc-483a-8d7f-6b65c53ab725
+
+	measure 'Info.QtdMedidas' = COUNTROWS(DocMeasures)
+		formatString: 0
+		displayFolder: INFO
+		lineageTag: 8e9291ab-21a6-4c1c-8cb1-57e5b5b9a537
+
+	measure 'Info.QtdTabelas' = DISTINCTCOUNT(DocTabelas[Name])
+		formatString: 0
+		displayFolder: INFO
+		lineageTag: f9211ba5-0682-4712-801e-dc1fc2047c4a
+
+	measure 'Info.VerificaTabelaSelecionada' = ```
+			
+			 
+			VAR TabelaSelecionadas = VALUES(DocTabelas[Name])  -- Retorna a lista de valores selecionados
+			 
+			RETURN
+			 
+			    IFERROR(
+			        IF (
+			            NOT ISBLANK(TabelaSelecionadas) &&
+			            COUNTROWS(
+			                FILTER(
+			                    'DocRelation',
+			                    DocRelation[ToTable] IN TabelaSelecionadas  
+			                )
+			            ) > 0,
+			            1,  -- Retorna 1 se houver pelo menos um valor correspondente
+			            0   -- Retorna 0 se não houver correspondência)
+			        ),1
+			    )
+			```
+		formatString: 0
+		displayFolder: INFO
+		lineageTag: e6a83f79-2336-412d-a346-b0f25d835bf6
+
+	measure 'Ganhos (MBRL)' = (SUM(fDemanda[Ganho Financeiro])/1000000)+0
+		formatString: """MBRL"" #,##""/ano"""
+		displayFolder: Ganhos
+		lineageTag: 02b83888-6fa4-42d0-973f-4e6bb3b68aee
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Ganho eficiência (zero)' = SUM(fDemanda[Ganho Produtividade])+0
+		formatString: #,##0 "h"
+		displayFolder: Ganhos
+		lineageTag: d5f41acf-adb4-45c2-b22d-a548338412f1
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Filtro Projeto' = IF(ISFILTERED(dDMNDxPRJ[Demanda]),1, BLANK())
+		lineageTag: b8a82579-232c-4c6b-aef9-ec5a93ff875b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Filtro Período' = IF(ISFILTERED('dCalendário'[Periodo Atual]),1,0)
+		formatString: 0
+		lineageTag: a2abc53e-8d21-49b7-8590-9ac809d290b1
+
+	measure 'Ganho Anual (KR$)' = SUM(fDemanda[Ganho Financeiro])/1000
+		formatString: """R$"" #,##0""K"""
+		displayFolder: Ganhos
+		lineageTag: 82e17785-6d1b-4e7a-8c90-e23f572a44dc
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Orçamento Capex (KR$)' = SUM(fDemanda[Capex])/1000
+		formatString: "KR$" #,##0
+		lineageTag: 3d3c0a79-faf4-40c6-bc57-0747f1eb53de
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Orçamento Opex (KR$)' = SUM(fDemanda[Opex])/1000
+		formatString: "KR$" #,##0
+		lineageTag: a836b659-f66b-415b-9ee9-124a424d4f46
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Ganho (h)' = SUM(fDemanda[Ganho Produtividade])
+		formatString: #,##0 "h"
+		displayFolder: Ganhos
+		lineageTag: 334a5b1a-beb1-474b-b330-5cb45d57cb9f
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Média % Realizado' = AVERAGE(fProjeto[% Realizado])
+		formatString: 0%;-0%;0%
+		lineageTag: 6da4aaf0-2930-4be1-b3e6-229e030c265e
+
+	measure 'Média % Planejado' = AVERAGE(fProjeto[% Planejado])
+		formatString: 0%;-0%;0%
+		lineageTag: 733cd328-3e42-457c-b8a1-b4b58f58caef
+
+	measure 'Delta (%)' = ```
+			SUM(fProjeto[% Realizado]) - SUM(fProjeto[% Planejado]) 
+			```
+		formatString: 0%;-0%;0%
+		lineageTag: 2b2bee29-7b63-4713-927e-915f9536092b
+
+	measure 'Delta (Flag)' = IF([Delta (%)]>=0,1,0)
+		formatString: 0
+		lineageTag: 19a9d5f7-de54-4f90-8b50-8b407f52f465
+
+	measure 'Ganho Anual (MR$)' = (SUM(fDemanda[Ganho Financeiro])/1000000)+0
+		formatString: """R$"" #,##0""M"""
+		displayFolder: Ganhos
+		lineageTag: 2f1cac38-1fd2-4019-985c-6d047d225494
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Backlog (#)' = CALCULATE(DISTINCTCOUNT(fDemanda[Demanda #]), ALL(fDemanda[Marcadores]), ALL(fDemanda[Prioridade]), fDemanda[Prioridade]<>"1 - Crítica")
+		formatString: 0
+		lineageTag: e09fd336-f44d-4ae7-92c7-40f0a4360055
+
+	measure '% Conclusão Tarefas' = AVERAGE(fProjeto_Tarefas[Porcentagem de conclusão em Dias])
+		lineageTag: 27db85ec-3d69-47cd-b9c6-9f0e9ea7f2ac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(SR) Projeto' = IF([Filtro Projeto]=1,SELECTEDVALUE(fDemanda[Demanda]),BLANK())
+		displayFolder: Status Report
+		lineageTag: 9254bbed-849e-4d8b-ae84-3a9bba831d06
+
+	measure '(SR) GG' = IF([Filtro Projeto]=1,SELECTEDVALUE(fDemanda[GG #]),BLANK())
+		displayFolder: Status Report
+		lineageTag: ebb86f98-73c7-429d-9086-8df76f20d3e8
+
+	measure '(SR) G/GA' = IF([Filtro Projeto]=1,SELECTEDVALUE(fDemanda[GA #]),BLANK())
+		displayFolder: Status Report
+		lineageTag: 8facb629-63e5-4491-9883-dc572a4eeff0
+
+	measure '(SR) PO' = IF([Filtro Projeto]=1,SELECTEDVALUE(fDemanda[Owner]),BLANK())
+		displayFolder: Status Report
+		lineageTag: c889851a-03f0-405d-b0d0-d503b35bc63e
+
+	measure '(SR) PMO' = IF([Filtro Projeto]=1,SELECTEDVALUE(fDemanda[CMT]),BLANK())
+		displayFolder: Status Report
+		lineageTag: 40859c67-ebbc-4a09-81ad-2a937db73994
+
+	measure '(SR) Go-live' = IF([Filtro Projeto]=1,SELECTEDVALUE(fProjeto[Data de término planejada]),BLANK())
+		formatString: MMMM/yyyy
+		displayFolder: Status Report
+		lineageTag: 6262facb-3866-45bf-804c-1347e1f3ffe3
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Card Orientação' =
+			
+			IF(
+			    [Filtro Projeto]<>1,"Escolha um projeto no filtro ao lado para ver o Status Report mais recente. 😉"," ")
+		lineageTag: 7fd51820-e427-47f4-9409-65030525c0ee
+
+	measure 'Seta Orientação' =
+			
+			IF(
+			    [Filtro Projeto]<>1,"←"," ")
+		lineageTag: 86ac409b-96ec-42cf-97e0-c3f326189631
+
+	measure 'Carteira (#)' = DISTINCTCOUNT(dDemandas[Demanda #])
+		formatString: 0
+		lineageTag: 1fbf8ecd-a79e-492e-85c4-55d638e175ec
+
+	measure Greeting = ```
+			
+			var HoraAtual = HOUR(NOW())
+			
+			RETURN
+			SWITCH(TRUE(),
+			AND(HoraAtual > 8, HoraAtual <15), "Bom dia, ",
+			AND(HoraAtual >=15, HoraAtual < 21), "Boa tarde, ",
+			"Boa noite, ")
+			
+			```
+		lineageTag: ae243816-eb4b-48e1-8ae2-505836be5bce
+
+	measure 'Budget (MR$)' = [_Budget25 Opex]/1000000
+		formatString: """R$"" #,##0.#""M"""
+		lineageTag: 17b35661-29c1-42d5-9858-669d4fb32871
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Andamento Projeto'
+		lineageTag: a50461b6-2453-409b-af61-5d765bc9c54e
+
+	measure 'Data Início do Projeto' = ISFILTERED(fStatusReport[Data de início planejada])
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 033fdec5-61ca-4ef4-b0c9-e2f6ea024112
+
+	measure 'Ícone Andamento'
+		lineageTag: 46f755fa-574f-4ef5-b984-289a5f94a7a8
+
+	measure 'Projetos (#)' = DISTINCTCOUNT(fDemanda[Demanda #])
+		formatString: 0
+		lineageTag: 687b2bb1-fb06-4bf2-aeff-2552aa9f81f0
+
+	measure 'Ganho One Time (KR$)' = SUM(fDemanda[Ganho One Time])/1000
+		formatString: """R$"" #,##0""K"""
+		displayFolder: Ganhos
+		lineageTag: e78d7ca2-455e-400f-860d-90ff5eea2bb5
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Ganho One Time (MR$)' = [Ganho One Time (KR$)]/1000
+		formatString: """R$"" #,##0""M"""
+		displayFolder: Ganhos
+		lineageTag: e493a3e4-05d2-461f-b5e0-4393c0954114
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Ganhos YTD' = ```
+			TOTALYTD(
+			    SUM(fDemanda[Ganho Financeiro]), 
+			    fDemanda[Report Date L4], 
+			    ALL(fDemanda)  // Garante que a tabela não esteja previamente filtrada
+			)
+			```
+		lineageTag: 0d0f7389-a1fd-4c91-9052-fa25a2660f4d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Usuário Logado' = LOOKUPVALUE('dUsuáriosPlanos'[Primeiro Nome],'dUsuáriosPlanos'[E-mail],USERPRINCIPALNAME())
+		lineageTag: ce6fb58b-8a58-4e4f-8c69-5cdcbe17dfe0
+
+	measure 'Atualização Status Report' =
+			
+			
+			VAR UltimaData = MAX(fStatusReport[Data do Status])
+			VAR DataAtual = TODAY()
+			VAR EtapaProjeto = SELECTEDVALUE(fDemanda[Fase])
+			
+			RETURN
+			IF(
+			    EtapaProjeto = "L4 - Verificação",
+			    "Concluído",
+			    IF(EtapaProjeto = "L5 - Sustentação",
+			    "Concluído",
+			    IF(UltimaData < DATE(YEAR(DataAtual), MONTH(DataAtual), 1),
+			        "Atrasado",
+			        "Atualizado")
+			))
+		lineageTag: fbc1124d-d885-49ce-bc2c-70188f40f6c9
+
+	measure 'Ongoing Ganho (h)' = CALCULATE(SUM(fDemanda[Ganho Produtividade]),fDemanda[L #] = "L4" || fDemanda[L #] = "L5")
+		formatString: 0
+		displayFolder: Ganhos
+		lineageTag: 4b24410a-ff1d-40db-bdef-27b48145eccf
+
+	measure 'Pending Ganho (h)' = [Ganho (h)] - [Ongoing Ganho (h)]
+		formatString: 0
+		displayFolder: Ganhos
+		lineageTag: b22c7936-9268-4ace-a7a6-d6aa54828caf
+
+	measure 'Ongoing Ganho (MR$)' = CALCULATE([Ganho Anual (MR$)], fDemanda[L #] = "L4" || fDemanda[L #] = "L5")
+		formatString: 0.0
+		displayFolder: Ganhos
+		lineageTag: e9a0642e-7627-44f7-a04e-e7edaf56ec18
+
+	measure 'Pending Ganho (MR$)' = [Ganho Anual (MR$)] - [Ongoing Ganho (MR$)]
+		displayFolder: Ganhos
+		lineageTag: 78e62ed8-01a7-4539-8c1d-5215a1b6ccda
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Projetos com Ganho $ (#)' = CALCULATE(COUNT(fDemanda[Demanda #]),fDemanda[Ganho Financeiro]>0)
+		formatString: #0 "Projects"
+		displayFolder: Ganhos
+		lineageTag: 9ae8402b-4b2d-4c70-8cc8-2ae5895d8308
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Projetos com Ganho HH (#)' = CALCULATE(COUNT(fDemanda[Demanda #]),fDemanda[Ganho Produtividade]>0)
+		formatString: #0 "Projects"
+		displayFolder: Ganhos
+		lineageTag: 438bce77-e293-4377-a982-d18df4ecc7a6
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	column '.'
+		formatString: 0
+		lineageTag: 97718db5-9d8c-454b-a4fa-cc38454021c1
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [.]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Medidas = calculated
+		mode: import
+		source = ROW(".",1)
+
+	annotation PBI_Id = 71ef9fc467d547c8a862aac4741addc1
+

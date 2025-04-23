@@ -1,0 +1,138 @@
+table dCalendário
+	lineageTag: 5afdcb31-1dd9-4110-aff5-8d49be18fa99
+
+	column Data
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: fc959cd0-6003-46d7-8d51-7c17a7586cf3
+		summarizeBy: none
+		sourceColumn: Data
+
+		variation Variation
+			isDefault
+			relationship: 2a42462e-2f7b-4be9-8d4e-c3c745272232
+			defaultHierarchy: LocalDateTable_8dab3b36-1dcf-4e8d-a8ca-478efc56687a.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 5eafebdf-6be4-4a32-bb7f-1af7548089b4
+		summarizeBy: sum
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mês #'
+		dataType: int64
+		formatString: 0
+		lineageTag: d74a63a4-9130-4c59-9cb1-d9244c0d359c
+		summarizeBy: none
+		sourceColumn: Mês #
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semana
+		dataType: string
+		lineageTag: c7eaf8d8-c976-40b3-a537-d4fb062466d5
+		summarizeBy: none
+		sourceColumn: Semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Periodo #'
+		dataType: int64
+		formatString: 0
+		lineageTag: 862e1c2f-2c75-48fe-965d-4994c15211c3
+		summarizeBy: sum
+		sourceColumn: Periodo #
+
+		annotation SummarizationSetBy = Automatic
+
+	column Periodo
+		dataType: string
+		lineageTag: 26032f55-9cd8-4a00-a4cd-61ac7ce779a6
+		summarizeBy: none
+		sourceColumn: Periodo
+		sortByColumn: 'Periodo #'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês
+		dataType: string
+		lineageTag: d682eb5c-ed87-4c47-9a59-1fa569d773ab
+		summarizeBy: none
+		sourceColumn: Mês
+		sortByColumn: 'Mês #'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Periodo Atual'
+		dataType: string
+		lineageTag: c7867d88-9653-4402-8799-51fad72700fb
+		summarizeBy: none
+		sourceColumn: Periodo Atual
+		sortByColumn: 'Periodo #'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês_prim_mai
+		dataType: string
+		lineageTag: 733a933d-8a71-4302-ab60-f1c589bb9961
+		summarizeBy: none
+		sourceColumn: Mês_prim_mai
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dCalendário = m
+		mode: import
+		queryGroup: #Kelvin
+		source = ```
+				let
+				Fonte = List.Dates(#date(Date.Year(DateTime.LocalNow())-4,01,01),Number.From(#date(Date.Year(DateTime.LocalNow()),12,31))-Number.From(#date(2015,1,1))+1,#duration(1,0,0,0)),
+				#"Convertido para Tabela" = Table.FromList(Fonte, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				#"Colunas Renomeadas" = Table.RenameColumns(#"Convertido para Tabela",{{"Column1", "Data"}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"Data", type date}}),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Tipo Alterado", "Data", "Data - Copiar"),
+				    #"Coluna Duplicada2" = Table.DuplicateColumn(#"Coluna Duplicada", "Data - Copiar", "Data - Copiar - Copiar.1"),
+				    #"Ano Extraído" = Table.TransformColumns(#"Coluna Duplicada2",{{"Data - Copiar", Date.Year, Int64.Type}}),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Ano Extraído",{{"Data - Copiar", "Ano"}, {"Data - Copiar - Copiar.1", "Mês"}}),
+				    #"Mês Extraído" = Table.TransformColumns(#"Colunas Renomeadas1",{{"Mês", Date.Month, Int64.Type}}),
+				    #"Colunas Renomeadas2" = Table.RenameColumns(#"Mês Extraído",{{"Mês", "Mês #"}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Colunas Renomeadas2", "Periodo #", each [#"Mês #"]+[Ano] * 100),
+				    #"Coluna Duplicada3" = Table.DuplicateColumn(#"Personalização Adicionada", "Data", "Data - Copiar"),
+				    #"Nome do Mês Extraído" = Table.TransformColumns(#"Coluna Duplicada3", {{"Data - Copiar", each Date.MonthName(_), type text}}),
+				    #"Texto em Maiúscula" = Table.TransformColumns(#"Nome do Mês Extraído",{{"Data - Copiar", Text.Upper, type text}}),
+				    #"Primeiros caracteres extraídos" = Table.TransformColumns(#"Texto em Maiúscula", {{"Data - Copiar", each Text.Start(_, 3), type text}}),
+				    #"Coluna Duplicada4" = Table.DuplicateColumn(#"Primeiros caracteres extraídos", "Ano", "Ano - Copiar"),
+				    #"Colunas Mescladas" = Table.CombineColumns(Table.TransformColumnTypes(#"Coluna Duplicada4", {{"Ano - Copiar", type text}}, "pt-BR"),{"Data - Copiar", "Ano - Copiar"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Periodo"),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Colunas Mescladas",{{"Periodo #", Int64.Type}}),
+				    #"Coluna Duplicada1" = Table.DuplicateColumn(#"Tipo Alterado1", "Data", "Data - Copiar"),
+				    #"Nome do Mês Extraído1" = Table.TransformColumns(#"Coluna Duplicada1", {{"Data - Copiar", each Date.MonthName(_), type text}}),
+				    #"Texto em Maiúscula1" = Table.TransformColumns(#"Nome do Mês Extraído1",{{"Data - Copiar", Text.Upper, type text}}),
+				    #"Colunas Renomeadas3" = Table.RenameColumns(#"Texto em Maiúscula1",{{"Data - Copiar", "Mês"}}),
+				    #"Personalização Adicionada1" = Table.AddColumn(#"Colunas Renomeadas3", "Personalizar", each Date.IsInCurrentMonth([Data])),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Personalização Adicionada1", "Periodo Atual", each if [Personalizar] = true then "Periodo Atual" else [Periodo]),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Coluna Condicional Adicionada",{"Personalizar"}),
+				    #"Colocar Cada Palavra Em Maiúscula Inserido" = Table.AddColumn(#"Colunas Removidas", "Colocar Cada Palavra em Maiúscula", each Text.Proper([Mês]), type text),
+				    #"Colunas Renomeadas4" = Table.RenameColumns(#"Colocar Cada Palavra Em Maiúscula Inserido",{{"Colocar Cada Palavra em Maiúscula", "Mês_prim_mai"}}),
+				    #"Personalização Adicionada2" = Table.AddColumn(#"Colunas Renomeadas4", "Semana", each 
+				Date.WeekOfYear([Data], Day.Sunday)),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Personalização Adicionada2",{"Data", "Ano", "Mês #", "Semana", "Periodo #", "Periodo", "Mês", "Periodo Atual", "Mês_prim_mai"})
+				in
+				    #"Colunas Reordenadas"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

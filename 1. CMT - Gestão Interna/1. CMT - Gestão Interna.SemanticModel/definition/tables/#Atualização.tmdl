@@ -1,0 +1,113 @@
+table #Atualização
+	lineageTag: 777d7da2-4a27-401f-82b4-ffa8f251d328
+
+	measure '_Última Atualização' = "Última atualização: "&FORMAT(MAX('#Atualização'[Hoje]),"dd/mm/yyyy hh:nn")
+		lineageTag: 99f71a11-4626-4285-92ce-e1bdc7d17595
+
+	column Hoje
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3d13e37a-c64e-4d5b-ac85-f643a545b454
+		summarizeBy: none
+		sourceColumn: Hoje
+
+		variation Variation
+			isDefault
+			relationship: dcfa656d-0d1f-4581-a4c1-037d3a18a2cb
+			defaultHierarchy: LocalDateTable_41439568-1e61-42ed-8d83-926608a8ff71.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nome do Mês'
+		dataType: string
+		lineageTag: 74987d3a-9d90-4a04-ab7a-75563c384a07
+		summarizeBy: none
+		sourceColumn: Nome do Mês
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fim do Mês'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f7c93ecb-50f3-477c-900d-c6be699964f3
+		summarizeBy: none
+		sourceColumn: Fim do Mês
+
+		variation Variation
+			isDefault
+			relationship: 6a3d8c13-b4ce-4aab-ac24-ccaeca3fa9ef
+			defaultHierarchy: LocalDateTable_68e172ea-930c-410d-adb0-217663c27779.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Início do Mês'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5eaf4cf3-5350-48cf-a5dc-4f5b0218f756
+		summarizeBy: none
+		sourceColumn: Início do Mês
+
+		variation Variation
+			isDefault
+			relationship: b33a0baf-6cbe-4010-885e-c20855c77988
+			defaultHierarchy: LocalDateTable_457b300c-665b-4681-877d-7e2d09d3c067.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias (Total)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d61381a-b0e4-4001-a93b-c3a6baf28928
+		summarizeBy: sum
+		sourceColumn: Dias (Total)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias (Restantes)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c331ec9-307c-44a5-a72b-76a1cad7a6e8
+		summarizeBy: sum
+		sourceColumn: Dias (Restantes)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias (Percorridos)'
+		dataType: int64
+		formatString: 0
+		lineageTag: ad6e3698-1589-499c-97ef-34420221b354
+		summarizeBy: sum
+		sourceColumn: Dias (Percorridos)
+
+		annotation SummarizationSetBy = Automatic
+
+	partition #Atualização = m
+		mode: import
+		queryGroup: #Kelvin
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlSKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", Int64.Type}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Tipo Alterado", "Hoje", each DateTimeZone.SwitchZone(DateTimeZone.LocalNow(),-3,0)),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Personalização Adicionada",{"Coluna 1"}),
+				    #"Dividir Coluna pela Posição" = Table.SplitColumn(Table.TransformColumnTypes(#"Colunas Removidas", {{"Hoje", type text}}, "pt-BR"), "Hoje", Splitter.SplitTextByRepeatedLengths(19), {"Hoje.1", "Hoje.2"}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Dividir Coluna pela Posição",{{"Hoje.1", type datetime}, {"Hoje.2", type duration}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado1",{{"Hoje.1", "Hoje"}}),
+				    #"Colunas Removidas1" = Table.RemoveColumns(#"Colunas Renomeadas",{"Hoje.2"}),
+				    #"Nome do Mês Inserido" = Table.AddColumn(#"Colunas Removidas1", "Nome do Mês", each Date.MonthName([Hoje]), type text),
+				    #"Fim do Mês Inserido" = Table.AddColumn(#"Nome do Mês Inserido", "Fim do Mês", each Date.EndOfMonth([Hoje]), type datetime),
+				    #"Início do Mês Inserido" = Table.AddColumn(#"Fim do Mês Inserido", "Início do Mês", each Date.StartOfMonth([Fim do Mês]), type datetime),
+				    #"Subtração da Data Inserida" = Table.AddColumn(#"Início do Mês Inserido", "Subtração", each Duration.Days([Fim do Mês] -[Início do Mês])+1),
+				    #"Subtração da Data Inserida1" = Table.AddColumn(#"Subtração da Data Inserida", "Subtração.1", each Duration.Days([Fim do Mês] - [Hoje])),
+				    #"Subtração da Data Inserida2" = Table.AddColumn(#"Subtração da Data Inserida1", "Subtração.2", each Duration.Days([Hoje] - [Início do Mês])+1),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Subtração da Data Inserida2",{{"Subtração", Int64.Type}, {"Subtração.1", Int64.Type}, {"Subtração.2", Int64.Type}}),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Tipo Alterado2",{{"Subtração", "Dias (Total)"}, {"Subtração.1", "Dias (Restantes)"}, {"Subtração.2", "Dias (Percorridos)"}}),
+				    #"Colocar Cada Palavra Em Maiúscula" = Table.TransformColumns(#"Colunas Renomeadas1",{{"Nome do Mês", Text.Proper, type text}}),
+				    #"Texto em Maiúscula" = Table.TransformColumns(#"Colocar Cada Palavra Em Maiúscula",{{"Nome do Mês", Text.Upper, type text}})
+				in
+				    #"Texto em Maiúscula"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

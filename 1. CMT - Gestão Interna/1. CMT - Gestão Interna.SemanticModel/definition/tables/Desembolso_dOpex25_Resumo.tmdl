@@ -1,0 +1,116 @@
+table Desembolso_dOpex25_Resumo
+	lineageTag: 3314aafd-dd20-479d-9a95-e3922cbe94f7
+	sourceLineageTag: 13b49f7c-e680-42a0-847c-91819ccc99fd
+
+	column 'OI / CC'
+		dataType: string
+		isNullable: false
+		lineageTag: e60b937a-aa21-498e-b52b-5df6afc641e7
+		sourceLineageTag: ffa99e6e-64d5-45d1-b23e-db42d0891083
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: OI / CC
+
+		annotation SummarizationSetBy = User
+
+	column Projeto
+		dataType: string
+		lineageTag: 48e45c80-4bae-4757-a767-9d1fad1ef4ae
+		sourceLineageTag: bb4ffb32-c507-4ca2-9d44-94baf321379b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Projeto
+
+		annotation SummarizationSetBy = User
+
+	column Budget
+		dataType: int64
+		formatString: 0
+		lineageTag: c7a05928-da06-48c9-bdc6-4939d6eb5d37
+		sourceLineageTag: 8421cacb-46f5-434e-b428-78a8b6daa0ae
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: Budget
+
+		annotation SummarizationSetBy = User
+
+	column Portfólio
+		dataType: string
+		lineageTag: b5ad851c-a90b-41e1-a5b8-71b763458399
+		sourceLineageTag: 04be456b-37d2-4a1b-8369-ba1546927b15
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Portfólio
+
+		annotation SummarizationSetBy = User
+
+	column GG
+		dataType: string
+		lineageTag: d1c17410-a12d-4d85-8c2a-836167bd84e1
+		sourceLineageTag: 86aca655-0977-4808-bf01-3a6a08691095
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: GG
+
+		annotation SummarizationSetBy = User
+
+	column G
+		dataType: string
+		lineageTag: e799ff7f-a875-4935-ac30-0bdb784b157f
+		sourceLineageTag: 4290784d-7588-43d9-b878-07641e054c25
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: G
+
+		annotation SummarizationSetBy = User
+
+	column CMT
+		dataType: string
+		lineageTag: 73ba61f3-de47-450e-b6c2-e8cc4706ea15
+		sourceLineageTag: 32dfb36b-70f4-458c-8cdb-398e0bad1c79
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: CMT
+
+		annotation SummarizationSetBy = User
+
+	column TI
+		dataType: string
+		lineageTag: c2909318-5793-4077-8d9c-d9f0e218282c
+		sourceLineageTag: eebe2600-915c-4f6a-9c1f-7ce2868d989d
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: TI
+
+		annotation SummarizationSetBy = User
+
+	column 'Demanda Casulo'
+		dataType: string
+		lineageTag: 482a59ae-b452-4cfe-b29d-c0b9a4a1cd32
+		sourceLineageTag: 9b55d3f8-05ac-4f2d-bc8d-d974e02a52e3
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Demanda Casulo
+
+		annotation SummarizationSetBy = User
+
+	column 'Projeto Casulo'
+		dataType: string
+		lineageTag: 58f272ac-b539-4da9-a6c2-031e9e352a7c
+		sourceLineageTag: 8fdebf7b-18b1-4fda-b01e-71f45d392483
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Projeto Casulo
+
+		annotation SummarizationSetBy = User
+
+	partition Desembolso_dOpex25_Resumo = entity
+		mode: directQuery
+		source
+			entityName: dOpex25_Resumo
+			expressionSource: 'DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025'
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Exception
+

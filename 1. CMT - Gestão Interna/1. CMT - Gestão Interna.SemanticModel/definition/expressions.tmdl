@@ -1,0 +1,36 @@
+expression PROA_FC = "https://arcelormittal.sharepoint.com/sites/PROA_FC/" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: e85f724b-0c8d-403c-9372-76b8fa5d34c7
+	queryGroup: Dump
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression Tab_Stage =
+		let
+		    Fonte = SharePoint.Files(PROA_FC, [ApiVersion = 15]),
+		    #"Tab_PBI_PROA xlsm_https://arcelormittal sharepoint com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/" = Fonte{[Name="Tab_PBI_PROA.xlsm",#"Folder Path"="https://arcelormittal.sharepoint.com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/"]}[Content],
+		    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Tab_PBI_PROA xlsm_https://arcelormittal sharepoint com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/"),
+		    Tab_Stage_Table = #"Pasta de Trabalho Importada do Excel"{[Item="Tab_Stage",Kind="Table"]}[Data]
+		in
+		    Tab_Stage_Table
+	lineageTag: 00f631f6-02df-46a9-9a5e-8b2df090e2d9
+	queryGroup: Dump
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression 'DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025' =
+		let
+		    Source = AnalysisServices.Database("powerbi://api.powerbi.com/v1.0/myorg/%23BR%20-%20FCB%20-%20CMT", "0 - Gestão Desembolso - ROADMAP DC 2025"),
+		    Cubes = Table.Combine(Source[Data]),
+		    Cube = Cubes{[Id="Model", Kind="Cube"]}[Data]
+		in
+		    Cube
+	lineageTag: 8c681b6a-eb05-4c1f-be2a-c9beb324e254
+
+	annotation PBI_IncludeFutureArtifacts = True
+
+	annotation PBI_RemovedChildren = [{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"a6dc4cdc-6659-44b6-913a-9ed3e87adfff"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"8e9209bf-297d-4b5e-aac5-a9e8d27004e2"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"49e4406e-4108-4273-bf85-b4bf020feccf"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"70fe0f29-6cec-41e7-b3f1-df049680cebf"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"a80e5594-5c7c-455b-92bf-849a84bc4416"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"1a537e88-6b37-49fa-aef9-903a4bf11fbe"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"ad378b2b-f61d-4058-a6d6-e7189253cac1"}},"objectType":"Table"}]
+

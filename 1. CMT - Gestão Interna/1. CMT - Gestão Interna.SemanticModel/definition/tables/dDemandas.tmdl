@@ -1,0 +1,17 @@
+table dDemandas
+	lineageTag: 0c5dc6c0-0c25-4543-86b5-15eb45c08c9c
+
+	column 'Demanda #'
+		lineageTag: b858754b-ba22-43df-9cbe-1fc182234155
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fDemanda[Demanda #]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dDemandas = calculated
+		mode: import
+		source = FILTER(VALUES(fDemanda[Demanda #]), NOT(ISBLANK([Demanda #])))
+
+	annotation PBI_Id = 693eb62ee940433c9c7f3ac632601bbc
+

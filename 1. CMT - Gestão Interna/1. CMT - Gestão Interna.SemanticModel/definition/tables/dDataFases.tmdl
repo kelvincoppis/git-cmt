@@ -1,0 +1,122 @@
+table dDataFases
+	lineageTag: b0739d80-c499-4d97-9a78-963b0a2dbd1b
+
+	column Número
+		dataType: string
+		lineageTag: 942a0169-c7ae-466b-b641-a19ede8bc914
+		summarizeBy: none
+		sourceColumn: Número
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ganho Anual'
+		dataType: decimal
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: c3aaac17-4b05-4d62-a4e0-26974e657a74
+		summarizeBy: sum
+		sourceColumn: Ganho Anual
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'Ganho One Time'
+		dataType: decimal
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: f97c3818-34ad-4134-b433-5d438ce0742a
+		summarizeBy: sum
+		sourceColumn: Ganho One Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Fase
+		dataType: string
+		lineageTag: 781b3b60-2714-4ba0-a0c6-f89fd0e6cc69
+		summarizeBy: none
+		sourceColumn: Fase
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 5720d56c-67e4-42b5-91f6-01cb5a72cbdd
+		summarizeBy: none
+		sourceColumn: Data
+
+		variation Variation
+			isDefault
+			relationship: 09a30b9b-67c3-4848-a361-9210e03f4c22
+			defaultHierarchy: LocalDateTable_b0be1d60-8be5-4f09-8147-1be82aedbba0.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data Fim' = ```
+			
+			VAR ProximaFase = 
+			    CALCULATE(
+			        MIN(dDataFases[Data]),
+			        FILTER(
+			            dDataFases, 
+			            dDataFases[Número] = EARLIER(dDataFases[Número]) &&
+			            VALUE(RIGHT(dDataFases[Fase], 1)) = VALUE(RIGHT(EARLIER(dDataFases[Fase]), 1)) + 1
+			        )
+			    )
+			VAR vResult = 
+			    IF(
+			        NOT(ISBLANK(ProximaFase)), 
+			        ProximaFase - 1,
+			        dDataFases[Data]+365
+			    )
+			
+			RETURN
+			IF(vResult<dDataFases[Data], dDataFases[Data], vResult)
+			
+			```
+		formatString: General Date
+		lineageTag: 9fc8263e-f236-4370-8f71-e3244354c686
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 7e787167-6d71-4201-b88e-e8b567debc7f
+			defaultHierarchy: LocalDateTable_edb66021-0115-4241-b66e-1ea821c2508c.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ganho em Eficiência de Mão de Obra (horas/mês)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 86f4789e-def4-4367-831f-9a78c2f67906
+		summarizeBy: sum
+		sourceColumn: Ganho em Eficiência de Mão de Obra (horas/mês)
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dDataFases = m
+		mode: import
+		queryGroup: Main
+		source =
+				let
+				    /*Fonte = Csv.Document(File.Contents("D:\OneDrive - Treinner Consultoria\12 - IT Strategy\Painéis - Unidade Tubarão\T4DMND0011956 - Criar visão de ganhos por fase dos projetos ao longo do tempo - OneDrive\AmostraDados.csv"),[Delimiter=";", Columns=87, Encoding=1252, QuoteStyle=QuoteStyle.Csv]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),*/
+				    Fonte = SharePoint.Files(PROA_FC, [ApiVersion = 15]),
+				    #"DB_demanda_tsp3 xlsx_https://arcelormittal sharepoint com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/" = Fonte{[Name="DB_demanda_tsp3.xlsx",#"Folder Path"="https://arcelormittal.sharepoint.com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"DB_demanda_tsp3 xlsx_https://arcelormittal sharepoint com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/"),
+				    #"Page 1_Sheet" = #"Pasta de Trabalho Importada do Excel"{[Item="Page 1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Page 1_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Número", type text}, {"Nome", type text}, {"Fase", type text}, {"Status", type text}, {"Ganho Anual", Currency.Type}, {"Ganho One Time", Currency.Type}, {"Data Próx L", type date}, {"Aberto por", type text}, {"Categoria", type text}, {"Data de início", type date}, {"Prazo", type datetime}, {"UG (Unidade Gerencial)", type text}, {"G (Gerência)", type text}, {"GG (Gerência Geral)", type text}, {"Sigla", type text}, {"Sigla_1", type text}, {"Sigla_2", type text}, {"Sigla_3", type text}, {"Sigla_4", type text}, {"Owner", type text}, {"Co-Owner", type text}, {"E-mail", type text}, {"E-mail_5", type text}, {"Participantes", type text}, {"Áreas Envolvidas", type text}, {"Confidencial", type text}, {"Portifólio", type text}, {"Programa", type text}, {"Existe Ganho FTE?", type text}, {"Total de FTE", Int64.Type}, {"Valor Líquido do Ganho", Currency.Type}, {"Benefício financeiro", Currency.Type}, {"Despesa de capital", Currency.Type}, {"Despesa operacional", Currency.Type}, {"Num SI/PEP", type text}, {"Detalhamento do Gasto", type text}, {"Benefícios", type text}, {"Facilidade de Implementação", type text}, {"Necessidade de Viabilidade Economica", type text}, {"Necessário revisar ou criar FMEA | Padrão|Documentação", type text}, {"Fatores Restritivos", type text}, {"Premissas de Implementação", type text}, {"Risco Sobre a Segurança do Trabalho", type text}, {"Risco Sobre Paralisação das Instalações", type text}, {"Risco Sobre a Qualidade do Produto", type text}, {"Risco Sobre Meio Ambiente", type text}, {"Necessidade de Análise de Risco Detalhada", type text}, {"Descrição de Riscos", type text}, {"Risco", Int64.Type}, {"Valor", type number}, {"Tamanho", Int64.Type}, {"Prioridade", type text}, {"Pontuação", type number}, {"Progresso", type text}, {"Principais Resultados", type text}, {"Próximos Passos", type text}, {"Suporte Necessário", type text}, {"Detalhamentos do KPI", Int64.Type}, {"Report Date L0", type date}, {"Report Date L1", type date}, {"Report Date L2", type date}, {"Report Date L3", type date}, {"Report Date L4", type date}, {"Report Date L5", type date}, {"Date L3 - Original", type date}, {"Date L4 - Original", type date}, {"Date L5 - Original", type date}, {"Total FTE Own", Int64.Type}, {"Total FTE Third", Int64.Type}, {"Primário", type text}, {"Descrição(description)", type text}, {"Ideia", type text}, {"Estratégias", type text}, {"Objetivos", type text}, {"Aprovação necessária", type text}, {"Habilitadores", type text}, {"Marcadores", type text}, {"Ganho Anual de Custo Fixo", Currency.Type}, {"Ganho Anual de Custo Variável", Currency.Type}, {"Ganho Anual de Receita", Currency.Type}, {"Ganho Anual de Fluxo de Caixa", Currency.Type}, {"Número Value Plan", Int64.Type}, {"Transformação digital?", type text}, {"Principal tecnologia", type text}, {"Redução de emissão de CO2 [t CO2]", Int64.Type}, {"Ganho em Eficiência de Mão de Obra (horas/mês)", Int64.Type}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"Número", "Ganho Anual", "Ganho One Time", "Report Date L0", "Report Date L1", "Report Date L2", "Report Date L3", "Report Date L4", "Report Date L5", "Ganho em Eficiência de Mão de Obra (horas/mês)"}),
+				    #"Colunas Não Dinâmicas" = Table.UnpivotOtherColumns(#"Outras Colunas Removidas", {"Número", "Ganho Anual", "Ganho One Time","Ganho em Eficiência de Mão de Obra (horas/mês)"}, "Fase", "Data"),
+				    #"Últimos caracteres extraídos" = Table.TransformColumns(#"Colunas Não Dinâmicas", {{"Fase", each Text.End(_, 2), type text}})
+				in
+				    #"Últimos caracteres extraídos"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

@@ -1,0 +1,89 @@
+table GIT_Custos_CMT
+	lineageTag: 700e650a-ea79-4e36-8eeb-a7ccc087be5d
+
+	measure 'GIT_Custo (orç-rea)' = SUM(GIT_Custos_CMT[Orçado])-SUM(GIT_Custos_CMT[Realizado])
+		lineageTag: 5db5a815-23df-4f3a-a430-5393cff6047e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _Realizado = SUM(GIT_Custos_CMT[Realizado])
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 78c19fb3-6889-46ea-9d91-7699f484b1c5
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Data
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 11805aa0-e6d2-4444-8701-3282769d7ae4
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Mês
+		dataType: string
+		lineageTag: 06c0a01b-5e84-433c-b92b-7d60e2a02d5e
+		summarizeBy: none
+		sourceColumn: Mês
+
+		annotation SummarizationSetBy = Automatic
+
+	column Orçado
+		dataType: double
+		lineageTag: 73920e01-98f5-467e-8e2d-5e54a2ad6c2a
+		summarizeBy: sum
+		sourceColumn: Orçado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Realizado
+		dataType: double
+		lineageTag: d28e6106-8dc8-4aaa-8e4e-e4d3006b67b4
+		summarizeBy: sum
+		sourceColumn: Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Orçado_acumulado_YTD
+		dataType: string
+		lineageTag: 12b23ebe-db98-4977-add8-e84fefdb0513
+		summarizeBy: none
+		sourceColumn: Orçado_acumulado_YTD
+
+		annotation SummarizationSetBy = Automatic
+
+	column Realizado_acumulado_YTD
+		dataType: string
+		lineageTag: 7ea17ed2-b577-45f5-a335-0b285151f0c7
+		summarizeBy: none
+		sourceColumn: Realizado_acumulado_YTD
+
+		annotation SummarizationSetBy = Automatic
+
+	partition GIT_Custos_CMT = m
+		mode: import
+		queryGroup: GIT
+		source =
+				let
+				    Fonte = SharePoint.Files("https://arcelormittal.sharepoint.com/sites/CDM-CMT/", [ApiVersion = 15]),
+				    #"Linhas Classificadas" = Table.Sort(Fonte,{{"Name", Order.Ascending}}),
+				    #"Orçamento CMT 2023 xlsx_https://arcelormittal sharepoint com/sites/CDM-CMT/Shared Documents/CMT/21 - Gestão Desembolso/2023/03 - Gestão CC CMT/" = #"Linhas Classificadas"{[Name="Orçamento CMT 2023.xlsx",#"Folder Path"="https://arcelormittal.sharepoint.com/sites/CDM-CMT/Shared Documents/CMT/21 - Gestão Desembolso/2023/03 - Gestão CC CMT/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Orçamento CMT 2023 xlsx_https://arcelormittal sharepoint com/sites/CDM-CMT/Shared Documents/CMT/21 - Gestão Desembolso/2023/03 - Gestão CC CMT/"),
+				    Visão_GIT_Sheet = #"Pasta de Trabalho Importada do Excel"{[Item="Visão_GIT",Kind="Sheet"]}[Data],
+				    #"Linhas Superiores Removidas" = Table.Skip(Visão_GIT_Sheet,1),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Linhas Superiores Removidas", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Data", type date}, {"Mês", type text}, {"Orçado", type number}, {"Realizado", type number}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

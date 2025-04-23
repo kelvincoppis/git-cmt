@@ -1,0 +1,97 @@
+table dMês
+	lineageTag: e830501b-75ec-4355-ac71-a51df06d7d69
+
+	column 'Mês #'
+		dataType: int64
+		formatString: 0
+		lineageTag: a5c90620-a36e-4625-82bf-cb2f7572e108
+		summarizeBy: none
+		sourceColumn: Mês #
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 0212ddcb-1bfc-41a9-94d5-3e133db9f336
+		summarizeBy: sum
+		sourceColumn: Ano
+		sortByColumn: 'Mês #'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 20e302b2-f476-4e73-bd18-7afd70f6868a
+		summarizeBy: none
+		sourceColumn: Data
+
+		variation Variation
+			isDefault
+			relationship: 43efb6fa-b11e-4728-9143-0db1a9647032
+			defaultHierarchy: LocalDateTable_e9e1fa9f-00ae-44b2-a411-25efca3e30c9.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Periodo
+		dataType: string
+		lineageTag: 23d0c7f9-2f8b-479f-ac67-901de5ec3f11
+		summarizeBy: none
+		sourceColumn: Periodo
+		sortByColumn: Data
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dMês = m
+		mode: import
+		queryGroup: #Kelvin
+		source = ```
+				let
+				Fonte = List.Dates(#date(Date.Year(DateTime.LocalNow())-4,01,01),Number.From(#date(Date.Year(DateTime.LocalNow()),12,31))-Number.From(#date(2015,1,1))+1,#duration(1,0,0,0)),
+				#"Convertido para Tabela" = Table.FromList(Fonte, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				#"Colunas Renomeadas" = Table.RenameColumns(#"Convertido para Tabela",{{"Column1", "Data"}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"Data", type date}}),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Tipo Alterado", "Data", "Data - Copiar"),
+				    #"Coluna Duplicada2" = Table.DuplicateColumn(#"Coluna Duplicada", "Data - Copiar", "Data - Copiar - Copiar.1"),
+				    #"Ano Extraído" = Table.TransformColumns(#"Coluna Duplicada2",{{"Data - Copiar", Date.Year, Int64.Type}}),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Ano Extraído",{{"Data - Copiar", "Ano"}, {"Data - Copiar - Copiar.1", "Mês"}}),
+				    #"Mês Extraído" = Table.TransformColumns(#"Colunas Renomeadas1",{{"Mês", Date.Month, Int64.Type}}),
+				    #"Colunas Renomeadas2" = Table.RenameColumns(#"Mês Extraído",{{"Mês", "Mês #"}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Colunas Renomeadas2", "Periodo #", each [#"Mês #"]+[Ano] * 100),
+				    #"Coluna Duplicada3" = Table.DuplicateColumn(#"Personalização Adicionada", "Data", "Data - Copiar"),
+				    #"Nome do Mês Extraído" = Table.TransformColumns(#"Coluna Duplicada3", {{"Data - Copiar", each Date.MonthName(_), type text}}),
+				    #"Texto em Maiúscula" = Table.TransformColumns(#"Nome do Mês Extraído",{{"Data - Copiar", Text.Upper, type text}}),
+				    #"Primeiros caracteres extraídos" = Table.TransformColumns(#"Texto em Maiúscula", {{"Data - Copiar", each Text.Start(_, 3), type text}}),
+				    #"Coluna Duplicada4" = Table.DuplicateColumn(#"Primeiros caracteres extraídos", "Ano", "Ano - Copiar"),
+				    #"Colunas Mescladas" = Table.CombineColumns(Table.TransformColumnTypes(#"Coluna Duplicada4", {{"Ano - Copiar", type text}}, "pt-BR"),{"Data - Copiar", "Ano - Copiar"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Periodo"),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Colunas Mescladas",{{"Periodo #", Int64.Type}}),
+				    #"Coluna Duplicada1" = Table.DuplicateColumn(#"Tipo Alterado1", "Data", "Data - Copiar"),
+				    #"Nome do Mês Extraído1" = Table.TransformColumns(#"Coluna Duplicada1", {{"Data - Copiar", each Date.MonthName(_), type text}}),
+				    #"Texto em Maiúscula1" = Table.TransformColumns(#"Nome do Mês Extraído1",{{"Data - Copiar", Text.Upper, type text}}),
+				    #"Colunas Renomeadas3" = Table.RenameColumns(#"Texto em Maiúscula1",{{"Data - Copiar", "Mês"}}),
+				    #"Personalização Adicionada1" = Table.AddColumn(#"Colunas Renomeadas3", "Personalizar", each Date.IsInCurrentMonth([Data])),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Personalização Adicionada1", "Periodo Atual", each if [Personalizar] = true then "Periodo Atual" else [Periodo]),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Coluna Condicional Adicionada",{"Personalizar"}),
+				    #"Colocar Cada Palavra Em Maiúscula Inserido" = Table.AddColumn(#"Colunas Removidas", "Colocar Cada Palavra em Maiúscula", each Text.Proper([Mês]), type text),
+				    #"Colunas Renomeadas4" = Table.RenameColumns(#"Colocar Cada Palavra Em Maiúscula Inserido",{{"Colocar Cada Palavra em Maiúscula", "Mês_prim_mai"}}),
+				    #"Personalização Adicionada2" = Table.AddColumn(#"Colunas Renomeadas4", "Semana", each 
+				Date.WeekOfYear([Data], Day.Sunday)),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Personalização Adicionada2",{"Data", "Ano", "Mês #", "Semana", "Periodo #", "Periodo", "Mês", "Periodo Atual", "Mês_prim_mai"}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Colunas Reordenadas", each ([Ano] = 2025)),
+				    #"Colunas Removidas1" = Table.RemoveColumns(#"Linhas Filtradas",{"Semana", "Periodo #", "Mês", "Periodo Atual", "Mês_prim_mai"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Colunas Removidas1", {"Periodo"})
+				in
+				    #"Duplicatas Removidas"
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

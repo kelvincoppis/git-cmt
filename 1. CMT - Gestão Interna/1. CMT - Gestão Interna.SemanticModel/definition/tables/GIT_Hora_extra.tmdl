@@ -1,0 +1,56 @@
+table GIT_Hora_extra
+	lineageTag: add46ce2-f11b-4683-b827-ac2caff13170
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4b03c824-9c61-4e8e-82d8-9461bc30fca2
+		summarizeBy: none
+		sourceColumn: Data
+
+		variation Variation
+			isDefault
+			relationship: 79030a99-7a67-41aa-b340-59c32a78c42b
+			defaultHierarchy: LocalDateTable_77e94742-ea48-4fda-b93e-40099045921c.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Realizado
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 64575392-f86f-4747-91ca-53ccdcca38cb
+		summarizeBy: sum
+		sourceColumn: Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column Meta
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 435fbfd9-3742-4a63-8d22-602f6bd21118
+		summarizeBy: sum
+		sourceColumn: Meta
+
+		annotation SummarizationSetBy = Automatic
+
+	partition GIT_Hora_extra = m
+		mode: import
+		queryGroup: GIT
+		source =
+				let
+				    Fonte = SharePoint.Files("https://arcelormittal.sharepoint.com/sites/CDM-CMT/", [ApiVersion = 15]),
+				    #"Linhas Classificadas" = Table.Sort(Fonte,{{"Name", Order.Ascending}}),
+				    #"Fonte de Dados GIT CMT xlsx_https://arcelormittal sharepoint com/sites/CDM-CMT/Shared Documents/CMT/11 - GIT CMT/" = #"Linhas Classificadas"{[Name="Fonte de Dados GIT CMT.xlsx",#"Folder Path"="https://arcelormittal.sharepoint.com/sites/CDM-CMT/Shared Documents/CMT/11 - GIT CMT/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Fonte de Dados GIT CMT xlsx_https://arcelormittal sharepoint com/sites/CDM-CMT/Shared Documents/CMT/11 - GIT CMT/"),
+				    #"Hora extra_Sheet" = #"Pasta de Trabalho Importada do Excel"{[Item="Hora extra",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Hora extra_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Data", type date}, {"Realizado", Percentage.Type}, {"Meta", Percentage.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

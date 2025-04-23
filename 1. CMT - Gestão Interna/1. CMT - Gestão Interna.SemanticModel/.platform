@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "1. CMT - Gestão Interna"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e30b41ec-7a40-4375-a8e8-5e41edf995c3"
+  }
+}

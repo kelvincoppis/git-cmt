@@ -1,0 +1,912 @@
+table fDemanda
+	lineageTag: 8c54488f-e3f7-42aa-a438-7ad104d84935
+
+	measure _username = left(USERPRINCIPALNAME(),FIND("@",USERPRINCIPALNAME())-1)
+		lineageTag: c7950baf-146c-4447-8e5c-1b1caa0b8baf
+
+	measure 'Ganho eficiência HH (zero)' = SUM(fDemanda[Ganho Produtividade])+0
+		formatString: 0
+		lineageTag: d0445d41-cd5f-4310-ba77-97bf7f952f40
+
+	measure ContagemAmarelo = CALCULATE(COUNT(fDemanda[Status_post_Completion_Column]), fDemanda[Status_post_Completion_Column] = "Amarelo")+0
+		formatString: 0
+		lineageTag: 77973dc5-10b3-4968-9841-339088b195c2
+
+	measure ContagemVermelho = CALCULATE(COUNT(fDemanda[Status_post_Completion_Column]), fDemanda[Status_post_Completion_Column] = "Vermelho")+0
+		formatString: 0
+		lineageTag: e59d202c-d04e-42db-920a-76475f77cdfb
+
+	measure ContagemVerde = CALCULATE(COUNT(fDemanda[Status_post_Completion_Column]), fDemanda[Status_post_Completion_Column] = "Verde")+0
+		formatString: 0
+		lineageTag: 54d45ce0-3b4d-47d7-a813-e18fe4e5ac55
+
+	column 'Demanda #'
+		dataType: string
+		lineageTag: fc87d280-7ca2-4d58-9802-af8340068a59
+		summarizeBy: none
+		sourceColumn: Demanda #
+
+		annotation SummarizationSetBy = Automatic
+
+	column Demanda
+		dataType: string
+		lineageTag: ae3a8f10-78d6-47c6-9d7d-9eb71485501b
+		summarizeBy: none
+		sourceColumn: Demanda
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fase
+		dataType: string
+		lineageTag: 9410dbf7-221c-42e9-9f63-326981a1fc9e
+		summarizeBy: none
+		sourceColumn: Fase
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ganho Financeiro'
+		dataType: double
+		formatString: #,0.00
+		lineageTag: c1285fd9-bb66-4313-a33e-c4a6365ad779
+		summarizeBy: sum
+		sourceColumn: Ganho Financeiro
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ganho One Time'
+		dataType: double
+		lineageTag: c307ac3c-ca49-4c52-a811-26242f76a0e9
+		summarizeBy: sum
+		sourceColumn: Ganho One Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Data Próx L'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: fd587260-755c-40ce-82b5-c9130e211169
+		summarizeBy: none
+		sourceColumn: Data Próx L
+
+		variation Variation
+			isDefault
+			relationship: 6f67189a-6763-4d8e-9b25-a08d2c0307f6
+			defaultHierarchy: LocalDateTable_2a01fab9-3395-4d7a-9187-889e883acaea.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Aberto por'
+		dataType: string
+		lineageTag: 02f499bb-3e47-401f-b3df-d4177338a242
+		summarizeBy: none
+		sourceColumn: Aberto por
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria
+		dataType: string
+		lineageTag: ca7502cc-efd9-461c-915c-a014a20c9613
+		summarizeBy: none
+		sourceColumn: Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data de início'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: cfeb38c9-c30e-4dbb-9605-5dd70f2f6559
+		summarizeBy: none
+		sourceColumn: Data de início
+
+		variation Variation
+			isDefault
+			relationship: 93fee5ec-1a24-4a53-8a82-a7a2d1434382
+			defaultHierarchy: LocalDateTable_1c40bbfe-d0d2-452d-b2b1-cfac5870909d.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Prazo
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f5990123-1234-4317-9e81-41864b48e4bd
+		summarizeBy: none
+		sourceColumn: Prazo
+
+		variation Variation
+			isDefault
+			relationship: 080e51b2-f7bb-47d6-9e4c-9583a227b917
+			defaultHierarchy: LocalDateTable_24631517-6550-4b7b-8676-2b323a41d9ef.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column GA
+		dataType: string
+		lineageTag: fcde30fb-7fa6-4782-9c90-f05358a3ab23
+		summarizeBy: none
+		sourceColumn: GA
+
+		annotation SummarizationSetBy = Automatic
+
+	column G
+		dataType: string
+		lineageTag: 0c37d691-3825-4122-8620-cbe0717f319a
+		summarizeBy: none
+		sourceColumn: G
+
+		annotation SummarizationSetBy = Automatic
+
+	column GG
+		dataType: string
+		lineageTag: c3a88b6d-31a4-499a-b5a9-37aa48815367
+		summarizeBy: none
+		sourceColumn: GG
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'GA #'
+		dataType: string
+		lineageTag: 00118f28-d75c-4b6f-a5bd-b8b9daff3e8b
+		summarizeBy: none
+		sourceColumn: GA #
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'G #'
+		dataType: string
+		lineageTag: 43a6cff4-cede-4ee2-aa78-d5079711a7fa
+		summarizeBy: none
+		sourceColumn: G #
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'GG #'
+		dataType: string
+		lineageTag: 5a0bd762-4b30-4d27-83b5-04763c6f6455
+		summarizeBy: none
+		sourceColumn: GG #
+
+		annotation SummarizationSetBy = Automatic
+
+	column Owner
+		dataType: string
+		lineageTag: 32219609-7c1c-424d-9918-7c2d1b093a35
+		summarizeBy: none
+		sourceColumn: Owner
+
+		annotation SummarizationSetBy = Automatic
+
+	column Co-owner
+		dataType: string
+		lineageTag: 2ffc410d-761a-42da-a5b0-8a43716e7983
+		summarizeBy: none
+		sourceColumn: Co-owner
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'E-mail Owner'
+		dataType: string
+		lineageTag: 80cdd5b7-9a57-4a16-bf97-0350354f2792
+		summarizeBy: none
+		sourceColumn: E-mail Owner
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Equipe do Projeto'
+		dataType: string
+		lineageTag: 16757de5-d391-418b-9994-887b6dc46deb
+		summarizeBy: none
+		sourceColumn: Equipe do Projeto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Áreas Envolvidas'
+		dataType: string
+		lineageTag: 3b00647c-da3f-46f1-9d69-0362aa18fb89
+		summarizeBy: none
+		sourceColumn: Áreas Envolvidas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Portifólio
+		dataType: string
+		lineageTag: 01e569f1-7393-4bb8-a6d5-4f2daeecc90c
+		summarizeBy: none
+		sourceColumn: Portifólio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Programa
+		dataType: string
+		lineageTag: e3c1d11a-d82b-4b48-81d6-4ddf5fa769a3
+		summarizeBy: none
+		sourceColumn: Programa
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Existe Ganho FTE?'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 015a6d58-82ac-4899-a463-9ea918b66824
+		summarizeBy: none
+		sourceColumn: Existe Ganho FTE?
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total de FTE'
+		dataType: double
+		lineageTag: f0d1985e-bed0-45bc-8259-8ae3a0aaa7a3
+		summarizeBy: sum
+		sourceColumn: Total de FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Valor Líquido do Ganho'
+		dataType: double
+		lineageTag: d279a6e5-1bb6-40ef-85bb-2934cdbb8208
+		summarizeBy: sum
+		sourceColumn: Valor Líquido do Ganho
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Benefício financeiro'
+		dataType: double
+		lineageTag: 45ba6016-533b-4482-9f4f-bb911f45c278
+		summarizeBy: sum
+		sourceColumn: Benefício financeiro
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Capex
+		dataType: double
+		lineageTag: c7bc893d-3e37-4bac-9ee0-c90b586af951
+		summarizeBy: sum
+		sourceColumn: Capex
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Opex
+		dataType: int64
+		lineageTag: 573b2f1a-bf64-4739-aae4-01957c855ecb
+		summarizeBy: sum
+		sourceColumn: Opex
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Num SI/PEP'
+		dataType: string
+		lineageTag: 342a194a-32e8-4fea-b931-603403b3a695
+		summarizeBy: none
+		sourceColumn: Num SI/PEP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Custo
+		dataType: string
+		lineageTag: 2b34e6d7-0e22-4541-96bd-46cf155d2cea
+		summarizeBy: none
+		sourceColumn: Custo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Benefícios
+		dataType: string
+		lineageTag: 2523b88d-f679-4cc4-9ad9-93c11a6c2d10
+		summarizeBy: none
+		sourceColumn: Benefícios
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Facilidade de Implementação'
+		dataType: string
+		lineageTag: e107b77e-4351-40df-be8c-ef889f07b6f9
+		summarizeBy: none
+		sourceColumn: Facilidade de Implementação
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fatores Restritivos'
+		dataType: string
+		lineageTag: ee9d4090-d276-45fb-b5b1-82e9a7baf1e1
+		summarizeBy: none
+		sourceColumn: Fatores Restritivos
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Premissas de Implementação'
+		dataType: string
+		lineageTag: 93efd1c8-03fe-4d3e-9d31-3e30a5f9ba6a
+		summarizeBy: none
+		sourceColumn: Premissas de Implementação
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descrição de Riscos'
+		dataType: string
+		lineageTag: 501c974b-b7ae-477a-a2bd-7e92d9f0dc8b
+		summarizeBy: none
+		sourceColumn: Descrição de Riscos
+
+		annotation SummarizationSetBy = Automatic
+
+	column Risco
+		dataType: double
+		lineageTag: b8492f03-794b-471a-9337-66e993cc6be1
+		summarizeBy: sum
+		sourceColumn: Risco
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Valor
+		dataType: int64
+		lineageTag: c8ccf313-76c0-440f-a447-2686931a9c0e
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Tamanho
+		dataType: int64
+		formatString: 0
+		lineageTag: 1cc6fb6b-f809-47ac-98a1-94b12a8f9110
+		summarizeBy: sum
+		sourceColumn: Tamanho
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prioridade
+		dataType: string
+		lineageTag: 0722d0ec-e2b7-4515-8c2a-7457d2226499
+		summarizeBy: none
+		sourceColumn: Prioridade
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pontuação
+		dataType: double
+		lineageTag: 0663c92f-41f9-40e1-8646-fbe0869079c7
+		summarizeBy: sum
+		sourceColumn: Pontuação
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Report Date L0'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 4e2d81ce-b47b-4d69-bbda-3aabcec8caa1
+		summarizeBy: none
+		sourceColumn: Report Date L0
+
+		variation Variation
+			isDefault
+			relationship: 58cf22ba-fbfb-4ea7-9ef4-da444614fbd9
+			defaultHierarchy: LocalDateTable_41ad2308-af04-4a88-b729-270ad664aad1.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Date L1'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 2932bb07-5466-4c93-a009-25e196c46bb3
+		summarizeBy: none
+		sourceColumn: Report Date L1
+
+		variation Variation
+			isDefault
+			relationship: a1f575c9-db6a-4068-b63d-ed352621d06f
+			defaultHierarchy: LocalDateTable_c046bc68-8f44-4f84-a43a-4f0d4c925762.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Date L2'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: ad66d50f-7559-49fc-abb8-23184eb27d83
+		summarizeBy: none
+		sourceColumn: Report Date L2
+
+		variation Variation
+			isDefault
+			relationship: 946622d9-53ad-4a2f-ad88-18a40121b9cf
+			defaultHierarchy: LocalDateTable_1645fd40-7836-451d-89d8-2236c10f766f.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Date L3'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 0d426581-2ef5-485d-a393-804c0db43627
+		summarizeBy: none
+		sourceColumn: Report Date L3
+
+		variation Variation
+			isDefault
+			relationship: 4bf28170-2447-4ede-84b3-18501d483883
+			defaultHierarchy: LocalDateTable_37fdfef1-0630-482b-b508-a7f854336346.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Report Date L4'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: cd603267-6853-433e-8446-cf741aaa2aec
+		summarizeBy: none
+		sourceColumn: Report Date L4
+
+		variation Variation
+			isDefault
+			relationship: f1a49c0a-dcac-44d6-890e-8a75c4bab1d7
+			defaultHierarchy: LocalDateTable_d176f5d3-b855-459e-86a4-a82affc95e68.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Report Date L5'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: ca38c5f5-84af-47d7-bc42-55e5718f682e
+		summarizeBy: none
+		sourceColumn: Report Date L5
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Date L3 - Original'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d9e5fc22-3700-45e9-b6ca-8ca7962b8188
+		summarizeBy: none
+		sourceColumn: Date L3 - Original
+
+		variation Variation
+			isDefault
+			relationship: 7129e8fd-325e-40ab-980c-07cad566d934
+			defaultHierarchy: LocalDateTable_17904380-19db-4685-a583-ba3131ab933e.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Date L4 - Original'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 07e5e3f6-ded7-4801-996f-147d1f22f52a
+		summarizeBy: none
+		sourceColumn: Date L4 - Original
+
+		variation Variation
+			isDefault
+			relationship: d35345c3-9e90-432b-95da-3f7870ef6939
+			defaultHierarchy: LocalDateTable_d8398466-155e-47bf-9f0b-ced65e910316.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Date L5 - Original'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 4acc2257-e9ef-4be7-9cd8-c4de59479678
+		summarizeBy: none
+		sourceColumn: Date L5 - Original
+
+		variation Variation
+			isDefault
+			relationship: a3f46883-9c30-4527-a1c9-f48b8a556ce9
+			defaultHierarchy: LocalDateTable_a90658e2-1f5f-41ba-af34-cc16adf5a2b5.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Total FTE Own'
+		dataType: double
+		lineageTag: c62163fd-4325-4cbb-82ee-0c460b86eb00
+		summarizeBy: sum
+		sourceColumn: Total FTE Own
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total FTE Third'
+		dataType: double
+		formatString: 0
+		lineageTag: 5d18d15f-cf56-496b-b9e7-9931d97c75b7
+		summarizeBy: sum
+		sourceColumn: Total FTE Third
+
+		annotation SummarizationSetBy = Automatic
+
+	column Primário
+		dataType: string
+		lineageTag: 7f224361-84a1-4b5c-b2ca-922785758d71
+		summarizeBy: none
+		sourceColumn: Primário
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descrição Breve da Demanda'
+		dataType: string
+		lineageTag: 25cd76eb-da00-437c-9071-f05b106da90f
+		summarizeBy: none
+		sourceColumn: Descrição Breve da Demanda
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aprovação necessária'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 54aad8ed-701f-4cf1-9df3-8c111ddffff1
+		summarizeBy: none
+		sourceColumn: Aprovação necessária
+
+		annotation SummarizationSetBy = Automatic
+
+	column Marcadores
+		dataType: string
+		lineageTag: 92ed93ca-0706-4208-8513-ed0884713642
+		summarizeBy: none
+		sourceColumn: Marcadores
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ganho Anual de Custo Fixo'
+		dataType: double
+		lineageTag: ed0cb5bb-27c6-48f6-926a-9274e562c2d6
+		summarizeBy: sum
+		sourceColumn: Ganho Anual de Custo Fixo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Ganho Anual de Custo Variável'
+		dataType: double
+		lineageTag: 1e320321-cd7f-4fbf-bc78-98c2fafe13d2
+		summarizeBy: sum
+		sourceColumn: Ganho Anual de Custo Variável
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Ganho Anual de Receita'
+		dataType: int64
+		formatString: 0
+		lineageTag: d131c31d-fd7f-4a48-91d8-e214467d384b
+		summarizeBy: sum
+		sourceColumn: Ganho Anual de Receita
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ganho Anual de Fluxo de Caixa'
+		dataType: double
+		formatString: 0
+		lineageTag: 4a59f50c-63ae-4857-b8d2-adf13ac7a8eb
+		summarizeBy: sum
+		sourceColumn: Ganho Anual de Fluxo de Caixa
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Número Value Plan'
+		dataType: int64
+		formatString: 0
+		lineageTag: 28dfcee9-51a4-4d0c-92cc-4348c469a31b
+		summarizeBy: sum
+		sourceColumn: Número Value Plan
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Transformação digital?'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c0e92caf-a1d8-4269-abcb-f8d50bb24a97
+		summarizeBy: none
+		sourceColumn: Transformação digital?
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Principal tecnologia'
+		dataType: string
+		lineageTag: a5c8d6dc-21c3-47d2-a80f-739adf029d0c
+		summarizeBy: none
+		sourceColumn: Principal tecnologia
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ganho Produtividade'
+		dataType: int64
+		formatString: 0
+		lineageTag: 68fcee4f-c4f6-486c-8f70-07f6389ba7a5
+		summarizeBy: sum
+		sourceColumn: Ganho Produtividade
+
+		annotation SummarizationSetBy = Automatic
+
+	column _L_Prev = ```
+			
+			If(TODAY()+1 >= IF(ISBLANK([Report Date L5]), DATE(2099,12,31), fDemanda[Report Date L5]), "L5",
+			If(TODAY()+1 >= IF(ISBLANK([Report Date L4]), DATE(2099,12,31), fDemanda[Report Date L4]), "L4",
+			If(TODAY()+1 >= IF(ISBLANK([Report Date L3]), DATE(2099,12,31), fDemanda[Report Date L3]), "L3",
+			If(TODAY()+1 >= IF(ISBLANK([Report Date L2]), DATE(2099,12,31), fDemanda[Report Date L2]), "L2",
+			If(TODAY()+1 >= IF(ISBLANK([Report Date L1]), fDemanda[Report Date L0] + 14, fDemanda[Report Date L1]), "L1", 
+			If(TODAY()+1 >= IF(ISBLANK([Report Date L0]), DATE(2099,12,31), fDemanda[Report Date L0]), "L0", "--"))))))
+			```
+		lineageTag: 72329cda-002d-4fe4-8fe1-deecb1c58b2e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column PO/Fase = fDemanda[Demanda] & "/" & fDemanda[Co-owner] & "/" & fDemanda[Fase]
+		lineageTag: ef5ba26b-b42a-4323-a935-a52e431adc37
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tab_Stage.Stage'
+		dataType: string
+		lineageTag: bb52ee4d-f007-4817-bb84-792c3c5d7cb3
+		summarizeBy: none
+		sourceColumn: Tab_Stage.Stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Projeto / FaseL' = fDemanda[Demanda] & " - " & fDemanda[Tab_Stage.Stage]
+		lineageTag: 5e894911-1c78-4716-8f84-df32a4c1311c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Diretoria
+		dataType: string
+		lineageTag: d7793b55-d163-41ff-8e96-dff9fe5d0d64
+		summarizeBy: none
+		sourceColumn: Diretoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column VP
+		dataType: string
+		lineageTag: e3d35831-fc0b-41c0-8946-70e6dd4c4dfa
+		summarizeBy: none
+		sourceColumn: VP
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'E-mail Co-owner'
+		dataType: string
+		lineageTag: d4ae4e74-606f-4956-afff-d3c9048bf30c
+		summarizeBy: none
+		sourceColumn: E-mail Co-owner
+
+		annotation SummarizationSetBy = Automatic
+
+	column Inicio_post_Completion = EDATE(fDemanda[Report Date L5], 6)
+		formatString: Mmm" "yy
+		lineageTag: 02b37ff3-e420-4b6a-ae9f-61cf231e9efe
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 74053d92-2978-4e3a-b070-1cfb84fd9bff
+			defaultHierarchy: LocalDateTable_e5074997-2343-45fb-b9d3-e2c102a2bb41.'Hierarquia de datas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	column Fim_post_Completion = EDATE(fDemanda[Report Date L5], 9)
+		formatString: Mmm" "yy
+		lineageTag: a90e92be-25de-42b4-93a6-6eea18500791
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 28d02ce4-412f-44e0-9ff7-f304eac5c441
+			defaultHierarchy: LocalDateTable_fbb83050-a442-4f98-935b-f36d1b25ffc6.'Hierarquia de datas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	column Status_post_Completion_Column = ```
+			
+			IF (
+			    CONTAINSSTRING(fDemanda[marcadores], "[CMT] N/A"),
+			    "Cinza",
+			    IF (
+			        CONTAINSSTRING(fDemanda[marcadores], "post completion"),
+			        "Verde",
+			        IF (
+			            ISBLANK(fDemanda[Report Date L5]) || TODAY() < EDATE(fDemanda[Report Date L5], 6), 
+			            "Não iniciado",
+			            IF (
+			                TODAY() >= EDATE(fDemanda[Report Date L5], 6) && TODAY() < EDATE(fDemanda[Report Date L5], 9), 
+			                "Amarelo",
+			                "Vermelho"
+			            )
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: c577935b-b5ab-464f-8acf-c18808a25ae4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Participantes (e-mails)'
+		dataType: string
+		lineageTag: 275e92d1-1533-485b-8056-a9b7984d09bc
+		summarizeBy: none
+		sourceColumn: Participantes (e-mails)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Atualizado em'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7f769e7a-ef27-4cf0-be75-4d9d6b874ab3
+		summarizeBy: none
+		sourceColumn: Atualizado em
+
+		variation Variation
+			isDefault
+			relationship: 644fb02a-ef1f-4340-af27-a815692848db
+			defaultHierarchy: LocalDateTable_3c809bfb-3c8b-419c-afe4-02fb7c5d5603.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column CMT
+		dataType: string
+		lineageTag: 6780938c-d775-4662-97fa-6f5ff2147a9f
+		summarizeBy: none
+		sourceColumn: CMT
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fase Simplif.'
+		dataType: string
+		lineageTag: d35db468-e329-4116-8c62-7f7d595b3a40
+		summarizeBy: none
+		sourceColumn: Fase Simplif.
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContémMarcador = ```
+			
+			VAR Selecionado = SELECTEDVALUE(dRoadmap[Roadmap])
+			RETURN
+			    IF(
+			        NOT(ISBLANK(Selecionado)) && 
+			        SEARCH(Selecionado, fDemanda[Marcadores], 1, 0) > 0,
+			        "Sim",
+			        "Não"
+			    )
+			```
+		lineageTag: 128bc03b-dfec-4736-9dd7-833a8658397d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 3f467c3d-07d6-4cd0-b4f9-ec1652b942e8
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column ICN_Status
+		dataType: string
+		lineageTag: b35f633a-99e5-489b-9cdb-8b1051663bd5
+		summarizeBy: none
+		sourceColumn: ICN_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Chave PO-CMT'
+		dataType: string
+		lineageTag: 8a251b5f-e572-42df-b3ef-c41f0cd07ee9
+		summarizeBy: none
+		sourceColumn: Chave PO-CMT
+
+		annotation SummarizationSetBy = Automatic
+
+	column Steering
+		dataType: string
+		lineageTag: be2ae1b1-30b2-4df5-a0be-e34e3f7c7bd2
+		summarizeBy: none
+		sourceColumn: Steering
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'L #'
+		dataType: string
+		lineageTag: 7417fb97-e4f7-4b10-ab3a-52ef966cdbfc
+		summarizeBy: none
+		sourceColumn: L #
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fDemanda = m
+		mode: import
+		queryGroup: Main
+		source =
+				let
+				   Fonte = Excel.Workbook(Web.Contents("https://arcelormittal.sharepoint.com/sites/PROA_FC/Documentos%20Compartilhados/05%20-%20Demandas/PBI/DB_demanda_tsp3.xlsx"), null, true),
+				    #"Page 1_Sheet" = Fonte{[Item="Page 1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Page 1_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Número", type text}, {"Nome", type text}, {"Fase", type text}, {"Status", type text}, {"Ganho Anual", type number}, {"Ganho One Time", type number}, {"Aberto por", type text}, {"Categoria", type text}, {"Prazo", Int64.Type}, {"UG (Unidade Gerencial)", type text}, {"G (Gerência)", type text}, {"GG (Gerência Geral)", type text}, {"Sigla", type text}, {"Sigla_1", type text}, {"Sigla_2", type text}, {"Sigla_3", type text}, {"Sigla_4", type text}, {"Owner", type text}, {"Co-Owner", type text}, {"E-mail", type text}, {"E-mail_5", type text}, {"Participantes", type text}, {"Participantes (e-mails)", type text}, {"Áreas Envolvidas", type text}, {"Confidencial", type logical}, {"Portifólio", type text}, {"Programa", type text}, {"Existe Ganho FTE?", type logical}, {"Total de FTE", type number}, {"Valor Líquido do Ganho", type number}, {"Benefício financeiro", type number}, {"Despesa de capital", type number}, {"Despesa operacional", Int64.Type}, {"Num SI/PEP", type text}, {"Detalhamento do Gasto", type text}, {"Benefícios", type text}, {"Facilidade de Implementação", type text}, {"Necessidade de Viabilidade Economica", type logical}, {"Necessário revisar ou criar FMEA | Padrão|Documentação", type logical}, {"Fatores Restritivos", type text}, {"Premissas de Implementação", type text}, {"Risco Sobre a Segurança do Trabalho", type text}, {"Risco Sobre Paralisação das Instalações", type text}, {"Risco Sobre a Qualidade do Produto", type text}, {"Risco Sobre Meio Ambiente", type text}, {"Necessidade de Análise de Risco Detalhada", type logical}, {"Descrição de Riscos", type text}, {"Risco", type number}, {"Tamanho", Int64.Type}, {"Valor", Int64.Type}, {"Prioridade", type text}, {"Pontuação", type number}, {"Progresso", type text}, {"Principais Resultados", type text}, {"Próximos Passos", type text}, {"Suporte Necessário", type text}, {"Detalhamentos do KPI", type text}, {"Total FTE Own", type number}, {"Total FTE Third", type number}, {"Primário", type text}, {"Descrição(description)", type text}, {"Ideia", type text}, {"Estratégias", type text}, {"Objetivos", type text}, {"Aprovação necessária", type logical},{"Habilitadores", type text}, {"Marcadores", type text}, {"Ganho Anual de Custo Fixo", type number}, {"Ganho Anual de Custo Variável", type number}, {"Ganho Anual de Receita", Int64.Type}, {"Ganho Anual de Fluxo de Caixa", type number}, {"Número Value Plan", Int64.Type}, {"Transformação digital?", type logical}, {"Principal tecnologia", type text}, {"Redução de emissão de CO2 [t CO2]", Int64.Type}, {"Ganho em Eficiência de Mão de Obra (horas/mês)", Int64.Type}, {"Descrição(business_case)", type text}, {"Risco de desempenho", type text}, {"Risco de não desempenho", type text}, {"Premissas", type text}, {"Em escopo", type text}, {"Fora de escopo", type text}, {"Considerações", type text},{"Data Próx L", type date}, {"Data de início", type date}, {"Report Date L3", type date}, {"Report Date L4", type date}, {"Report Date L5", type date}, {"Date L3 - Original", type date}, {"Date L4 - Original", type date}, {"Date L5 - Original", type date}, {"Atualizado em", type datetime},{"Report Date L0", type datetime}, {"Report Date L1", type datetime}, {"Report Date L2", type datetime}}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Tipo Alterado", {"Nome"}, Tab_Stage, {"Stage"}, "Tab_Stage", JoinKind.LeftOuter),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Consultas Mescladas",{"Tab_Stage"}),
+				    #"Consultas Mescladas1" = Table.NestedJoin(#"Colunas Removidas", {"Fase"}, Tab_Stage, {"Fase"}, "Tab_Stage", JoinKind.LeftOuter),
+				    #"Tab_Stage Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas1", "Tab_Stage", {"Stage"}, {"Tab_Stage.Stage"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tab_Stage Expandido",{{"Sigla", "GA"}, {"Sigla_1", "G"}, {"Sigla_2", "GG"}, {"Sigla_3", "Diretoria"}, {"Sigla_4", "VP"}}),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Colunas Renomeadas",{{"Número", "Demanda #"}}),
+				    #"Tipo Alterado3" = Table.TransformColumnTypes(#"Colunas Renomeadas1",{{"Prazo", type date}}),
+				    #"Colunas Removidas2" = Table.RemoveColumns(#"Tipo Alterado3",{"Confidencial"}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Colunas Removidas2", each Text.Contains([Marcadores], "Roadmap")),
+				    #"Colunas Renomeadas2" = Table.RenameColumns(#"Linhas Filtradas",{{"Detalhamento do Gasto", "Custo"}}),
+				    #"Colunas Removidas3" = Table.RemoveColumns(#"Colunas Renomeadas2",{"Necessidade de Viabilidade Economica", "Necessário revisar ou criar FMEA | Padrão|Documentação", "Risco Sobre a Segurança do Trabalho", "Risco Sobre Paralisação das Instalações", "Risco Sobre a Qualidade do Produto", "Risco Sobre Meio Ambiente", "Necessidade de Análise de Risco Detalhada", "Progresso", "Principais Resultados", "Próximos Passos", "Suporte Necessário", "Detalhamentos do KPI", "Descrição(business_case)", "Risco de desempenho", "Risco de não desempenho", "Premissas", "Em escopo", "Fora de escopo", "Considerações"}),
+				    #"Colunas Renomeadas3" = Table.RenameColumns(#"Colunas Removidas3",{{"Nome", "Demanda"}, {"G", "G #"}, {"GA", "GA #"}, {"GG", "GG #"}, {"GG (Gerência Geral)", "GG"}, {"G (Gerência)", "G"}, {"UG (Unidade Gerencial)", "GA"}, {"Owner", "PMO"}, {"Co-Owner", "PO"}, {"Participantes", "Equipe do Projeto"}, {"Ganho Anual", "Ganho Financeiro"}, {"E-mail", "E-mail PMO"}, {"E-mail_5", "E-mail PO"}, {"Despesa operacional", "Opex"}, {"Despesa de capital", "Capex"}, {"Descrição(description)", "Descrição Breve da Demanda"}}),
+				    #"Colunas Removidas4" = Table.RemoveColumns(#"Colunas Renomeadas3",{"Ideia", "Estratégias", "Objetivos", "Habilitadores"}),
+				    #"Colunas Renomeadas4" = Table.RenameColumns(#"Colunas Removidas4",{{"Ganho em Eficiência de Mão de Obra (horas/mês)", "Ganho Produtividade"}}),
+				    #"Colunas Removidas5" = Table.RemoveColumns(#"Colunas Renomeadas4",{"Redução de emissão de CO2 [t CO2]"}),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Colunas Removidas5", "Fase", "Fase - Copiar"),
+				    #"Colunas Renomeadas5" = Table.RenameColumns(#"Coluna Duplicada",{{"Fase - Copiar", "Fase Simplif."}}),
+				    #"Dividir Coluna por Delimitador" = Table.SplitColumn(#"Colunas Renomeadas5", "Fase Simplif.", Splitter.SplitTextByDelimiter("-", QuoteStyle.Csv), {"Fase Simplif..1", "Fase Simplif..2"}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Dividir Coluna por Delimitador",{{"Fase Simplif..1", type text}, {"Fase Simplif..2", type text}}),
+				    #"Colunas Renomeadas6" = Table.RenameColumns(#"Tipo Alterado1",{{"Fase Simplif..2", "Fase Simplif."}}),
+				    #"Coluna Condicional Adicionada1" = Table.AddColumn(#"Colunas Renomeadas6", "ICN_Status", each if [Status] = "Vermelho" then "🚨" else if [Status] = "Amarelo" then "🔔" else if [Status] = "Verde" then "🔋" else null),
+				    #"Colunas Renomeadas7" = Table.RenameColumns(#"Coluna Condicional Adicionada1",{{"PMO", "Owner"}, {"PO", "Co-owner"}, {"E-mail PMO", "E-mail Owner"}, {"E-mail PO", "E-mail Co-owner"}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Colunas Renomeadas7", "Chave PO-CMT", each [Owner]&"-"&[#"Co-owner"]),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Personalização Adicionada", "CMT", each if Text.Contains([#"Chave PO-CMT"], "Andre Simao Wernersbach") then "André Wernersbach" else if Text.Contains([#"Chave PO-CMT"], "Kelvin Coppi Santos") then "Kelvin Coppi" else if Text.Contains([#"Chave PO-CMT"], "Rosyane Fiorio Hora Pimentel") then "Rosyane Pimentel" else if Text.Contains([#"Chave PO-CMT"], "Andre Luiz Da Silva Fonseca") then "Kelvin Coppi" else [Owner]),
+				    #"Coluna Condicional Adicionada2" = Table.AddColumn(#"Coluna Condicional Adicionada", "Steering", each if Text.Contains([Marcadores], "SteerCo") then "Sim" else "Não"),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Coluna Condicional Adicionada2","Outras tecnologias","Soluções SAP",Replacer.ReplaceText,{"Principal tecnologia"}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído","I-CDL","CDL",Replacer.ReplaceText,{"GG #"}),
+				    #"Valor Substituído2" = Table.ReplaceValue(#"Valor Substituído1","I-CDP","CDP",Replacer.ReplaceText,{"GG #"}),
+				    #"Colunas Renomeadas8" = Table.RenameColumns(#"Valor Substituído2",{{"Fase Simplif..1", "L #"}})
+				in
+				    #"Colunas Renomeadas8"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

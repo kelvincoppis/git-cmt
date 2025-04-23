@@ -1,0 +1,42 @@
+table dPO
+	lineageTag: d135c824-285d-46af-9c6a-6ac76fb13378
+
+	column Co-owner
+		dataType: string
+		lineageTag: 721c8658-ff16-44ee-9d45-47b0e3210d6e
+		summarizeBy: none
+		sourceColumn: Co-owner
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'E-mail Co-owner'
+		dataType: string
+		lineageTag: 142f6d1b-8aed-470d-8340-03f682c0df3b
+		summarizeBy: none
+		sourceColumn: E-mail Co-owner
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'GG #'
+		dataType: string
+		lineageTag: add36e55-eb68-45a9-a91b-50eaff39b335
+		summarizeBy: none
+		sourceColumn: GG #
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dPO = m
+		mode: import
+		queryGroup: Main
+		source =
+				let
+				    Fonte = fDemanda,
+				    #"Outras Colunas Removidas" = Table.SelectColumns(Fonte,{"GG #", "Co-owner", "E-mail Co-owner"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Outras Colunas Removidas", {"Co-owner"})
+				in
+				    #"Duplicatas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,115 @@
+table fDemanda_Tarefas
+	lineageTag: 5bf1ce3c-96ed-4fed-8ad2-2237cc004d5e
+
+	column Número
+		dataType: string
+		lineageTag: 6feae757-c10e-42f6-944f-b5bb63b32c55
+		summarizeBy: none
+		sourceColumn: Número
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Demanda #'
+		dataType: string
+		lineageTag: 96f46ff2-b44c-4a72-8f97-c3a74bc5f1ca
+		summarizeBy: none
+		sourceColumn: Demanda #
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordem
+		dataType: int64
+		formatString: 0
+		lineageTag: 79dcb716-3a6e-4e94-b9ec-a11fb72be8ee
+		summarizeBy: sum
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prazo
+		dataType: double
+		lineageTag: 618abcf4-9f1d-4554-a0cb-a8c0cae05cf2
+		summarizeBy: sum
+		sourceColumn: Prazo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Estado
+		dataType: string
+		lineageTag: f7e8e30b-7d91-4bdf-989f-86e1687c20da
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Atribuído a'
+		dataType: string
+		lineageTag: f758b06d-78bd-46ac-a600-a2528aa04afc
+		summarizeBy: none
+		sourceColumn: Atribuído a
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrição
+		dataType: string
+		lineageTag: 54293088-1f60-46e5-afee-cbb3a31c06ff
+		summarizeBy: none
+		sourceColumn: Descrição
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Atualizado por'
+		dataType: string
+		lineageTag: d0b20990-655a-4fdc-bb4e-a14b58dbc1de
+		summarizeBy: none
+		sourceColumn: Atualizado por
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Atualizado em'
+		dataType: double
+		lineageTag: 71eaffb0-8d9e-4c2d-8a14-7d6bb0752e25
+		summarizeBy: sum
+		sourceColumn: Atualizado em
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Percentagem de conclusão'
+		dataType: string
+		lineageTag: c1a433c1-8ba3-4708-b6d1-887add116ea2
+		summarizeBy: none
+		sourceColumn: Percentagem de conclusão
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ação
+		dataType: string
+		lineageTag: 01641c03-6168-4e9f-bcca-a6d439226040
+		summarizeBy: none
+		sourceColumn: Ação
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fDemanda_Tarefas = m
+		mode: import
+		queryGroup: Main
+		source =
+				let
+				    Fonte = SharePoint.Files(PROA_FC, [ApiVersion = 15]),
+				    #"DB_Tarefas_tsp3 xlsx_https://arcelormittal sharepoint com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/" = Fonte{[Name="DB_Tarefas_tsp3.xlsx",#"Folder Path"="https://arcelormittal.sharepoint.com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"DB_Tarefas_tsp3 xlsx_https://arcelormittal sharepoint com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/"),
+				    #"Page 1_Sheet" = #"Pasta de Trabalho Importada do Excel"{[Item="Page 1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Page 1_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Número", type text}, {"Primário", type text}, {"Ordem", Int64.Type}, {"Ação", type text}, {"Prazo", type number}, {"Estado", type text}, {"Atribuído a", type text}, {"Descrição", type text}, {"Atualizado em", type number}, {"Atualizado por", type text}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado",{{"Primário", "Demanda #"}})
+				in
+				    #"Colunas Renomeadas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

@@ -1,0 +1,357 @@
+relationship d9283660-cdda-4eac-8eb6-86d1af2c0c11
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fProjeto.'Data de início planejada'
+	toColumn: LocalDateTable_ccc25a77-cbe0-4500-ae91-6035085cbc7e.Date
+
+relationship 4d019f2b-383d-4285-904d-f55959fb5007
+	crossFilteringBehavior: bothDirections
+	fromColumn: dDMNDxPRJ.'Demanda #'
+	toColumn: fDemanda.'Demanda #'
+
+relationship 6f67189a-6763-4d8e-9b25-a08d2c0307f6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.'Data Próx L'
+	toColumn: LocalDateTable_2a01fab9-3395-4d7a-9187-889e883acaea.Date
+
+relationship 58cf22ba-fbfb-4ea7-9ef4-da444614fbd9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.'Report Date L0'
+	toColumn: LocalDateTable_41ad2308-af04-4a88-b729-270ad664aad1.Date
+
+relationship a1f575c9-db6a-4068-b63d-ed352621d06f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.'Report Date L1'
+	toColumn: LocalDateTable_c046bc68-8f44-4f84-a43a-4f0d4c925762.Date
+
+relationship 946622d9-53ad-4a2f-ad88-18a40121b9cf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.'Report Date L2'
+	toColumn: LocalDateTable_1645fd40-7836-451d-89d8-2236c10f766f.Date
+
+relationship 4bf28170-2447-4ede-84b3-18501d483883
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.'Report Date L3'
+	toColumn: LocalDateTable_37fdfef1-0630-482b-b508-a7f854336346.Date
+
+relationship f1a49c0a-dcac-44d6-890e-8a75c4bab1d7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.'Report Date L4'
+	toColumn: LocalDateTable_d176f5d3-b855-459e-86a4-a82affc95e68.Date
+
+relationship d35345c3-9e90-432b-95da-3f7870ef6939
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.'Date L4 - Original'
+	toColumn: LocalDateTable_d8398466-155e-47bf-9f0b-ced65e910316.Date
+
+relationship a3f46883-9c30-4527-a1c9-f48b8a556ce9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.'Date L5 - Original'
+	toColumn: LocalDateTable_a90658e2-1f5f-41ba-af34-cc16adf5a2b5.Date
+
+relationship 93fee5ec-1a24-4a53-8a82-a7a2d1434382
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.'Data de início'
+	toColumn: LocalDateTable_1c40bbfe-d0d2-452d-b2b1-cfac5870909d.Date
+
+relationship 79030a99-7a67-41aa-b340-59c32a78c42b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: GIT_Hora_extra.Data
+	toColumn: LocalDateTable_77e94742-ea48-4fda-b93e-40099045921c.Date
+
+relationship 4051a468-f991-4f4e-85e3-6a4cf4257236
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fAprovações.Criação
+	toColumn: LocalDateTable_d08d80e7-b5ab-4f14-b5a7-b0a38ca0c8d6.Date
+
+relationship e888268a-891e-483a-93ed-e1dd2183533e
+	fromColumn: fAprovações.'Demanda #'
+	toColumn: fDemanda.'Demanda #'
+
+relationship 74053d92-2978-4e3a-b070-1cfb84fd9bff
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.Inicio_post_Completion
+	toColumn: LocalDateTable_e5074997-2343-45fb-b9d3-e2c102a2bb41.Date
+
+relationship 28d02ce4-412f-44e0-9ff7-f304eac5c441
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.Fim_post_Completion
+	toColumn: LocalDateTable_fbb83050-a442-4f98-935b-f36d1b25ffc6.Date
+
+relationship 7e787167-6d71-4201-b88e-e8b567debc7f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dDataFases.'Data Fim'
+	toColumn: LocalDateTable_edb66021-0115-4241-b66e-1ea821c2508c.Date
+
+relationship 7129e8fd-325e-40ab-980c-07cad566d934
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.'Date L3 - Original'
+	toColumn: LocalDateTable_17904380-19db-4685-a583-ba3131ab933e.Date
+
+relationship d6b77549-a7f2-4c9e-8bc3-8c284e5ccafb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: GIT_Participações.'Data Inicial'
+	toColumn: LocalDateTable_7b5a61db-89c9-4b11-a6b4-a2dfb2322ee9.Date
+
+relationship 7916e541-bf65-4d96-be84-25c0a8fa365f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: GIT_Treinamentos_Compliance.Data
+	toColumn: LocalDateTable_231db280-ed32-42d5-928e-13c9540b6332.Date
+
+relationship f2d36a2e-bb54-4a31-8d88-306e5e1518e5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: GIT_Treinamentos_Padrões.Data
+	toColumn: LocalDateTable_d2cacc71-562f-4353-bb29-124f23a12adb.Date
+
+relationship ca3664eb-9551-4d68-844d-7422faea960c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: IntervaloFases.Data
+	toColumn: LocalDateTable_f73c3f78-5b4e-4536-8d7c-6178eb3b59a1.Date
+
+relationship cc4e792a-5d54-45e0-8ff7-08e84c588fb9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: IntervaloFases.'Data Fim'
+	toColumn: LocalDateTable_b233e617-a7bc-49e7-bd05-54a244dc0e86.Date
+
+relationship 8c6f79e3-ad0f-6ffd-72d9-e043804f1d24
+	crossFilteringBehavior: bothDirections
+	fromColumn: dDataFases.Número
+	toColumn: dDemandas.'Demanda #'
+
+relationship 07d27948-e2cf-0029-00e3-87df6ed51fd3
+	crossFilteringBehavior: bothDirections
+	fromColumn: IntervaloFases.Número
+	toColumn: dDemandas.'Demanda #'
+
+relationship 53353cf5-e90a-cfb7-b34c-ef09380f6ae3
+	crossFilteringBehavior: bothDirections
+	fromColumn: fDemanda.'Demanda #'
+	toColumn: dDemandas.'Demanda #'
+
+relationship 7dc1d43a-3c8b-c7ff-1c7b-a8cea5d41cd4
+	crossFilteringBehavior: bothDirections
+	fromColumn: tbDias.Número
+	toColumn: dDemandas.'Demanda #'
+
+relationship fc87051f-4f95-498c-bfb3-a0b90ac9095d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fProjeto.'Data de início real'
+	toColumn: LocalDateTable_a2b60311-e14c-469b-8ec3-24c69036b7c8.Date
+
+relationship 54039154-fc1f-4f0f-83e6-5d546c22c97f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fProjeto.'Data de término planejada'
+	toColumn: LocalDateTable_175b123e-1af2-4986-9af5-3df11398ca12.Date
+
+relationship 25992081-94a7-4236-8d76-f1d60db9e9fd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fProjeto.'Data de término real'
+	toColumn: LocalDateTable_1249e70d-d426-4f0a-8103-cb65998744d3.Date
+
+relationship 63ab8c13-8987-45b4-863a-ae7ee838ed31
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fAprovações.'Atualizado em'
+	toColumn: LocalDateTable_f8245717-3751-497a-a047-1ba9937926a7.Date
+
+relationship 644fb02a-ef1f-4340-af27-a815692848db
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.'Atualizado em'
+	toColumn: LocalDateTable_3c809bfb-3c8b-419c-afe4-02fb7c5d5603.Date
+
+relationship 2a42462e-2f7b-4be9-8d4e-c3c745272232
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dCalendário.Data
+	toColumn: LocalDateTable_8dab3b36-1dcf-4e8d-a8ca-478efc56687a.Date
+
+relationship 54ff3a4e-7342-46c4-9687-06cdd2c49fbc
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: GIT_Custos_CMT.Data
+	toColumn: dCalendário.Data
+
+relationship 48b2776d-d878-4f85-8635-3290d30c02b6
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: GIT_Desvio_Custo_Projetos.Data
+	toColumn: dCalendário.Data
+
+relationship d340d87c-39bb-4848-9c45-438550400e28
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: GIT_OKRs_Processos.Data
+	toColumn: dCalendário.Data
+
+relationship 6bd84015-0a24-4f22-5b48-f53fb8ae426b
+	crossFilteringBehavior: bothDirections
+	fromColumn: fStatusReport.'Data do Status'
+	toColumn: dCalendário.Data
+
+relationship 069536eb-336c-4967-8c59-eccec2f7b118
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: fDemanda.'Report Date L5'
+	toColumn: dCalendário.Data
+
+relationship dcfa656d-0d1f-4581-a4c1-037d3a18a2cb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: #Atualização.Hoje
+	toColumn: LocalDateTable_41439568-1e61-42ed-8d83-926608a8ff71.Date
+
+relationship 6a3d8c13-b4ce-4aab-ac24-ccaeca3fa9ef
+	joinOnDateBehavior: datePartOnly
+	fromColumn: #Atualização.'Fim do Mês'
+	toColumn: LocalDateTable_68e172ea-930c-410d-adb0-217663c27779.Date
+
+relationship b33a0baf-6cbe-4010-885e-c20855c77988
+	joinOnDateBehavior: datePartOnly
+	fromColumn: #Atualização.'Início do Mês'
+	toColumn: LocalDateTable_457b300c-665b-4681-877d-7e2d09d3c067.Date
+
+relationship f0ca3c36-e65d-40f6-a56f-c0067e5259c3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: GIT_Ações_desenvolvimento.'Data Inicial'
+	toColumn: LocalDateTable_4bd986a5-45cd-459a-b14e-60ef574dec67.Date
+
+relationship 09a30b9b-67c3-4848-a361-9210e03f4c22
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dDataFases.Data
+	toColumn: LocalDateTable_b0be1d60-8be5-4f09-8147-1be82aedbba0.Date
+
+relationship a96f1eac-2be4-4554-836c-61b7092f14b7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: IntervaloFases.Date
+	toColumn: LocalDateTable_05d4bab6-e03b-407b-9e0a-4eba4353169a.Date
+
+relationship 09b08deb-3ac2-4da9-8692-259d05926063
+	joinOnDateBehavior: datePartOnly
+	fromColumn: tbDias.Data
+	toColumn: LocalDateTable_ef1a949c-7f53-4b6b-9139-97c9acd3b413.Date
+
+relationship 9da63452-6c19-4c14-9d37-b0af965dc479
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fProjeto_Tarefas.'Data de início planejada'
+	toColumn: LocalDateTable_00159db1-ed19-4e10-9708-40adf3bce095.Date
+
+relationship a491e05c-15eb-4b88-88a0-fa9eb59bff38
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fProjeto_Tarefas.'Data de término planejada'
+	toColumn: LocalDateTable_1059e46e-1c18-45a9-b876-89e35dbc6750.Date
+
+relationship af51e63a-99e8-45c9-bb92-df3a9c4707cf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fProjeto_Tarefas.'Data de início'
+	toColumn: LocalDateTable_75465971-518e-47ae-b4c6-551ed23979c8.Date
+
+relationship 9f35f481-54ff-4a4b-97dd-4196f5422559
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fProjeto_Tarefas.'Data de término'
+	toColumn: LocalDateTable_216593aa-5416-498e-a10c-e6b9cc943a5d.Date
+
+relationship f047ad5b-80f8-4f04-91df-7f2d3187e6ed
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fProjeto_Tarefas.'Atualizado em'
+	toColumn: LocalDateTable_7a78bc9e-343c-435d-a5c7-e978de06d07e.Date
+
+relationship 7121633b-ca5d-bc88-6d5f-1fc6230eafb8
+	fromColumn: fProjeto_Tarefas.Primário
+	toColumn: fProjeto.'Projeto #'
+
+relationship d7a081e5-fdf5-3dfd-6196-9907191ba1a0
+	fromColumn: fDemanda_Tarefas.'Demanda #'
+	toColumn: fDemanda.'Demanda #'
+
+relationship c13ab7df-e88a-4bfc-334d-c5f78b6761eb
+	crossFilteringBehavior: bothDirections
+	fromColumn: dDMNDxPRJ.'Demanda #'
+	toColumn: dGerências.'Demanda #'
+
+relationship acc5343b-0cc2-47c0-a6c8-0e276be98b3a
+	fromColumn: Desembolso_fOpex2025.'OI / CC'
+	toColumn: Desembolso_dOpex25_Resumo.'OI / CC'
+
+relationship 3e881090-5c8b-289c-da11-097eafa1e7a7
+	crossFilteringBehavior: bothDirections
+	fromColumn: dCalendário.'Mês #'
+	toColumn: dMês.'Mês #'
+
+relationship 43efb6fa-b11e-4728-9143-0db1a9647032
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dMês.Data
+	toColumn: LocalDateTable_e9e1fa9f-00ae-44b2-a411-25efca3e30c9.Date
+
+relationship 080e51b2-f7bb-47d6-9e4c-9583a227b917
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fDemanda.Prazo
+	toColumn: LocalDateTable_24631517-6550-4b7b-8676-2b323a41d9ef.Date
+
+relationship 5a1c8ed2-ffe0-d599-a939-fe650494f1de
+	crossFilteringBehavior: bothDirections
+	securityFilteringBehavior: none
+	fromColumn: Desembolso_fOpex2025.Mês
+	toColumn: dMês.'Mês #'
+
+relationship 30d6f51a-504c-457b-92ab-ab8ece265d30
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fProjeto.'Atualizado em'
+	toColumn: LocalDateTable_898c70fe-981e-459a-a3fb-03cab8cc5df3.Date
+
+relationship 1476af34-8884-4aab-b70f-7d9597565ad3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fProjeto.Criação
+	toColumn: LocalDateTable_7601a547-2bdf-4f9d-bf72-b7e18f445754.Date
+
+relationship 51f13db3-3f33-429c-a934-2144bb53604e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fStatusReport.'Data de início planejada'
+	toColumn: LocalDateTable_14f42ecc-970b-4e1d-b92c-4671b30b5623.Date
+
+relationship c489a365-ae1b-469d-8f21-f42e7413d281
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fStatusReport.'Data de término planejada'
+	toColumn: LocalDateTable_ad682259-dd07-44a2-bf59-3fa16a18aec6.Date
+
+relationship 1893bc88-24fb-116f-4df1-ef9ed32489fa
+	fromColumn: GIT_Participações.'Data Final'
+	toColumn: dCalendário.Data
+
+relationship 257b6560-fb6c-0a9d-f3cf-b65bf1c00aae
+	fromColumn: GIT_Ações_desenvolvimento.'Data Final'
+	toColumn: dCalendário.Data
+
+relationship 314952c8-d306-9ed4-0793-3398b134d941
+	crossFilteringBehavior: bothDirections
+	fromColumn: dDMNDxPRJ.'Projeto #'
+	toColumn: dURL_Projeto.'Projeto #'
+
+relationship 01703d5d-a35f-9e6b-5e67-aa94962f708d
+	crossFilteringBehavior: bothDirections
+	fromColumn: dDMNDxPRJ.'Projeto #'
+	toColumn: fProjeto.'Projeto #'
+
+relationship 5567bd6c-3c65-804c-359b-9cdddfe1a2a7
+	crossFilteringBehavior: bothDirections
+	fromColumn: fStatusReport.'Projeto #'
+	toColumn: dDMNDxPRJ.'Projeto #'
+
+relationship b7d83686-7c09-daba-5002-2e3c7a64e0fe
+	crossFilteringBehavior: bothDirections
+	fromColumn: dDMNDxPRJ.'Demanda #'
+	toColumn: dURL_Demanda.'Demanda #'
+
+relationship 94d2d27c-c2bd-6bb1-5286-bacf36c3ef87
+	fromColumn: fCapex.PEP
+	toColumn: fCapex_Projetos.PEP
+
+relationship 59ebfed9-b4c0-c890-4727-47dde9066ece
+	fromColumn: fCapex_Resumo.PEP
+	toColumn: fCapex_Projetos.PEP
+
+relationship 9fc5f182-71ef-1e55-5295-c00412d74846
+	fromColumn: dUsuáriosPlanos.E-mail
+	toColumn: dAcessoCasulo.E-mail
+
+relationship 22ba5de2-dcab-858d-ca67-6a3f9a448c33
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: dPO.'E-mail Co-owner'
+	toColumn: dAcessoCasulo.E-mail
+

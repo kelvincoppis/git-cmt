@@ -1,0 +1,61 @@
+table GIT_Treinamentos_Padrões
+	lineageTag: 6436d2ae-d401-4d6c-ac97-1e82b952385d
+
+	measure '_Realizado Padrões' = SUM('GIT_Treinamentos_Padrões'[Realizado])
+		formatString: 0
+		lineageTag: fa692c2b-a152-4f07-8859-2aa782c8dd16
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 305dc926-1afd-4bd3-a330-8c856e3ccf0e
+		summarizeBy: none
+		sourceColumn: Data
+
+		variation Variation
+			isDefault
+			relationship: f2d36a2e-bb54-4a31-8d88-306e5e1518e5
+			defaultHierarchy: LocalDateTable_d2cacc71-562f-4353-bb29-124f23a12adb.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Realizado
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9a6ad8bb-3b78-4bb7-b6bb-e30597a0b036
+		summarizeBy: sum
+		sourceColumn: Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column Meta
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: d668f0f1-111a-4c5e-a046-ba39bc035897
+		summarizeBy: sum
+		sourceColumn: Meta
+
+		annotation SummarizationSetBy = Automatic
+
+	partition GIT_Treinamentos_Padrões = m
+		mode: import
+		queryGroup: GIT
+		source =
+				let
+				    Fonte = SharePoint.Files("https://arcelormittal.sharepoint.com/sites/CDM-CMT/", [ApiVersion = 15]),
+				    #"Linhas Classificadas" = Table.Sort(Fonte,{{"Name", Order.Ascending}}),
+				    #"Fonte de Dados GIT CMT xlsx_https://arcelormittal sharepoint com/sites/CDM-CMT/Shared Documents/CMT/11 - GIT CMT/" = #"Linhas Classificadas"{[Name="Fonte de Dados GIT CMT.xlsx",#"Folder Path"="https://arcelormittal.sharepoint.com/sites/CDM-CMT/Shared Documents/CMT/11 - GIT CMT/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Fonte de Dados GIT CMT xlsx_https://arcelormittal sharepoint com/sites/CDM-CMT/Shared Documents/CMT/11 - GIT CMT/"),
+				    #"Treinamentos de padrões_Sheet" = #"Pasta de Trabalho Importada do Excel"{[Item="Treinamentos de padrões",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Treinamentos de padrões_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Data", type date}, {"Realizado", Int64.Type}, {"Meta", Int64.Type}}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Tipo Alterado",{{"Realizado", Percentage.Type}, {"Meta", Percentage.Type}})
+				in
+				    #"Tipo Alterado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

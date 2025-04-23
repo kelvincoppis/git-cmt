@@ -1,0 +1,124 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup #Kelvin
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Dump
+
+	annotation PBI_QueryGroupOrder = 4
+
+queryGroup GIT
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup Main
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup Desembolso
+
+	annotation PBI_QueryGroupOrder = 4
+
+annotation PBI_QueryOrder = ["dDMNDxPRJ","fDemanda","dGerências","fProjeto","fProjeto_Tarefas","fDemanda_Tarefas","fStatusReport","fAprovações","dDataFases","GIT_Ações_desenvolvimento","GIT_Custos_CMT","GIT_Participações","GIT_OKRs_Processos","GIT_Desvio_Custo_Projetos","GIT_Treinamentos_Padrões","GIT_Treinamentos_Compliance","GIT_Hora_extra","PROA_FC","Tab_Stage","#Atualização","dCalendário","DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025","dMês","dRoadmap","dUsuáriosPlanos","dPO","dAcessoCasulo","dURL_Projeto","dURL_Demanda","fCapex","fCapex_Resumo","fCapex_Projetos"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.140.1577.0 (25.02)+00af0910c5ca19a229c472b0dfc17a2c488f6b0a
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table fProjeto
+ref table DateTableTemplate_51964dec-2b14-48d0-b358-22784481f4a2
+ref table LocalDateTable_ccc25a77-cbe0-4500-ae91-6035085cbc7e
+ref table fStatusReport
+ref table fDemanda_Tarefas
+ref table fDemanda
+ref table dDMNDxPRJ
+ref table LocalDateTable_2a01fab9-3395-4d7a-9187-889e883acaea
+ref table LocalDateTable_41ad2308-af04-4a88-b729-270ad664aad1
+ref table LocalDateTable_c046bc68-8f44-4f84-a43a-4f0d4c925762
+ref table LocalDateTable_1645fd40-7836-451d-89d8-2236c10f766f
+ref table LocalDateTable_37fdfef1-0630-482b-b508-a7f854336346
+ref table LocalDateTable_d176f5d3-b855-459e-86a4-a82affc95e68
+ref table LocalDateTable_d8398466-155e-47bf-9f0b-ced65e910316
+ref table LocalDateTable_a90658e2-1f5f-41ba-af34-cc16adf5a2b5
+ref table GIT_Custos_CMT
+ref table GIT_Ações_desenvolvimento
+ref table GIT_Participações
+ref table LocalDateTable_1c40bbfe-d0d2-452d-b2b1-cfac5870909d
+ref table GIT_OKRs_Processos
+ref table GIT_Desvio_Custo_Projetos
+ref table GIT_Treinamentos_Padrões
+ref table GIT_Treinamentos_Compliance
+ref table GIT_Hora_extra
+ref table LocalDateTable_77e94742-ea48-4fda-b93e-40099045921c
+ref table fAprovações
+ref table LocalDateTable_d08d80e7-b5ab-4f14-b5a7-b0a38ca0c8d6
+ref table LocalDateTable_e5074997-2343-45fb-b9d3-e2c102a2bb41
+ref table LocalDateTable_fbb83050-a442-4f98-935b-f36d1b25ffc6
+ref table dDataFases
+ref table dDemandas
+ref table IntervaloFases
+ref table LocalDateTable_edb66021-0115-4241-b66e-1ea821c2508c
+ref table LocalDateTable_17904380-19db-4685-a583-ba3131ab933e
+ref table LocalDateTable_7b5a61db-89c9-4b11-a6b4-a2dfb2322ee9
+ref table LocalDateTable_231db280-ed32-42d5-928e-13c9540b6332
+ref table LocalDateTable_d2cacc71-562f-4353-bb29-124f23a12adb
+ref table tbDias
+ref table LocalDateTable_f73c3f78-5b4e-4536-8d7c-6178eb3b59a1
+ref table LocalDateTable_b233e617-a7bc-49e7-bd05-54a244dc0e86
+ref table LocalDateTable_a2b60311-e14c-469b-8ec3-24c69036b7c8
+ref table LocalDateTable_175b123e-1af2-4986-9af5-3df11398ca12
+ref table LocalDateTable_1249e70d-d426-4f0a-8103-cb65998744d3
+ref table LocalDateTable_f8245717-3751-497a-a047-1ba9937926a7
+ref table LocalDateTable_3c809bfb-3c8b-419c-afe4-02fb7c5d5603
+ref table DocColunas
+ref table DocMeasures
+ref table DocRelation
+ref table DocTabelas
+ref table _Medidas
+ref table dCalendário
+ref table LocalDateTable_8dab3b36-1dcf-4e8d-a8ca-478efc56687a
+ref table #Atualização
+ref table LocalDateTable_41439568-1e61-42ed-8d83-926608a8ff71
+ref table LocalDateTable_68e172ea-930c-410d-adb0-217663c27779
+ref table LocalDateTable_457b300c-665b-4681-877d-7e2d09d3c067
+ref table LocalDateTable_4bd986a5-45cd-459a-b14e-60ef574dec67
+ref table LocalDateTable_b0be1d60-8be5-4f09-8147-1be82aedbba0
+ref table LocalDateTable_05d4bab6-e03b-407b-9e0a-4eba4353169a
+ref table LocalDateTable_ef1a949c-7f53-4b6b-9139-97c9acd3b413
+ref table fProjeto_Tarefas
+ref table LocalDateTable_00159db1-ed19-4e10-9708-40adf3bce095
+ref table LocalDateTable_1059e46e-1c18-45a9-b876-89e35dbc6750
+ref table LocalDateTable_75465971-518e-47ae-b4c6-551ed23979c8
+ref table LocalDateTable_216593aa-5416-498e-a10c-e6b9cc943a5d
+ref table LocalDateTable_7a78bc9e-343c-435d-a5c7-e978de06d07e
+ref table dGerências
+ref table Desembolso_fOpex2025
+ref table Desembolso_dOpex25_Resumo
+ref table dMês
+ref table LocalDateTable_e9e1fa9f-00ae-44b2-a411-25efca3e30c9
+ref table LocalDateTable_24631517-6550-4b7b-8676-2b323a41d9ef
+ref table LocalDateTable_898c70fe-981e-459a-a3fb-03cab8cc5df3
+ref table LocalDateTable_7601a547-2bdf-4f9d-bf72-b7e18f445754
+ref table LocalDateTable_14f42ecc-970b-4e1d-b92c-4671b30b5623
+ref table LocalDateTable_ad682259-dd07-44a2-bf59-3fa16a18aec6
+ref table dRoadmap
+ref table dUsuáriosPlanos
+ref table dPO
+ref table dAcessoCasulo
+ref table dURL_Projeto
+ref table dURL_Demanda
+ref table fCapex
+ref table fCapex_Resumo
+ref table fCapex_Projetos
+
+ref cultureInfo pt-BR
+

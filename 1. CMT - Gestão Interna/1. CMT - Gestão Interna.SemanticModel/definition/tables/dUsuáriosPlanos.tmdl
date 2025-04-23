@@ -1,0 +1,99 @@
+table dUsuáriosPlanos
+	lineageTag: 09d0cd6d-d38b-46dc-90b8-910e5208ebaa
+
+	column Nome
+		dataType: string
+		lineageTag: 1b158177-0290-4698-b72e-ce1e1b9739f0
+		summarizeBy: none
+		sourceColumn: Nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sigla
+		dataType: string
+		lineageTag: 738c9941-8b20-484a-9596-810c8e17762e
+		summarizeBy: none
+		sourceColumn: Sigla
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departamento
+		dataType: string
+		lineageTag: 504e1846-bed2-492c-bc8b-aab2bfefd3e7
+		summarizeBy: none
+		sourceColumn: Departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column E-mail
+		dataType: string
+		lineageTag: e3ca9ff4-cfba-468a-a186-f75777122f84
+		summarizeBy: none
+		sourceColumn: E-mail
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Employee Id'
+		dataType: string
+		lineageTag: b9ca184b-1f76-486d-b430-75df69e834bd
+		summarizeBy: none
+		sourceColumn: Employee Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID do usuário'
+		dataType: string
+		lineageTag: 040703a7-2fa6-4e79-9e60-f2f86ab4f329
+		summarizeBy: none
+		sourceColumn: ID do usuário
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		dataType: string
+		lineageTag: ee5991a5-27fd-4fe7-a90e-daaa5ae5e9a9
+		summarizeBy: none
+		sourceColumn: Cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Acesso
+		dataType: string
+		lineageTag: 538d02fe-f390-49f8-8109-f8aac577f55b
+		summarizeBy: none
+		sourceColumn: Acesso
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primeiro Nome'
+		dataType: string
+		lineageTag: 0b98b41a-3543-4d27-ba35-4125c2702068
+		summarizeBy: none
+		sourceColumn: Primeiro Nome
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dUsuáriosPlanos = m
+		mode: import
+		queryGroup: Main
+		source =
+				let
+				    Fonte = Excel.Workbook(Web.Contents("https://arcelormittal.sharepoint.com/sites/PROA_FC/Documentos%20Compartilhados/05%20-%20Demandas/PBI/All_User.xlsx"), null, true),
+				    #"Page 1_Sheet" = Fonte{[Item="Page 1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Page 1_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Nome", type text}, {"Sigla", type text}, {"Departamento", type text}, {"E-mail", type text}, {"Employee Id", type text}, {"ID do usuário", type text}, {"Cargo", type text}, {"Centro de custos", type text}, {"Nome_1", type text}, {"E-mail_2", type text}, {"Empresa", type text}, {"Empresa do Terceiro", type text}, {"Code", type text}, {"Company Code", type text}, {"Telefone celular", type text}, {"Telefone comercial", type text}, {"Criação", type number}, {"Atualizado em", type number}, {"Hora do último login", type number}, {"UPN", type text}, {"Category", type text}, {"Valid to", type number}, {"Primário", type text}, {"Ativo", type logical}, {"Cargo do Funcionário", type text}, {"Cidade", type text}, {"Funções", type text}, {"Job Title", type text}, {"Local Físico de trabalho", type text}, {"Média de Horas Diárias do FTE/Horas Diárias por Pessoa", type text}, {"Position", type text}, {"Sexo", type text}, {"Subarea", Int64.Type}, {"Unidade Organizacional", type text}, {"Subarea_3", type text}, {"Política de planilha de horas", type any}, {"Local", type text}, {"GHE", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Centro de custos", "Nome_1", "E-mail_2", "Empresa", "Empresa do Terceiro", "Code", "Company Code", "Telefone celular", "Telefone comercial", "Criação", "Atualizado em", "Hora do último login", "UPN", "Category", "Valid to", "Primário", "Ativo", "Cargo do Funcionário", "Cidade", "Funções", "Job Title", "Local Físico de trabalho", "Média de Horas Diárias do FTE/Horas Diárias por Pessoa", "Position", "Sexo", "Subarea", "Unidade Organizacional", "Subarea_3", "Política de planilha de horas", "Local", "GHE"}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Colunas Removidas", "Acesso", each "Sim"),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Personalização Adicionada", each ([#"E-mail"] <> "")),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Linhas Filtradas", "Nome", "Nome - Copiar"),
+				    #"Dividir Coluna por Delimitador" = Table.SplitColumn(#"Coluna Duplicada", "Nome - Copiar", Splitter.SplitTextByDelimiter(" ", QuoteStyle.Csv), {"Nome - Copiar.1", "Nome - Copiar.2", "Nome - Copiar.3", "Nome - Copiar.4", "Nome - Copiar.5", "Nome - Copiar.6"}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Dividir Coluna por Delimitador",{{"Nome - Copiar.1", type text}, {"Nome - Copiar.2", type text}, {"Nome - Copiar.3", type text}, {"Nome - Copiar.4", type text}, {"Nome - Copiar.5", type text}, {"Nome - Copiar.6", type text}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado1",{{"Nome - Copiar.1", "Primeiro Nome"}}),
+				    #"Colunas Removidas1" = Table.RemoveColumns(#"Colunas Renomeadas",{"Nome - Copiar.2", "Nome - Copiar.3", "Nome - Copiar.4", "Nome - Copiar.5", "Nome - Copiar.6"})
+				in
+				    #"Colunas Removidas1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

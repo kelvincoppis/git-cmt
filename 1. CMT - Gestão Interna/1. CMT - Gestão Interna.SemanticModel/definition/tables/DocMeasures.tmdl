@@ -1,0 +1,157 @@
+table DocMeasures
+	lineageTag: 87972e58-2901-4ac5-85aa-dd54969f939e
+
+	column ID
+		formatString: 0
+		lineageTag: d64cc9ee-4ecf-4d9f-abfe-ebbe10fdd804
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: [ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		lineageTag: c24e33a7-8604-4f34-81a6-1aeac75ecf4a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Table
+		lineageTag: f9627473-69dc-4416-b923-41e0032324a2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Table]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		lineageTag: 7ecb0fb8-f8d6-4960-9ff0-6586769099ab
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Description]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataType
+		lineageTag: bcb22047-ddf7-4b90-940d-3f67f06ea7f2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DataType]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Expression
+		lineageTag: 4a166bf6-56d4-49e3-b481-bc5c72e67c0a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Expression]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FormatString
+		lineageTag: 952ee0f1-75c4-4bd3-a5d4-e46f67640ac7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [FormatString]
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 621c1ee3-54cc-4e78-a78f-475b90783ac2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [IsHidden]
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		lineageTag: 28e9d3a2-0173-48c4-8d47-a1c86e85f743
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [State]
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPIID
+		formatString: 0
+		lineageTag: 0bd9fec6-4caa-4ccd-9556-3f22d27ec81d
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: [KPIID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsSimpleMeasure
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3961a6c3-e07c-4bc9-b2f9-8ff7d96223ed
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [IsSimpleMeasure]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DisplayFolder
+		lineageTag: 51fca1ce-2dbc-4edf-a059-4d395b5ca534
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DisplayFolder]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DetailRowsDefinition
+		lineageTag: cd1c249c-de94-408e-9f0b-63ffb996e81b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DetailRowsDefinition]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataCategory
+		lineageTag: 24a20339-66af-44e1-b673-8b495826a306
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DataCategory]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FormatStringDefinition
+		lineageTag: a8620807-3dea-4364-8702-e5a95d7ded6a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [FormatStringDefinition]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LineageTag
+		lineageTag: adb33d29-965f-4fba-a2ec-769b6a7b6d3f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [LineageTag]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TabelaCampos = ```
+			
+			    VAR startPos = SEARCH("'", DocMeasures[Expression], 1, 0) + 1
+			    VAR endPos = SEARCH("'", DocMeasures[Expression], startPos, 0)
+			    RETURN
+			        IF(
+			            startPos > 1 && endPos > 1,
+			            MID(DocMeasures[Expression], startPos, endPos - startPos),
+			            BLANK()  // Retorna em branco caso não encontre as aspas simples
+			        )
+			```
+		lineageTag: 69bdde82-7d5b-4ea8-955d-88105cb222b5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DocMeasures = calculated
+		mode: import
+		source = INFO.VIEW.MEASURES()
+
+	annotation PBI_Id = 1b5bdf5eb672441d97c2368813b837d2
+

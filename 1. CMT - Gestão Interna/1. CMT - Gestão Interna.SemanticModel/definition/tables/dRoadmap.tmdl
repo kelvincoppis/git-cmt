@@ -1,0 +1,25 @@
+table dRoadmap
+	lineageTag: 42ab7486-be24-4456-a2e4-2da7924c48bb
+
+	column Roadmap
+		dataType: string
+		lineageTag: 4202d2da-b3bf-4266-abaa-67129aba6026
+		summarizeBy: none
+		sourceColumn: Roadmap
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dRoadmap = m
+		mode: import
+		queryGroup: Main
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("Xc4rDoAwFETRrZBqRHkz5bMNbFPRpJbA/hVYrj3q1JrOu4+rP1PkiNTmH4hgQiGshI2wEw6AMmEhcCpOxak4FafiVJyKU3NqTs2pOTWn5tScmlNzak7LN20v", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Roadmap = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Roadmap", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

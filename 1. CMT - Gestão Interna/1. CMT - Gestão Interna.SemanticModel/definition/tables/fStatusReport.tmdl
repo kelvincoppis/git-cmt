@@ -1,0 +1,386 @@
+table fStatusReport
+	lineageTag: 3462a53e-7f6f-4c49-b6e8-a687d81cf659
+
+	measure '% Planejado' = AVERAGE(fStatusReport[Planejado])
+		formatString: 0%;-0%;0%
+		lineageTag: c455b468-c09a-475d-87e2-bb966df831c3
+
+	measure '% Realizado média'
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 66c8ec18-6aaf-45c9-952a-997f44d4a81c
+
+	measure '% Realizado' = CALCULATE(AVERAGE(fStatusReport[Percentagem de conclusão])/100)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 564768c8-ddc7-4bb4-abcc-32891c6f5425
+
+	column 'Status Report #'
+		dataType: string
+		lineageTag: cb017b0f-dea9-461d-90e2-c02d6a2d26a1
+		summarizeBy: none
+		sourceColumn: Status Report #
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Projeto #'
+		dataType: string
+		lineageTag: 8f80239c-b2bb-41d2-bc93-4f41f92f7ca4
+		summarizeBy: none
+		sourceColumn: Projeto #
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data do Status'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: c57d5e7d-225c-43ce-96ee-0560eb3963de
+		summarizeBy: none
+		sourceColumn: Data do Status
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Atualizado por'
+		dataType: string
+		lineageTag: 6ff324f3-42a4-4fd3-8e19-5b3920fb1d98
+		summarizeBy: none
+		sourceColumn: Atualizado por
+
+		annotation SummarizationSetBy = Automatic
+
+	column Atualizações
+		dataType: int64
+		formatString: 0
+		lineageTag: 9132225b-50be-4d49-943e-c01e9c63cab1
+		summarizeBy: sum
+		sourceColumn: Atualizações
+
+		annotation SummarizationSetBy = Automatic
+
+	column Comentários
+		dataType: string
+		lineageTag: 54235828-73ff-4f0b-97a6-5e92f99df428
+		summarizeBy: none
+		sourceColumn: Comentários
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Atividades Planejadas'
+		dataType: string
+		lineageTag: 7d1a8771-a4e2-4928-bfae-e4ceb1fa871e
+		summarizeBy: none
+		sourceColumn: Atividades Planejadas
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Atividades Concluídas'
+		dataType: string
+		lineageTag: fbddaa43-d456-4675-b460-7c664c8d73d5
+		summarizeBy: none
+		sourceColumn: Atividades Concluídas
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Atividades em Andamento'
+		dataType: string
+		lineageTag: b594d0b2-7d91-4a77-b8ab-ffa76d58a22f
+		summarizeBy: none
+		sourceColumn: Atividades em Andamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Criado(a) por'
+		dataType: string
+		lineageTag: 673c258a-997c-4938-a349-7d8f008cfc5a
+		summarizeBy: none
+		sourceColumn: Criado(a) por
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data de início planejada'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 114e614f-4296-435e-a81e-2c2ed54c92f3
+		summarizeBy: none
+		sourceColumn: Data de início planejada
+
+		variation Variation
+			isDefault
+			relationship: 51f13db3-3f33-429c-a934-2144bb53604e
+			defaultHierarchy: LocalDateTable_14f42ecc-970b-4e1d-b92c-4671b30b5623.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data de término planejada'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7621ec05-6efc-4e2d-a970-b0d2ba0ccbcd
+		summarizeBy: none
+		sourceColumn: Data de término planejada
+
+		variation Variation
+			isDefault
+			relationship: c489a365-ae1b-469d-8f21-f42e7413d281
+			defaultHierarchy: LocalDateTable_ad682259-dd07-44a2-bf59-3fa16a18aec6.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Planejado
+		dataType: double
+		lineageTag: 9cf928a0-5d34-48eb-b05b-804514976c77
+		summarizeBy: sum
+		sourceColumn: Planejado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Percentagem de conclusão'
+		dataType: double
+		lineageTag: d0697095-d245-42c9-83a9-e392b5ddf7fb
+		summarizeBy: sum
+		sourceColumn: Percentagem de conclusão
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fStatusReport = m
+		mode: import
+		queryGroup: Main
+		source = ```
+				let
+				    Fonte = Excel.Workbook(Web.Contents("https://arcelormittal.sharepoint.com/sites/PROA_FC/Documentos%20Compartilhados/05%20-%20Demandas/PBI/DB_Project_Status_tsp3.xlsx"), null, true),
+				    #"Page 1_Sheet" = Fonte{[Item="Page 1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Page 1_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Número", type text}, {"Projeto", type text}, {"Data de status", type date}, {"Integridade geral", type text}, {"Custo", type text}, {"Escopo", type text}, {"Prazo", type text}, {"Recursos", type text}, {"Atualizado em", type number}, {"Atualizado por", type text}, {"Atualizações", Int64.Type}, {"Comentários", type text}, {"Comentários sobre Orçamento", type text}, {"Comentários sobre custo", type text}, {"Comentários sobre escopo", type text}, {"Comentários sobre programação", type text}, {"Comentários sobre recursos", type text}, {"Custo do Orçamento", Int64.Type}, {"Custo planejado", Int64.Type}, {"Custo real", Int64.Type}, {"Percentagem de conclusão", type number}, {"Principais atividades planejadas", type text}, {"Realizações da semana passada", type text}, {"Resumo executivo", type text}, {"Tags", type text}, {"Criado(a) por", type text}, {"Criação", type date}, {"Data de início aprovada", type date}, {"Data de início planejada", type date}, {"Data de início real", type date}, {"Data de término aprovada", type date}, {"Data de término planejada", type date}, {"Data de término real", type date}, {"Estado", type text}, {"Fase", type text}, {"Orçamento", type text}, {"Previsão", Int64.Type}, {"Data de restrição", type number}}),
+				    #"Colunas Removidas1" = Table.RemoveColumns(#"Tipo Alterado",{"Estado", "Fase", "Orçamento", "Previsão", "Integridade geral", "Custo", "Escopo", "Prazo", "Recursos"}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Colunas Removidas1",{{"Data de restrição", type date}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado1",{"Comentários sobre Orçamento", "Comentários sobre custo", "Comentários sobre escopo", "Comentários sobre programação", "Comentários sobre recursos", "Custo do Orçamento", "Custo planejado", "Custo real", "Tags", "Atualizado em", "Criação", "Data de início aprovada", "Data de início real", "Data de término aprovada", "Data de término real", "Data de restrição"}),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Colunas Removidas",{{"Principais atividades planejadas", "Atividades Planejadas"}, {"Realizações da semana passada", "Atividades Concluídas"}, {"Resumo executivo", "Atividades em Andamento"}, {"Projeto", "Projeto #"}, {"Número", "Status Report #"}, {"Data de status", "Data do Status"}}),
+				    #"ComentáriosLimpos" = Table.TransformColumns(
+				    #"Colunas Renomeadas1", 
+				    {{"Comentários", each 
+				        if (Type.Is(Value.Type(_), type text)) then 
+				            List.Accumulate(
+				                {
+				                    {"<br />", "#(lf)"},
+				                    {"<p>", ""},
+				                    {"</p>", ""},
+				                    {"<ul style=""list-style-position: inside;"" type=""disc"">", ""},
+				                    {"<ul style=""list-style-position: inside;"" type=""circle"">", ""},
+				                    {"<ul style=""list-style-position: inside;"">", ""},
+				                    {"<li>", "• "},
+				                    {"</li>", "#(lf)"},
+				                    {"</ul>", ""},
+				                    {"<span>", ""},
+				                    {"</span>", ""},
+				                    {"&nbsp;", ""},
+				                    {"<div>", ""},
+				                    {"</div>", "#(lf)"},
+				                    {"&#43;", "+"},      // Corrige "+"
+				                    {"-&gt;", "-"},       // Remove "->"
+				                    {"<strong>", ""},    // Remove "<strong>"
+				                    {"</strong>", ""},   // Remove "</strong>"
+				                    {"<u>", ""},         // Remove "<u>" (sublinhado)
+				                    {"</u>", ""},        // Remove "</u>"
+				                    {"<a id=", ""},      // Remove qualquer link
+				                    {"href=", ""},
+				                    {"target=", ""},
+				                    {"rel=", ""},
+				                    {"noopener noreferrer nofollow", ""},
+				                    {"</a>", ""}
+				                }, 
+				                _, 
+				                (txt, par) => Text.Replace(txt, par{0}, par{1})
+				            )
+				        else
+				            _
+				        , type text}
+				    }
+				),
+				#"SemEspaçosExtras" = Table.TransformColumns(
+				    #"ComentáriosLimpos", 
+				    {{"Comentários", each Text.Trim(_)}} // Remove espaços extras no início e fim
+				),
+				#"PlanejadasLimpo" = Table.TransformColumns(
+				    #"SemEspaçosExtras", 
+				    {{"Atividades Planejadas", each 
+				         if (Type.Is(Value.Type(_), type text)) then 
+				            List.Accumulate(
+				                {
+				                    {"<br />", "#(lf)"},
+				                    {"<p>", ""},
+				                    {"</p>", ""},
+				                    {"<p id=""tinyEle"">", ""},
+				                    {"</p>", ""},
+				                    {"<ol style=""list-style-position: inside;"">", ""},
+				                    {"</ol>", ""},
+				                    {"<ul style=""list-style-position: inside;"" type=""disc"">", ""},
+				                    {"<ul style=""list-style-position: inside;"" type=""circle"">", ""},
+				                    {"<ul style=""list-style-position: inside;"">", ""},
+				                    {"<li>", "• "},
+				                    {"</li>", "#(lf)"},
+				                    {"</ul>", ""},
+				                    {"<span>", ""},
+				                    {"</span>", ""},
+				                    {"<span style=""text-decoration: underline;"">", ""},
+				                    {"<strong>", ""},
+				                    {"</strong>", ""},
+				                    {"&nbsp;", ""},
+				                    {"<div>", ""},
+				                    {"</div>", "#(lf)"},
+				                    {"&#43;", "+"},      // Corrige "+"
+				                    {"&#61;&gt;", " => "}, // Corrige "=" e ">"
+				                    {"-&gt;", "->"},    // Mantém "->" para indicar setas em alguns casos
+				                    {"<u>", ""},       
+				                    {"</u>", ""},
+				                    {"<a id=", ""},
+				                    {"href=", ""},
+				                    {"target=", ""},
+				                    {"rel=", ""},
+				                    {"noopener noreferrer nofollow", ""},
+				                    {"</a>", ""}
+				                }, 
+				                _, 
+				                (txt, par) => Text.Replace(txt, par{0}, par{1})
+				            )
+				        else
+				            _
+				        , type text}
+				    }
+				),
+				#"SemEspaçosExtras1" = Table.TransformColumns(
+				    #"PlanejadasLimpo", 
+				    {{"Atividades Planejadas", each Text.Trim(_)}} // Remove espaços extras no início e fim
+				),
+				#"ConcluídasLimpo" = Table.TransformColumns(
+				    #"SemEspaçosExtras1", 
+				    {{"Atividades Concluídas", each 
+				         if (Type.Is(Value.Type(_), type text)) then 
+				            List.Accumulate(
+				                {
+				                    {"<br />", "#(lf)"},
+				                    {"<p>", ""},
+				                    {"</p>", ""},
+				                    {"<p id=""tinyEle"">", ""},
+				                    {"</p>", ""},
+				                    {"<ol style=""list-style-position: inside;"">", ""},
+				                    {"</ol>", ""},
+				                    {"<ul style=""list-style-position: inside;"" type=""disc"">", ""},
+				                    {"<ul style=""list-style-position: inside;"" type=""circle"">", ""},
+				                    {"<ul style=""list-style-position: inside;"">", ""},
+				                    {"<li>", "• "},
+				                    {"</li>", "#(lf)"},
+				                    {"</ul>", ""},
+				                    {"<span>", ""},
+				                    {"</span>", ""},
+				                    {"<span style=""text-decoration: underline;"">", ""},
+				                    {"<strong>", ""},
+				                    {"</strong>", ""},
+				                    {"&nbsp;", ""},
+				                    {"<div>", ""},
+				                    {"</div>", "#(lf)"},
+				                    {"&#43;", "+"},      // Corrige "+"
+				                    {"&#61;&gt;", " => "}, // Corrige "=" e ">"
+				                    {"-&gt;", "->"},    // Mantém "->" para indicar setas em alguns casos
+				                    {"<u>", ""},       
+				                    {"</u>", ""},
+				                    {"<a id=", ""},
+				                    {"href=", ""},
+				                    {"target=", ""},
+				                    {"rel=", ""},
+				                    {"noopener noreferrer nofollow", ""},
+				                    {"</a>", ""}
+				                }, 
+				                _, 
+				                (txt, par) => Text.Replace(txt, par{0}, par{1})
+				            )
+				        else
+				            _
+				        , type text}
+				    }
+				),
+				#"SemEspaçosExtras2" = Table.TransformColumns(
+				    #"ConcluídasLimpo", 
+				    {{"Atividades Concluídas", each Text.Trim(_)}}), // Remove espaços extras no início e fim
+				#"AndamentoLimpo" = Table.TransformColumns(
+				    #"SemEspaçosExtras2", 
+				    {{"Atividades em Andamento", each 
+				         if (Type.Is(Value.Type(_), type text)) then 
+				            List.Accumulate(
+				                {
+				                    {"<br />", "#(lf)"},
+				                    {"<p>", ""},
+				                    {"</p>", ""},
+				                    {"<p id=""tinyEle"">", ""},
+				                    {"</p>", ""},
+				                    {"<ol style=""list-style-position: inside;"">", ""},
+				                    {"</ol>", ""},
+				                    {"<ul style=""list-style-position: inside;"" type=""disc"">", ""},
+				                    {"<ul style=""list-style-position: inside;"" type=""circle"">", ""},
+				                    {"<ul style=""list-style-position: inside;"">", ""},
+				                    {"<li>", "• "},
+				                    {"</li>", "#(lf)"},
+				                    {"</ul>", ""},
+				                    {"<span>", ""},
+				                    {"</span>", ""},
+				                    {"<span style=""text-decoration: underline;"">", ""},
+				                    {"<strong>", ""},
+				                    {"</strong>", ""},
+				                    {"&nbsp;", ""},
+				                    {"<div>", ""},
+				                    {"</div>", "#(lf)"},
+				                    {"&#43;", "+"},      // Corrige "+"
+				                    {"&#61;&gt;", " => "}, // Corrige "=" e ">"
+				                    {"-&gt;", "->"},    // Mantém "->" para indicar setas em alguns casos
+				                    {"<u>", ""},       
+				                    {"</u>", ""},
+				                    {"<a id=", ""},
+				                    {"href=", ""},
+				                    {"target=", ""},
+				                    {"rel=", ""},
+				                    {"noopener noreferrer nofollow", ""},
+				                    {"</a>", ""}
+				                }, 
+				                _, 
+				                (txt, par) => Text.Replace(txt, par{0}, par{1})
+				            )
+				        else
+				            _
+				        , type text}
+				    }
+				),
+				#"SemEspaçosExtras3" = Table.TransformColumns(
+				    #"AndamentoLimpo", 
+				    {{"Atividades em Andamento", each Text.Trim(_)}}), // Remove espaços extras no início e fim
+				#"ColunaPlanejada" = Table.AddColumn(
+				        #"SemEspaçosExtras3", 
+				        "% Planejado", 
+				        each 
+				            let
+				                DiasDecorridos = Duration.Days([Data do Status] - [Data de início planejada]),
+				                DiasTotais = Duration.Days([Data de término planejada] - [Data de início planejada])
+				            in
+				                if DiasDecorridos >= 0 and DiasTotais > 0 then
+				                    if DiasDecorridos <= DiasTotais then 
+				                        DiasDecorridos / DiasTotais
+				                    else
+				                        1
+				                else
+				                    0
+				    ),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(ColunaPlanejada,{{"% Planejado", type number}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado2",{{"% Planejado", "Planejado"}})
+				in
+				    #"Colunas Renomeadas"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

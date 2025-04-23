@@ -1,0 +1,277 @@
+table Desembolso_fOpex2025
+	lineageTag: 1d5ec28b-19ff-408d-8d53-f9a283bd51dc
+	sourceLineageTag: c9c7e786-52d9-4830-910f-45d3f7bd29df
+
+	measure '_Budget25 Opex' = EXTERNALMEASURE("_Budget25 Opex", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: a7d4e148-b496-4f99-861a-cdb3a900a0e4
+		sourceLineageTag: 8b04dee0-16ef-47e2-bd64-56e255525a0b
+		dataCategory: Uncategorized
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '_MRF25 Opex (k)' = EXTERNALMEASURE("_MRF25 Opex (k)", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		formatString: """R$"" #,##0 ""k"""
+		lineageTag: 293ecbea-a91f-42eb-9c66-56cff72b4a0a
+		sourceLineageTag: c623b9ab-ee65-46ac-9a13-5ea004a91f99
+		dataCategory: Uncategorized
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure '_Realizado25 Opex' = EXTERNALMEASURE("_Realizado25 Opex", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		formatString: """R$"" #,##0 ""k"""
+		lineageTag: 41430dc7-b416-48fd-8911-e27907fe8b73
+		sourceLineageTag: e0a81864-af62-4319-8629-0718b41c9f08
+		dataCategory: Uncategorized
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure #F-It = EXTERNALMEASURE("#F-It", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		lineageTag: 0455ff2e-3c02-4f92-b63d-a56a1869e5dc
+		sourceLineageTag: 3bcb8c7a-e7c9-4f7c-bc58-a6f977f34573
+		dataCategory: Uncategorized
+
+	measure #RemainingBudget = EXTERNALMEASURE("#RemainingBudget", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		lineageTag: e2cc098f-0a68-48d8-b8cc-da883df06abc
+		sourceLineageTag: 6f8e4916-2eb3-474a-aa20-566678297421
+		dataCategory: Uncategorized
+
+	measure #DistributedBudget = EXTERNALMEASURE("#DistributedBudget", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		lineageTag: de2913a7-8638-4336-945d-8f1c44c901b9
+		sourceLineageTag: 8a4b5a0f-e37c-4f95-86a4-32da8c1c8dac
+		dataCategory: Uncategorized
+
+	measure #AdjustedBudget = EXTERNALMEASURE("#AdjustedBudget", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		lineageTag: 542b98b9-4032-42d9-aacb-9e67a28e7b7e
+		sourceLineageTag: d71d6847-e8ab-4cb2-a7a6-407bab9cc8b7
+		dataCategory: Uncategorized
+
+	measure _SaldoRestante = EXTERNALMEASURE("_SaldoRestante", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		lineageTag: 5829001b-43fc-478a-be3f-92b26db73107
+		sourceLineageTag: 55518d6e-2476-4229-aa96-e2c2b62bd546
+		dataCategory: Uncategorized
+
+	measure '_Budget Redist' = EXTERNALMEASURE("_Budget Redist", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		formatString: #,##0\ "k"
+		lineageTag: b43b5a36-dbb7-4da3-af8d-fdc6439e09aa
+		sourceLineageTag: c8c6576c-a96d-4f0a-907a-b63056d142bc
+		dataCategory: Uncategorized
+
+	measure '_Realizado25 Opex Anual' = EXTERNALMEASURE("_Realizado25 Opex Anual", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		lineageTag: 56fa238f-39fc-4876-a68a-cd62982a6c22
+		sourceLineageTag: 77e4d9d4-b728-4129-9e92-c03d48a6c76c
+		dataCategory: Uncategorized
+
+	measure '_Budget25 Maximo' = EXTERNALMEASURE("_Budget25 Maximo", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		formatString: """R$"" #,##0 ""k"""
+		lineageTag: a9c8bc55-1bf3-4087-a019-4a329249cc49
+		sourceLineageTag: 22522c5f-7ce1-4b49-9a7e-5652cf0de4a0
+		dataCategory: Uncategorized
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure '_Bdgt Redist Card' = EXTERNALMEASURE("_Bdgt Redist Card", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		formatString: #,##0\ "k"
+		lineageTag: 993e28fa-6ff9-4f88-aaf0-c74c633ce7fb
+		sourceLineageTag: 246c007c-1559-4298-916e-72ed779a05a6
+		dataCategory: Uncategorized
+
+	measure '_MRF x Budget (%)' = EXTERNALMEASURE("_MRF x Budget (%)", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		formatString: 0%;-0%;0%
+		lineageTag: 5659dac1-8613-4a7d-8d8a-7910b449bee5
+		sourceLineageTag: 48abe582-7c83-44b6-ba09-8ed069bd048d
+		dataCategory: Uncategorized
+
+	measure '_MRF25 Opex Anual' = EXTERNALMEASURE("_MRF25 Opex Anual", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		lineageTag: c93287c4-3d45-47ef-80c6-fbc604f67929
+		sourceLineageTag: 70c6123c-27f7-4970-8060-91a3ae610f1d
+		dataCategory: Uncategorized
+
+	measure '_Realizado x Budget (%)' = EXTERNALMEASURE("_Realizado x Budget (%)", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		formatString: 0%;-0%;0%
+		lineageTag: d82e0f85-0da7-45c0-9637-500e7c1e86f8
+		sourceLineageTag: 1d8e4f12-65ca-48c7-b09e-ee131678fa69
+		dataCategory: Uncategorized
+
+	measure 'Orçamento (Table)' = EXTERNALMEASURE("Orçamento (Table)", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		formatString: #,##0\ "k"
+		lineageTag: 2bd778b0-61a0-4b2d-af49-db37eaa091aa
+		sourceLineageTag: cf5d65c0-f947-4faf-a9a0-34c6a2b7ad1a
+		dataCategory: Uncategorized
+
+	measure '_MRF25 Opex (R$)' = EXTERNALMEASURE("_MRF25 Opex (R$)", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 71540ede-5cc7-4d06-b4f4-6fc1dc67a41a
+		sourceLineageTag: 5dc64db9-0f1a-4e0d-984c-47f09baef867
+		dataCategory: Uncategorized
+
+	measure '_Actual Opex (R$)' = EXTERNALMEASURE("_Actual Opex (R$)", DOUBLE, "DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025")
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 9dc07640-4ba4-4cd8-94cc-07240b52bbb9
+		sourceLineageTag: 7bf0da0b-a85c-4f6d-9f3a-8e69606431a8
+		dataCategory: Uncategorized
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'OI / CC'
+		dataType: string
+		lineageTag: 7e62ce29-5443-4648-8f98-510975626a38
+		sourceLineageTag: e0f08144-f943-41d8-97c7-f91a3fdb7e3a
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: OI / CC
+
+		annotation SummarizationSetBy = User
+
+	column Projeto
+		dataType: string
+		lineageTag: e90e760b-9e5e-40ac-bd5b-f8483747987a
+		sourceLineageTag: 3d4114b7-994f-4fa4-aa17-69fc92b4e93f
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Projeto
+
+		annotation SummarizationSetBy = User
+
+	column Budget
+		dataType: int64
+		formatString: "R$" \#\,\#\#\0
+		lineageTag: 7cf9c344-70ba-4acd-92bd-9fea830dfd5b
+		sourceLineageTag: 54c3edc6-3dbf-4a68-8a96-76fe71bd8090
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: Budget
+
+		annotation SummarizationSetBy = User
+
+	column Portfólio
+		dataType: string
+		lineageTag: f1a40a46-c22c-4af4-91be-a61955584d08
+		sourceLineageTag: 46313058-2b32-41db-89b3-7d5fb99db68b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Portfólio
+
+		annotation SummarizationSetBy = User
+
+	column GG
+		dataType: string
+		lineageTag: 9524ad2e-644a-4fae-af9c-a6892be7fd28
+		sourceLineageTag: b866e1e6-b113-450d-bb8a-bff115f24899
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: GG
+
+		annotation SummarizationSetBy = User
+
+	column G
+		dataType: string
+		lineageTag: d97ee42a-39fb-4674-9c55-0ec6e1a1dd44
+		sourceLineageTag: 4a5f34a6-98f4-49b7-a45b-cbd7324ce235
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: G
+
+		annotation SummarizationSetBy = User
+
+	column CMT
+		dataType: string
+		lineageTag: 18cf354a-028b-4d21-bb97-94803f99c4fd
+		sourceLineageTag: 5bb662ac-3b1b-4c38-887c-04c504c2f318
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: CMT
+
+		annotation SummarizationSetBy = User
+
+	column TI
+		dataType: string
+		lineageTag: e90e4d48-603b-44bf-ae92-9ea6ca93bed4
+		sourceLineageTag: 42b9aeff-bbb1-4f10-a38c-dffa08afccb9
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: TI
+
+		annotation SummarizationSetBy = User
+
+	column 'Demanda Casulo'
+		dataType: string
+		lineageTag: 46747f06-a5ca-4e96-a651-a214581b653c
+		sourceLineageTag: 7869b85b-a2b4-4105-b6c3-ad755ba93ffc
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Demanda Casulo
+
+		annotation SummarizationSetBy = User
+
+	column 'Projeto Casulo'
+		dataType: string
+		lineageTag: 6498af99-ac01-4e0b-8842-25f12c343e94
+		sourceLineageTag: 097bbe1f-365c-4d83-baa9-985bd9b51ea5
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Projeto Casulo
+
+		annotation SummarizationSetBy = User
+
+	column Atributo
+		dataType: string
+		lineageTag: ab5a4484-1423-4fd3-ba0c-53084468186e
+		sourceLineageTag: c7ef48dc-324c-495f-afcf-72cac66b7b04
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Atributo
+
+		annotation SummarizationSetBy = User
+
+	column Valor
+		dataType: double
+		lineageTag: 0dca3f9e-a6b7-4862-bf01-81a34b2c19e4
+		sourceLineageTag: e4b11ec2-f9f4-4979-857b-f827bea51744
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = User
+
+	column Mês
+		dataType: int64
+		formatString: 0
+		lineageTag: 57084b0c-9e65-432b-88ff-83a7ce8fc3af
+		sourceLineageTag: ce054a59-480a-4e08-84ca-e21dfccd3129
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Mês
+
+		annotation SummarizationSetBy = User
+
+	column Tipo
+		dataType: string
+		lineageTag: 9bdb8dd7-9750-43f6-86ed-2d8de636a813
+		sourceLineageTag: dd5931e2-14fa-41d2-b595-4fed81a5de34
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Tipo
+
+		annotation SummarizationSetBy = User
+
+	partition Desembolso_fOpex2025 = entity
+		mode: directQuery
+		source
+			entityName: Projetos Opex - 2025
+			expressionSource: 'DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025'
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Exception
+

@@ -1,0 +1,46 @@
+table dDMNDxPRJ
+	lineageTag: 9a79052d-9c04-4edf-8f55-320ecf873148
+
+	column 'Demanda #'
+		dataType: string
+		lineageTag: 650aa8d3-656c-491e-aa78-750dc0ae626d
+		summarizeBy: none
+		sourceColumn: Demanda #
+
+		annotation SummarizationSetBy = Automatic
+
+	column Demanda
+		dataType: string
+		lineageTag: 4277f111-417b-426c-9626-1a3cfe42833d
+		summarizeBy: none
+		sourceColumn: Demanda
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Projeto #'
+		dataType: string
+		lineageTag: 24375b4d-e6ce-4ca6-b4ee-3c3c32671500
+		summarizeBy: none
+		sourceColumn: Projeto #
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dDMNDxPRJ = m
+		mode: import
+		queryGroup: Main
+		source =
+				let
+				    Fonte = Excel.Workbook(Web.Contents("https://arcelormittal.sharepoint.com/sites/CDM-CMT/Shared%20Documents/CMT/00%20-%20Atua%C3%A7%C3%A3o%20CMT/03.%20PBI/dLink_Projeto-Demanda.xlsx"), null, true),
+				    Plan1_Sheet = Fonte{[Item="Plan1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Plan1_Sheet, [PromoteAllScalars=true]),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Cabeçalhos Promovidos", {"Demanda"}, fDemanda, {"Demanda #"}, "fDemanda", JoinKind.LeftOuter),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Consultas Mescladas",{{"Demanda", "Demanda #"}, {"Projeto", "Projeto #"}}),
+				    #"fDemanda Expandido" = Table.ExpandTableColumn(#"Colunas Renomeadas", "fDemanda", {"Demanda"}, {"Demanda"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"fDemanda Expandido",{{"Demanda #", type text}, {"Projeto #", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

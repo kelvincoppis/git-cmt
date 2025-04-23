@@ -1,0 +1,72 @@
+table dAcessoCasulo
+	lineageTag: f6ca45dd-3410-4450-a1b9-bba0623edf12
+
+	column Acesso
+		dataType: string
+		lineageTag: 2c99b7c8-3eb2-457b-bd71-571562cb5e81
+		summarizeBy: none
+		sourceColumn: Acesso
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grupo
+		dataType: string
+		lineageTag: 5807b468-13c6-41d1-939c-efe426174cb4
+		summarizeBy: none
+		sourceColumn: Grupo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ativo
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a5a52df8-512e-4022-afb8-465c0f1306b5
+		summarizeBy: none
+		sourceColumn: Ativo
+
+		annotation SummarizationSetBy = Automatic
+
+	column E-mail
+		dataType: string
+		lineageTag: e2249a66-37b4-4604-971f-a31d9681d90f
+		summarizeBy: none
+		sourceColumn: E-mail
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: 0ff01cf1-e971-4785-ba08-42412b3d1024
+		summarizeBy: none
+		sourceColumn: Nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column Usuário
+		dataType: string
+		lineageTag: d4b2f470-9536-4fd2-aaf1-8b3af51ac321
+		summarizeBy: none
+		sourceColumn: Usuário
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dAcessoCasulo = m
+		mode: import
+		queryGroup: Main
+		source =
+				let
+				    Fonte = Json.Document(Web.Contents("https://arcelormittal.sharepoint.com/sites/CDM-CMT/Shared%20Documents/CMT/00%20-%20Atua%C3%A7%C3%A3o%20CMT/03.%20PBI/dUsuariosCasulo.json")),
+				    #"Convertido para Tabela" = Table.FromRecords({Fonte}),
+				    #"records Expandido" = Table.ExpandListColumn(#"Convertido para Tabela", "records"),
+				    #"records Expandido1" = Table.ExpandRecordColumn(#"records Expandido", "records", {"gr_cost_center", "gr_hourly_rate", "mb_sys_updated_by", "gr_sys_created_on", "mb_sys_mod_count", "mb_user", "gr_manager", "gr_name", "mb_sys_created_on", "gr_default_assignee", "mb_scrum_role", "us_department", "mb_sys_updated_on", "us_active", "gr_sys_created_by", "us_email", "us_sys_domain_path", "gr_type", "mb_group", "mb_sys_id", "gr_parent", "us_company", "us_sys_domain", "gr_include_members", "gr_sys_tags", "gr_u_business_partner_group", "gr_points", "gr_description", "gr_exclude_manager", "mb_sys_created_by", "__status", "gr_source", "us_sys_class_name", "us_name", "us_manager", "gr_sys_mod_count", "gr_sys_updated_on", "us_cost_center", "us_last_login", "gr_active", "us_sys_id", "gr_email", "gr_sys_updated_by", "us_user_name", "gr_sys_id", "gr_average_daily_fte", "mb_points", "mb_sys_tags"}, {"records.gr_cost_center", "records.gr_hourly_rate", "records.mb_sys_updated_by", "records.gr_sys_created_on", "records.mb_sys_mod_count", "records.mb_user", "records.gr_manager", "records.gr_name", "records.mb_sys_created_on", "records.gr_default_assignee", "records.mb_scrum_role", "records.us_department", "records.mb_sys_updated_on", "records.us_active", "records.gr_sys_created_by", "records.us_email", "records.us_sys_domain_path", "records.gr_type", "records.mb_group", "records.mb_sys_id", "records.gr_parent", "records.us_company", "records.us_sys_domain", "records.gr_include_members", "records.gr_sys_tags", "records.gr_u_business_partner_group", "records.gr_points", "records.gr_description", "records.gr_exclude_manager", "records.mb_sys_created_by", "records.__status", "records.gr_source", "records.us_sys_class_name", "records.us_name", "records.us_manager", "records.gr_sys_mod_count", "records.gr_sys_updated_on", "records.us_cost_center", "records.us_last_login", "records.gr_active", "records.us_sys_id", "records.gr_email", "records.gr_sys_updated_by", "records.us_user_name", "records.gr_sys_id", "records.gr_average_daily_fte", "records.mb_points", "records.mb_sys_tags"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"records Expandido1",{{"records.gr_cost_center", type any}, {"records.gr_hourly_rate", Int64.Type}, {"records.mb_sys_updated_by", type text}, {"records.gr_sys_created_on", type datetime}, {"records.mb_sys_mod_count", Int64.Type}, {"records.mb_user", type text}, {"records.gr_manager", type text}, {"records.gr_name", type text}, {"records.mb_sys_created_on", type datetime}, {"records.gr_default_assignee", type any}, {"records.mb_scrum_role", type any}, {"records.us_department", type text}, {"records.mb_sys_updated_on", type datetime}, {"records.us_active", type logical}, {"records.gr_sys_created_by", type text}, {"records.us_email", type text}, {"records.us_sys_domain_path", type text}, {"records.gr_type", type any}, {"records.mb_group", type text}, {"records.mb_sys_id", type text}, {"records.gr_parent", type text}, {"records.us_company", type text}, {"records.us_sys_domain", type text}, {"records.gr_include_members", type logical}, {"records.gr_sys_tags", type any}, {"records.gr_u_business_partner_group", type logical}, {"records.gr_points", Int64.Type}, {"records.gr_description", type text}, {"records.gr_exclude_manager", type logical}, {"records.mb_sys_created_by", type text}, {"records.__status", type text}, {"records.gr_source", type any}, {"records.us_sys_class_name", type text}, {"records.us_name", type text}, {"records.us_manager", type text}, {"records.gr_sys_mod_count", Int64.Type}, {"records.gr_sys_updated_on", type datetime}, {"records.us_cost_center", type text}, {"records.us_last_login", type date}, {"records.gr_active", type logical}, {"records.us_sys_id", type text}, {"records.gr_email", type any}, {"records.gr_sys_updated_by", Int64.Type}, {"records.us_user_name", type text}, {"records.gr_sys_id", type text}, {"records.gr_average_daily_fte", type any}, {"records.mb_points", Int64.Type}, {"records.mb_sys_tags", type any}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"records.gr_name", "records.us_active", "records.us_email", "records.us_name", "records.us_user_name"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Outras Colunas Removidas",{{"records.gr_name", "Grupo"}, {"records.us_active", "Ativo"}, {"records.us_email", "E-mail"}, {"records.us_name", "Nome"}, {"records.us_user_name", "Usuário"}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Colunas Renomeadas", "Acesso", each "Sim")
+				in
+				    #"Personalização Adicionada"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

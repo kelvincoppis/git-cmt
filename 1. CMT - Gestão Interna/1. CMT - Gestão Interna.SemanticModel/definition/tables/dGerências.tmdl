@@ -1,0 +1,64 @@
+table dGerências
+	lineageTag: df0cedf6-1dae-4048-802c-dbae7cc21be6
+
+	column 'Demanda #'
+		dataType: string
+		lineageTag: 52f6c858-34af-45c4-a197-919d01a5b54a
+		summarizeBy: none
+		sourceColumn: Demanda #
+
+		annotation SummarizationSetBy = Automatic
+
+	column GA
+		dataType: string
+		lineageTag: 73826629-fb98-428a-a846-f29c48dd021b
+		summarizeBy: none
+		sourceColumn: GA
+
+		annotation SummarizationSetBy = Automatic
+
+	column G
+		dataType: string
+		lineageTag: f5f29e49-9fd5-4bf1-bb46-5a76ddc4b7d3
+		summarizeBy: none
+		sourceColumn: G
+
+		annotation SummarizationSetBy = Automatic
+
+	column GG
+		dataType: string
+		lineageTag: bf9c27f0-8044-427d-85ec-42f331ee24d6
+		summarizeBy: none
+		sourceColumn: GG
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dGerências = m
+		mode: import
+		queryGroup: Main
+		source =
+				let
+				    Fonte = SharePoint.Files(PROA_FC, [ApiVersion = 15]),
+				    #"DB_demanda_tsp3 xlsx_https://arcelormittal sharepoint com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/" = Fonte{[Name="DB_demanda_tsp3.xlsx",#"Folder Path"="https://arcelormittal.sharepoint.com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"DB_demanda_tsp3 xlsx_https://arcelormittal sharepoint com/sites/PROA_FC/Documentos Compartilhados/05 - Demandas/PBI/"),
+				    #"Page 1_Sheet" = #"Pasta de Trabalho Importada do Excel"{[Item="Page 1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Page 1_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Número", type text}, {"Nome", type text}, {"Fase", type text}, {"Status", type text}, {"Ganho Anual", type number}, {"Ganho One Time", type number}, {"Data Próx L", Int64.Type}, {"Aberto por", type text}, {"Categoria", type text}, {"Data de início", Int64.Type}, {"Prazo", Int64.Type}, {"UG (Unidade Gerencial)", type text}, {"G (Gerência)", type text}, {"GG (Gerência Geral)", type text}, {"Sigla", type text}, {"Sigla_1", type text}, {"Sigla_2", type text}, {"Owner", type text}, {"Co-Owner", type text}, {"E-mail", type text}, {"E-mail_5", type text}, {"Participantes", type text}, {"Áreas Envolvidas", type text}, {"Confidencial", type logical}, {"Portifólio", type text}, {"Programa", type text}, {"Existe Ganho FTE?", type logical}, {"Total de FTE", type number}, {"Valor Líquido do Ganho", type number}, {"Benefício financeiro", type number}, {"Despesa de capital", type number}, {"Despesa operacional", type number}, {"Num SI/PEP", type text}, {"Detalhamento do Gasto", type text}, {"Benefícios", type text}, {"Facilidade de Implementação", type text}, {"Necessidade de Viabilidade Economica", type logical}, {"Necessário revisar ou criar FMEA | Padrão|Documentação", type logical}, {"Fatores Restritivos", type text}, {"Premissas de Implementação", type text}, {"Risco Sobre a Segurança do Trabalho", type text}, {"Risco Sobre Paralisação das Instalações", type text}, {"Risco Sobre a Qualidade do Produto", type text}, {"Risco Sobre Meio Ambiente", type text}, {"Necessidade de Análise de Risco Detalhada", type logical}, {"Descrição de Riscos", type text}, {"Risco", type number}, {"Valor", type number}, {"Tamanho", Int64.Type}, {"Prioridade", type text}, {"Pontuação", type number}, {"Progresso", type text}, {"Principais Resultados", type text}, {"Próximos Passos", type text}, {"Suporte Necessário", type text}, {"Detalhamentos do KPI", type text}, {"Report Date L0", Int64.Type}, {"Report Date L1", Int64.Type}, {"Report Date L2", Int64.Type}, {"Report Date L3", Int64.Type}, {"Report Date L4", Int64.Type}, {"Report Date L5", Int64.Type}, {"Date L3 - Original", Int64.Type}, {"Date L4 - Original", Int64.Type}, {"Date L5 - Original", Int64.Type}, {"Total FTE Own", type number}, {"Total FTE Third", Int64.Type}, {"Primário", type text}, {"Descrição(description)", type text}, {"Ideia", type text}, {"Estratégias", type text}, {"Objetivos", type text}, {"Aprovação necessária", type logical}, {"Atualizado em", type number}, {"Habilitadores", type text}, {"Marcadores", type text}, {"Ganho Anual de Custo Fixo", type number}, {"Ganho Anual de Custo Variável", type number}, {"Ganho Anual de Receita", Int64.Type}, {"Ganho Anual de Fluxo de Caixa", Int64.Type}, {"Número Value Plan", Int64.Type}, {"Transformação digital?", type logical}, {"Principal tecnologia", type text}, {"Redução de emissão de CO2 [t CO2]", Int64.Type}, {"Ganho em Eficiência de Mão de Obra (horas/mês)", Int64.Type}, {"Descrição(business_case)", type text}, {"Risco de desempenho", type text}, {"Risco de não desempenho", type text}, {"Premissas", type text}, {"Em escopo", type text}, {"Fora de escopo", type text}, {"Considerações", type text}}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Tipo Alterado",{{"Data Próx L", type date}, {"Data de início", type date}, {"Report Date L0", type date}, {"Report Date L1", type date}, {"Report Date L2", type date}, {"Report Date L3", type date}, {"Report Date L4", type date}, {"Report Date L5", type date}, {"Date L3 - Original", type date}, {"Date L4 - Original", type date}, {"Date L5 - Original", type date}, {"Atualizado em", type datetime}}),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Tipo Alterado1",{{"Report Date L0", type datetime}, {"Report Date L1", type datetime}, {"Report Date L2", type datetime}}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Tipo Alterado2", {"Nome"}, Tab_Stage, {"Stage"}, "Tab_Stage", JoinKind.LeftOuter),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Consultas Mescladas",{"Tab_Stage"}),
+				    #"Consultas Mescladas1" = Table.NestedJoin(#"Colunas Removidas", {"Fase"}, Tab_Stage, {"Fase"}, "Tab_Stage", JoinKind.LeftOuter),
+				    #"Tab_Stage Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas1", "Tab_Stage", {"Stage"}, {"Tab_Stage.Stage"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tab_Stage Expandido",{{"Sigla", "GA"}, {"Sigla_1", "G"}, {"Sigla_2", "GG"}, {"Sigla_3", "Diretoria"}, {"Sigla_4", "VP"}}),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Colunas Renomeadas", "CMT", each if [Owner] = "Andre Simao Wernersbach" then "André Wernersbach" else if [Owner] = "Kelvin Coppi Santos" then "Kelvin Coppi" else if [Owner] = "Rosyane Fiorio Hora Pimentel" then "Rosyane Pimentel" else if [Owner] = "Andre Luiz Da Silva Fonseca" then "Kelvin Coppi" else [Owner]),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Coluna Condicional Adicionada",{{"Número", "Demanda #"}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Colunas Renomeadas1",{"Demanda #", "GA", "G", "GG"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Outras Colunas Removidas", {"Demanda #"})
+				in
+				    #"Duplicatas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

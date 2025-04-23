@@ -1,0 +1,447 @@
+table fProjeto
+	lineageTag: f560e21d-3e85-4711-85c0-ea0918af045f
+
+	measure 'Média de Percentual_Planejado menos Média de Conclusão em dias %' = 0
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 7160e0df-ffc9-4361-81f6-5e89353aa70d
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MathematicalSubtraction"
+				}
+
+		changedProperty = FormatString
+
+	column 'Projeto #'
+		dataType: string
+		lineageTag: 7de77ce6-60c2-4155-b318-8101fde386ac
+		summarizeBy: none
+		sourceColumn: Projeto #
+
+		annotation SummarizationSetBy = Automatic
+
+	column Demanda
+		dataType: string
+		lineageTag: f18d3e5e-3eb8-4024-9845-ffcea9182fcb
+		summarizeBy: none
+		sourceColumn: Demanda
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data de início planejada'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 3567f84b-8e02-46dd-9f7e-d15dcee1e807
+		summarizeBy: none
+		sourceColumn: Data de início planejada
+
+		variation Variation
+			isDefault
+			relationship: d9283660-cdda-4eac-8eb6-86d1af2c0c11
+			defaultHierarchy: LocalDateTable_ccc25a77-cbe0-4500-ae91-6035085cbc7e.'Hierarquia de datas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data de início real'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 0d5a3e6e-27ea-407c-a430-4267caae87ec
+		summarizeBy: none
+		sourceColumn: Data de início real
+
+		variation Variation
+			isDefault
+			relationship: fc87051f-4f95-498c-bfb3-a0b90ac9095d
+			defaultHierarchy: LocalDateTable_a2b60311-e14c-469b-8ec3-24c69036b7c8.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data de término planejada'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: fa3ca769-3493-4ef4-9069-7e50f052e805
+		summarizeBy: none
+		sourceColumn: Data de término planejada
+
+		variation Variation
+			isDefault
+			relationship: 54039154-fc1f-4f0f-83e6-5d546c22c97f
+			defaultHierarchy: LocalDateTable_175b123e-1af2-4986-9af5-3df11398ca12.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data de término real'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d336dc6a-ad8d-4adf-9908-1b864e75ca05
+		summarizeBy: none
+		sourceColumn: Data de término real
+
+		variation Variation
+			isDefault
+			relationship: 25992081-94a7-4236-8d76-f1d60db9e9fd
+			defaultHierarchy: LocalDateTable_1249e70d-d426-4f0a-8103-cb65998744d3.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Fase
+		dataType: string
+		lineageTag: 1c7cf6bd-3e45-477a-ab02-e88f1ec0a791
+		summarizeBy: none
+		sourceColumn: Fase
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: e3b16dae-feb5-4c3f-a2e3-82e57ce9fb7c
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estado
+		dataType: string
+		lineageTag: 5a509886-ca8a-4975-bf6b-5ecefc192fa4
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Porcentagem de conclusão em Dias'
+		dataType: double
+		formatString: 0.0
+		lineageTag: a8211866-60ce-4095-86bf-3f7ea9d2680d
+		summarizeBy: sum
+		sourceColumn: Porcentagem de conclusão em Dias
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Benefício planejado'
+		dataType: double
+		lineageTag: f819a56e-6ac0-4e0a-a9d2-c9c997738d01
+		summarizeBy: sum
+		sourceColumn: Benefício planejado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Benefício real'
+		dataType: int64
+		lineageTag: 8f871fa1-74e0-44bd-868a-a02b6a49b23a
+		summarizeBy: sum
+		sourceColumn: Benefício real
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Custo total planejado'
+		dataType: double
+		lineageTag: b779abe5-9852-4f9f-aa74-bce6033dd3fa
+		summarizeBy: sum
+		sourceColumn: Custo total planejado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Custo real'
+		dataType: double
+		lineageTag: 86c31078-5e92-4b10-aa04-ce7fb993a37f
+		summarizeBy: sum
+		sourceColumn: Custo real
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Anotações de trabalho'
+		dataType: string
+		lineageTag: 0b746c9c-b297-41c0-aa60-6e542bd2a6bb
+		summarizeBy: none
+		sourceColumn: Anotações de trabalho
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nome do Projeto'
+		dataType: string
+		lineageTag: 61c6aa7c-7e03-4ef8-9d72-a5ccb92005f7
+		summarizeBy: none
+		sourceColumn: Nome do Projeto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gerente de projetos'
+		dataType: string
+		lineageTag: 5ad61e31-e72c-4eca-bb8b-e2c8e068d3eb
+		summarizeBy: none
+		sourceColumn: Gerente de projetos
+
+		annotation SummarizationSetBy = Automatic
+
+	column Marcadores
+		dataType: string
+		lineageTag: f4006cca-96d1-4357-8fd8-3e5faf277409
+		summarizeBy: none
+		sourceColumn: Marcadores
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departamento
+		dataType: string
+		lineageTag: 885bac24-57b1-4fe8-aff7-9907fd9ffb59
+		summarizeBy: none
+		sourceColumn: Departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Portifólio
+		dataType: string
+		lineageTag: d7259432-04ad-41e2-a111-4b5a08cce763
+		summarizeBy: none
+		sourceColumn: Portifólio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Programa
+		dataType: string
+		lineageTag: 5bea7005-7672-44b0-87a9-3e6dec5cd5a7
+		summarizeBy: none
+		sourceColumn: Programa
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prioridade
+		dataType: string
+		lineageTag: c80f33b1-16dc-4511-82f3-538b5cf13089
+		summarizeBy: none
+		sourceColumn: Prioridade
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrição
+		dataType: string
+		lineageTag: 266ef3f1-a0ae-4c16-8777-b9589c8cf04a
+		summarizeBy: none
+		sourceColumn: Descrição
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duração = DATEDIFF(fProjeto[Data de início planejada],fProjeto[Data de término planejada],DAY)
+		formatString: 0
+		lineageTag: 795c4b8e-79c1-4035-b337-68cf107d22ff
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Atualizado por'
+		dataType: string
+		lineageTag: f03fc295-fd69-4e33-b105-2e8a6dfbe6fe
+		summarizeBy: none
+		sourceColumn: Atualizado por
+
+		annotation SummarizationSetBy = Automatic
+
+	column E-mail
+		dataType: string
+		lineageTag: 95dc90cd-7957-4165-8d98-aeb437051934
+		summarizeBy: none
+		sourceColumn: E-mail
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Atualizado em'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: be8c60d6-2af2-4d73-8d41-80db42a02dae
+		summarizeBy: none
+		sourceColumn: Atualizado em
+
+		variation Variation
+			isDefault
+			relationship: 30d6f51a-504c-457b-92ab-ab8ece265d30
+			defaultHierarchy: LocalDateTable_898c70fe-981e-459a-a3fb-03cab8cc5df3.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Criação
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8f8234d7-787d-4b97-ab28-de85c206d698
+		summarizeBy: none
+		sourceColumn: Criação
+
+		variation Variation
+			isDefault
+			relationship: 1476af34-8884-4aab-b70f-7d9597565ad3
+			defaultHierarchy: LocalDateTable_7601a547-2bdf-4f9d-bf72-b7e18f445754.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Criado(a) por'
+		dataType: string
+		lineageTag: 7be77f59-037a-4fdd-b1ed-ee067ffe5294
+		summarizeBy: none
+		sourceColumn: Criado(a) por
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Planejado'
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: eb0fb334-57e5-4977-864b-11b6912014c4
+		summarizeBy: sum
+		sourceColumn: % Planejado
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Realizado'
+		dataType: double
+		lineageTag: 8c38fae8-8dd2-4c07-8eab-9138354ab420
+		summarizeBy: sum
+		sourceColumn: % Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Demanda #'
+		dataType: string
+		lineageTag: 60e050c0-6056-4e01-89e1-1a7a8167de76
+		summarizeBy: none
+		sourceColumn: Demanda #
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Demanda.1.GA #'
+		dataType: string
+		lineageTag: 23d3030a-2637-4513-8646-8c047857b025
+		summarizeBy: none
+		sourceColumn: Demanda.1.GA #
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Demanda.1.G #'
+		dataType: string
+		lineageTag: 1cb644a1-c7f2-475d-a1cf-45f1e36520a6
+		summarizeBy: none
+		sourceColumn: Demanda.1.G #
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Demanda.1.GG #'
+		dataType: string
+		lineageTag: 555e4542-8dc3-4593-b366-c6385b40b835
+		summarizeBy: none
+		sourceColumn: Demanda.1.GG #
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Etapa do Projeto'
+		dataType: string
+		lineageTag: 099a2967-4a0f-4afb-ae76-693eb737fb57
+		summarizeBy: none
+		sourceColumn: Etapa do Projeto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ícone Andamento' =
+			SWITCH(
+			    TRUE(),
+			    fProjeto[Etapa do Projeto] = "Em Planejamento", "📝",
+			    fProjeto[Etapa do Projeto] = "Concluído", "✅",
+			    fProjeto[Etapa do Projeto] = "Em Andamento", "🚀",
+			    fProjeto[Etapa do Projeto] = "Não Iniciado", "🔘",
+			    fProjeto[Etapa do Projeto] = "Em Validação", "👓"
+			)
+		lineageTag: 37d93b57-298c-4700-9654-4ed6aebb5a09
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Demanda.1.Fase'
+		dataType: string
+		lineageTag: bf9c06f7-9a15-4a5b-a76f-00414c8188b7
+		summarizeBy: none
+		sourceColumn: Demanda.1.Fase
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ícone Link' = "🔗"
+		lineageTag: 73f1a0c8-c1f9-4953-858a-4dca895ffe66
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Status Report' = [Atualização Status Report]
+		lineageTag: d8ca5327-8660-4dcf-9c7c-720dadd715d6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ícone Status Report' =
+			IF(fProjeto[Status Report] = "Atrasado","‼️",
+			                            IF(fProjeto[Status Report]="Atualizado","✔️","➖"))
+		lineageTag: 0cf7ec26-07c2-4c33-ae9e-43f78c713764
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fProjeto = m
+		mode: import
+		queryGroup: Main
+		source = ```
+				let
+				    Fonte = Excel.Workbook(Web.Contents("https://arcelormittal.sharepoint.com/sites/PROA_FC/Documentos%20Compartilhados/05%20-%20Demandas/PBI/DB_Project_tsp3.xlsx"), null, true),
+				    #"Page 1_Sheet" = Fonte{[Item="Page 1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Page 1_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Número", type text}, {"Demanda", type text}, {"Fase", type text}, {"Status", type text}, {"Estado", type text}, {"Nome do Projeto", type text}, {"Gerente de projetos", type text}, {"E-mail", type text}, {"Porcentagem de conclusão em Dias", type number}, {"Descrição", type text}, {"Data de início planejada", type date}, {"Data de início real", type date}, {"Data de término planejada", type date}, {"Data de término real", type date}, {"Benefício planejado", type number}, {"Benefício real", Int64.Type}, {"Custo total planejado", type number}, {"Custo real", type number}, {"Anotações de trabalho", type text}, {"Marcadores", type text}, {"Departamento", type text}, {"Portifólio", type text}, {"Programa", type text}, {"Prioridade", type text}, {"Atualizado em", type date}, {"Atualizado por", type text}, {"Criação", type date}, {"Criado(a) por", type text}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado",{{"Número", "Projeto #"}, {"Demanda", "Demanda"}}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Colunas Renomeadas", {"Projeto #"}, dDMNDxPRJ, {"Projeto #"}, "Conexão_Projeto_Demanda", JoinKind.LeftOuter),
+				    #"Conexão_Projeto_Demanda Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "Conexão_Projeto_Demanda", {"Demanda #"}, {"Demanda #"}),
+				    #"Consultas Mescladas1" = Table.NestedJoin(#"Conexão_Projeto_Demanda Expandido", {"Demanda #"}, fDemanda, {"Demanda #"}, "Demanda.1", JoinKind.LeftOuter),
+				    #"Demanda.1 Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas1", "Demanda.1", {"Fase", "GA #", "G #", "GG #"}, {"Demanda.1.Fase", "Demanda.1.GA #", "Demanda.1.G #", "Demanda.1.GG #"}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Demanda.1 Expandido", "% Planejado", each let 
+				            DataHoje = Date.From(DateTime.LocalNow()),
+				            DataInicio = [Data de início planejada],
+				            DataTermino = [Data de término planejada]
+				        in
+				        if DataHoje < DataInicio then 0
+				        else if DataHoje > DataTermino then 1
+				        else 
+				            let 
+				                Duracao = Duration.Days(DataTermino - DataInicio), 
+				                Progresso = Duration.Days(DataHoje - DataInicio)
+				            in 
+				                if Duracao > 0 then Number.From(Progresso) / Number.From(Duracao) else 0),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"% Planejado", type number}}),
+				    #"Personalização Adicionada1" = Table.AddColumn(#"Tipo Alterado1", "% Realizado", each [Porcentagem de conclusão em Dias]/100),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Personalização Adicionada1",{{"% Realizado", type number}}),
+				    #"Personalização Adicionada2" = Table.AddColumn(#"Tipo Alterado2", "Dias para Início", each if Text.Contains([Demanda.1.Fase], "L5") then "Concluído" else if Text.Contains([Demanda.1.Fase], "L4") then "Em Validação" else if [#"% Realizado"] = 1 then "Concluído" else if [#"% Planejado"] = 0 then "Não Iniciado" else if [#"% Realizado"] > 0 then "Em Andamento" else "Em Planejamento"),
+				    #"Erros Substituídos" = Table.ReplaceErrorValues(#"Personalização Adicionada2", {{"Dias para Início", null}}),
+				    #"Tipo Alterado3" = Table.TransformColumnTypes(#"Erros Substituídos",{{"Dias para Início", type text}}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Tipo Alterado3", each ([#"Demanda #"] <> null and [#"Demanda #"] <> "")),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Linhas Filtradas",{{"Dias para Início", "Etapa do Projeto"}})
+				in
+				    #"Colunas Renomeadas1"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

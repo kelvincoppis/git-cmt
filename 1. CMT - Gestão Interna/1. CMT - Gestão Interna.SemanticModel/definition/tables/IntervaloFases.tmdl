@@ -1,0 +1,168 @@
+table IntervaloFases
+	lineageTag: c92ed720-99b6-43c5-9e57-87a714df32a2
+
+	measure GanhoDemanda = AVERAGE(dDataFases[Ganho Anual])
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 1bbe18df-49fa-4cb5-be5b-44ff8ec25139
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure TotalGanho = ```
+			
+			CALCULATE(
+			    SUM(dDataFases[Ganho Anual]),
+			    FILTER(
+			        CROSSJOIN(dDataFases, dCalendar),
+			        dCalendar[Date] >= dDataFases[Data] && dCalendar[Date] <= dDataFases[Data Fim]
+			    )
+			)
+			
+			```
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 000cea5f-220f-46d0-9c61-d200c07dc952
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure TotalGanho2 =
+			
+			SUM(tbDias[GanhoFinal]) / 1000000
+		formatString: """R$"" #,##0""M"""
+		lineageTag: 7cc584e7-fef5-402c-b8ff-98ac4d6a22b9
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure TotalGanhoHr =
+			
+			SUM(tbDias[HorasFinal])
+		formatString: #,0
+		lineageTag: ab822659-e953-4f30-864a-3b4d7c86e096
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Ganho Acumulado p/ Fase' =
+			
+			CALCULATE(TOTALYTD([TotalGanho2],tbDias[Data]), tbDias[Fase]="L5",tbDias[Ano]=2025)
+		formatString: 0
+		lineageTag: 2d1e420c-aa63-459f-b77f-7f7fdd7aa900
+
+	column Número
+		lineageTag: 8c821375-a6a5-4bcc-8e7a-d01fa0b85ebc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dDataFases[Número]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ganho Anual'
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 68d0f4dd-16a6-46d9-b9ec-c651eaa74625
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: dDataFases[Ganho Anual]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'Ganho One Time'
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: c6825e81-9766-4d80-b772-af3a85739886
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: dDataFases[Ganho One Time]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Fase
+		lineageTag: 337a8e70-99a4-48c5-b6e7-9ad6e926b559
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dDataFases[Fase]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data
+		formatString: General Date
+		lineageTag: ef6987b0-07b8-4ac2-aaa8-f2ea94a44a14
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dDataFases[Data]
+
+		variation Variation
+			isDefault
+			relationship: ca3664eb-9551-4d68-844d-7422faea960c
+			defaultHierarchy: LocalDateTable_f73c3f78-5b4e-4536-8d7c-6178eb3b59a1.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Fim'
+		formatString: General Date
+		lineageTag: e288b355-05f8-4748-8ef6-b019058f5271
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dDataFases[Data Fim]
+
+		variation Variation
+			isDefault
+			relationship: cc4e792a-5d54-45e0-8ff7-08e84c588fb9
+			defaultHierarchy: LocalDateTable_b233e617-a7bc-49e7-bd05-54a244dc0e86.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		formatString: General Date
+		lineageTag: d7392f3c-b7b8-4176-b9ad-1d66205f5158
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: a96f1eac-2be4-4554-836c-61b7092f14b7
+			defaultHierarchy: LocalDateTable_05d4bab6-e03b-407b-9e0a-4eba4353169a.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês
+		lineageTag: 628f3478-e359-4970-8da7-ecec2d13a23d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mês]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano
+		formatString: 0
+		lineageTag: d5e44aaa-2c57-491b-85d1-3033aad2b668
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Ano]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ganho em Eficiência de Mão de Obra (horas/mês)'
+		formatString: 0
+		lineageTag: 8551ae6b-1cef-4eaf-a989-1c8a84037efc
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: dDataFases[Ganho em Eficiência de Mão de Obra (horas/mês)]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition IntervaloFases = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    GENERATE(
+				        dDataFases,
+				        CALENDAR(dDataFases[Data], dDataFases[Data Fim])
+				    ),
+				    "Mês", FORMAT([Date], "MMM"),
+				    "Ano", YEAR([Date])
+				)
+
+	annotation PBI_Id = ea8754c0a8764b149c47ac38581c77e4
+

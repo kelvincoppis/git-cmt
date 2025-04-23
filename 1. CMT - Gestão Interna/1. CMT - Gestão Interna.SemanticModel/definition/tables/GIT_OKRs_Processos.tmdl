@@ -1,0 +1,70 @@
+table GIT_OKRs_Processos
+	lineageTag: 15e1ff0c-d87a-4e46-a42f-d47c18242463
+
+	column Data
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 311fe7a9-67a8-4a47-80e4-d7c54145166a
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Futuro do negócio'
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d0439e32-975e-4981-a950-7a0ce5018aa2
+		summarizeBy: sum
+		sourceColumn: Futuro do negócio
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gestão de portfólio'
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 34cacca5-1294-4ec7-bd3e-63aa4d4022a6
+		summarizeBy: sum
+		sourceColumn: Gestão de portfólio
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Excelência dos processos comerciais'
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2929054f-d28a-4a57-8eec-72900e6fd2d1
+		summarizeBy: sum
+		sourceColumn: Excelência dos processos comerciais
+
+		annotation SummarizationSetBy = Automatic
+
+	column média
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: bbc45726-b222-4523-9c59-d9b3a65a81b0
+		summarizeBy: sum
+		sourceColumn: média
+
+		annotation SummarizationSetBy = Automatic
+
+	partition GIT_OKRs_Processos = m
+		mode: import
+		queryGroup: GIT
+		source =
+				let
+				    Fonte = SharePoint.Files("https://arcelormittal.sharepoint.com/sites/CDM-CMT/", [ApiVersion = 15]),
+				    #"Linhas Classificadas" = Table.Sort(Fonte,{{"Name", Order.Ascending}}),
+				    #"Fonte de Dados GIT CMT xlsx_https://arcelormittal sharepoint com/sites/CDM-CMT/Shared Documents/CMT/11 - GIT CMT/" = #"Linhas Classificadas"{[Name="Fonte de Dados GIT CMT.xlsx",#"Folder Path"="https://arcelormittal.sharepoint.com/sites/CDM-CMT/Shared Documents/CMT/11 - GIT CMT/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Fonte de Dados GIT CMT xlsx_https://arcelormittal sharepoint com/sites/CDM-CMT/Shared Documents/CMT/11 - GIT CMT/"),
+				    #"OKR's de Processos_Sheet" = #"Pasta de Trabalho Importada do Excel"{[Item="OKR's de Processos",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"OKR's de Processos_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Data", type date}, {"Futuro do negócio", type number}, {"Gestão de portfólio", type number}, {"Excelência dos processos comerciais", type number}, {"média", type number}}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Tipo Alterado",{{"Futuro do negócio", Percentage.Type}, {"Gestão de portfólio", Percentage.Type}, {"Excelência dos processos comerciais", Percentage.Type}, {"média", Percentage.Type}})
+				in
+				    #"Tipo Alterado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

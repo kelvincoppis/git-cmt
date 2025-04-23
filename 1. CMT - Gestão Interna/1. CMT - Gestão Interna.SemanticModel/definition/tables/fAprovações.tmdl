@@ -1,0 +1,171 @@
+table fAprovações
+	lineageTag: 16f98a23-3a20-4b5a-923e-3c9f49fe9e12
+
+	measure 'Medida Maiores que 15' = CALCULATE('fAprovações'[Aprovações_Reais], 'fAprovações'[Tempo Corrido]>=15)+0
+		formatString: 0
+		lineageTag: 9418e57e-c8b6-47b5-9cd5-49b0067560ad
+
+	measure Aprovações_Reais = CALCULATE(DISTINCTCOUNT('fAprovações'[Key Aprovações Reais]),ALL(fDemanda[Marcadores]))
+		formatString: 0
+		lineageTag: 5769b18f-3ae9-41a4-997f-4c48e4620364
+
+	column 'Demanda #'
+		dataType: string
+		lineageTag: 8c2313c2-901a-4da8-bf5c-4c54dcd40b77
+		summarizeBy: none
+		sourceColumn: Demanda #
+
+		annotation SummarizationSetBy = Automatic
+
+	column Aprovador
+		dataType: string
+		lineageTag: 3c538dd4-ac13-4dbb-8c1f-f6c4fe67efe3
+		summarizeBy: none
+		sourceColumn: Aprovador
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrição
+		dataType: string
+		lineageTag: f44a060f-d779-4896-96a0-1cc7abf91775
+		summarizeBy: none
+		sourceColumn: Descrição
+
+		annotation SummarizationSetBy = Automatic
+
+	column Criação
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c1db6255-b744-4c8d-91be-745323be99c3
+		summarizeBy: none
+		sourceColumn: Criação
+
+		variation Variation
+			isDefault
+			relationship: 4051a468-f991-4f4e-85e3-6a4cf4257236
+			defaultHierarchy: LocalDateTable_d08d80e7-b5ab-4f14-b5a7-b0a38ca0c8d6.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Atualizado por'
+		dataType: string
+		lineageTag: 88571e7d-6a06-4ab4-baa9-d0e8320ff779
+		summarizeBy: none
+		sourceColumn: Atualizado por
+
+		annotation SummarizationSetBy = Automatic
+
+	column Matrícula
+		dataType: string
+		lineageTag: 7d84d477-9675-4d6c-9975-aafe9172ef3e
+		summarizeBy: none
+		sourceColumn: Matrícula
+
+		annotation SummarizationSetBy = Automatic
+
+	column E-mail
+		dataType: string
+		lineageTag: 658b6609-5770-4761-95da-2417dac9335f
+		summarizeBy: none
+		sourceColumn: E-mail
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tempo Corrido' = DATEDIFF('fAprovações'[Criação], TODAY(), DAY)
+		formatString: 0
+		lineageTag: 3ca5e4c6-029e-44f6-a8d8-d83f2c7c37d1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Atualizado em'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 89ee78ae-d8bf-4c01-a2a2-2cb4c7986c9f
+		summarizeBy: none
+		sourceColumn: Atualizado em
+
+		variation Variation
+			isDefault
+			relationship: 63ab8c13-8987-45b4-863a-ae7ee838ed31
+			defaultHierarchy: LocalDateTable_f8245717-3751-497a-a047-1ba9937926a7.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Portifólio
+		dataType: string
+		lineageTag: f1581557-15bc-41da-826f-e15b56e96140
+		summarizeBy: none
+		sourceColumn: Portifólio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Marcadores
+		dataType: string
+		lineageTag: 37829b73-6b8b-4116-a749-6a007bcba323
+		summarizeBy: none
+		sourceColumn: Marcadores
+
+		annotation SummarizationSetBy = Automatic
+
+	column CMT
+		dataType: string
+		lineageTag: 71ed4fc4-1721-4887-ae59-327b7da9a456
+		summarizeBy: none
+		sourceColumn: CMT
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Grupo de atribuição'
+		dataType: string
+		lineageTag: 0e3d45a3-8f30-436c-b029-5a636ba238d9
+		summarizeBy: none
+		sourceColumn: Grupo de atribuição
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Grp. Aprovador'
+		dataType: string
+		lineageTag: 1709607b-22b0-4cac-b5ca-2dfc6c67e28c
+		summarizeBy: none
+		sourceColumn: Grp. Aprovador
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Key Aprovações Reais'
+		dataType: string
+		lineageTag: abbd8ff6-8428-4e0a-9cd6-3944f4611b6f
+		summarizeBy: none
+		sourceColumn: Key Aprovações Reais
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fAprovações = m
+		mode: import
+		queryGroup: Main
+		source =
+				let
+				    Fonte = Excel.Workbook(Web.Contents("https://arcelormittal.sharepoint.com/sites/PROA_FC/Documentos%20Compartilhados/05%20-%20Demandas/PBI/DB_Aprova%C3%A7%C3%B5es_tsp3.xlsx"), null, true),
+				    #"Page 1_Sheet" = Fonte{[Item="Page 1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Page 1_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Aprovação para", type text}, {"Estado", type text}, {"Aprovador", type text}, {"Descrição", type text}, {"Comentários", type text}, {"Criação", type date}, {"Atualizado em", type date}, {"Atualizado por", type text}, {"Employee Id", type text}, {"E-mail", type text}, {"Grupo", type text}, {"Grupo de atribuição", type text}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado",{{"Employee Id", "Matrícula"}}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Colunas Renomeadas", {"Aprovação para"}, fDemanda, {"Demanda #"}, "fDemanda", JoinKind.LeftOuter),
+				    #"fDemanda Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "fDemanda", {"Portifólio", "Marcadores", "CMT"}, {"fDemanda.Portifólio", "fDemanda.Marcadores", "fDemanda.CMT"}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"fDemanda Expandido", each Text.Contains([fDemanda.Marcadores], "Roadmap")),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Linhas Filtradas",{{"fDemanda.Portifólio", "Portifólio"}, {"fDemanda.Marcadores", "Marcadores"}, {"fDemanda.CMT", "CMT"}}),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Colunas Renomeadas1", "Grp. Aprovador", each if [Grupo de atribuição] = "Melhoria Contínua - TCF" then "Controladoria" else if [Grupo de atribuição] = "Casulo_TransformacaoDigital" then "INO.VC" else [Aprovador]),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Coluna Condicional Adicionada",{"Estado", "Comentários", "Grupo"}),
+				    #"Colunas Renomeadas2" = Table.RenameColumns(#"Colunas Removidas",{{"Aprovação para", "Demanda #"}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Colunas Renomeadas2", "Key Aprovações Reais", each [#"Demanda #"]&"-"&[Grp. Aprovador])
+				in
+				    #"Personalização Adicionada"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

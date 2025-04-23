@@ -1,0 +1,124 @@
+table GIT_Desvio_Custo_Projetos
+	lineageTag: 7de43474-6f85-418c-b04f-b4d81c958e6c
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bc89123d-eedf-4e49-8c58-db8bf0ae42c0
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column MRF
+		dataType: string
+		lineageTag: 1a2f432e-7189-4876-8464-0116c7a01c05
+		summarizeBy: none
+		sourceColumn: MRF
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'BUDGET (FY)'
+		dataType: decimal
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: bef1a48f-83d8-4ef6-8517-6921d4afebb9
+		summarizeBy: sum
+		sourceColumn: BUDGET (FY)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'ACTUAL (YTD)'
+		dataType: decimal
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: fcc2c6a1-fd7c-4862-940e-8beba11a6c2e
+		summarizeBy: sum
+		sourceColumn: ACTUAL (YTD)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'MRF (YTD)'
+		dataType: decimal
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: f21b68e3-054c-46fb-8215-f5dba3afbf2d
+		summarizeBy: sum
+		sourceColumn: MRF (YTD)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'BUDGET (YTD)'
+		dataType: decimal
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: a0a0aad9-431b-428f-8d0d-ae0d750fe579
+		summarizeBy: sum
+		sourceColumn: BUDGET (YTD)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'MRF (FY)'
+		dataType: decimal
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 4026a323-ae67-46d1-985e-293c6b4d075c
+		summarizeBy: sum
+		sourceColumn: MRF (FY)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Column8
+		dataType: string
+		lineageTag: c9135f99-7004-4b32-94eb-3a398a78c7b1
+		summarizeBy: none
+		sourceColumn: Column8
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column9
+		dataType: string
+		lineageTag: b9115814-fcbc-44ae-a3d3-d68ee5e33ee9
+		summarizeBy: none
+		sourceColumn: Column9
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column10
+		dataType: double
+		lineageTag: 17ece624-d993-450b-ab39-4453616b7ab4
+		summarizeBy: sum
+		sourceColumn: Column10
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition GIT_Desvio_Custo_Projetos = m
+		mode: import
+		queryGroup: GIT
+		source =
+				let
+				    Fonte = SharePoint.Files("https://arcelormittal.sharepoint.com/sites/ROADMAPDC2021/", [ApiVersion = 15]),
+				    #"Comitê Digital DC - 2024 - Versão Final xlsx_https://arcelormittal sharepoint com/sites/ROADMAPDC2021/Shared Documents/General/ROADMAP 2024/" = Fonte{[Name="Comitê Digital DC - 2024 - Versão Final.xlsx",#"Folder Path"="https://arcelormittal.sharepoint.com/sites/ROADMAPDC2021/Shared Documents/General/ROADMAP 2024/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Comitê Digital DC - 2024 - Versão Final xlsx_https://arcelormittal sharepoint com/sites/ROADMAPDC2021/Shared Documents/General/ROADMAP 2024/"),
+				    Gráficos_Sheet = #"Pasta de Trabalho Importada do Excel"{[Item="Gráficos",Kind="Sheet"]}[Data],
+				    #"Colunas Removidas" = Table.RemoveColumns(Gráficos_Sheet,{"Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7", "Column8", "Column9", "Column10", "Column11", "Column12", "Column13", "Column14", "Column15", "Column16", "Column17", "Column18"}),
+				    #"Linhas em Branco Removidas" = Table.SelectRows(#"Colunas Removidas", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Linhas Superiores Removidas" = Table.Skip(#"Linhas em Branco Removidas",1),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Linhas Superiores Removidas", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Data", type date}, {"MRF", type text}, {"BUDGET (FY)", Currency.Type}, {"ACTUAL (YTD)", Currency.Type}, {"MRF (YTD)", Currency.Type}, {"BUDGET (YTD)", Currency.Type}, {"MRF (FY)", Currency.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

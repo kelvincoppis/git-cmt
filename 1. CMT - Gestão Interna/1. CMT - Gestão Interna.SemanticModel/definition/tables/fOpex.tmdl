@@ -1,0 +1,362 @@
+table fOpex
+	lineageTag: 0f58cf69-340a-4f93-9904-d57edea13e55
+
+	column 'OI / CC'
+		dataType: string
+		lineageTag: 9a329edd-8f84-4eed-96b9-2c48996b7b70
+		summarizeBy: none
+		sourceColumn: OI / CC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Projeto
+		dataType: string
+		lineageTag: 92bd8f9f-6a1c-44cb-81be-48314895fc38
+		summarizeBy: none
+		sourceColumn: Projeto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Budget
+		dataType: double
+		lineageTag: a5aa9a62-c358-4808-8387-2f755ef87dab
+		summarizeBy: sum
+		sourceColumn: Budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Portfólio
+		dataType: string
+		lineageTag: cbee4549-35fc-40c1-96d4-22eda9d39d61
+		summarizeBy: none
+		sourceColumn: Portfólio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 6a295572-281b-4349-a953-a11609888360
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column GG
+		dataType: string
+		lineageTag: 8fd246b5-c323-41c7-a999-c7408f8afe70
+		summarizeBy: none
+		sourceColumn: GG
+
+		annotation SummarizationSetBy = Automatic
+
+	column G
+		dataType: string
+		lineageTag: 56c68279-db60-4e22-8935-b8779a33cc25
+		summarizeBy: none
+		sourceColumn: G
+
+		annotation SummarizationSetBy = Automatic
+
+	column CMT
+		dataType: string
+		lineageTag: 18373e2f-f929-4c48-95fb-208743b38c3c
+		summarizeBy: none
+		sourceColumn: CMT
+
+		annotation SummarizationSetBy = Automatic
+
+	column TI
+		dataType: string
+		lineageTag: 4587154b-7cf3-41b5-984d-09b4129d121d
+		summarizeBy: none
+		sourceColumn: TI
+
+		annotation SummarizationSetBy = Automatic
+
+	column JAN/25MRF
+		dataType: double
+		lineageTag: 2f9fdd73-c794-4a60-8263-eaf53df04b80
+		summarizeBy: sum
+		sourceColumn: JAN/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column JAN/25Realizado
+		dataType: double
+		lineageTag: 6b17124e-9f1c-4bc4-a29b-2ccb7e6db873
+		summarizeBy: sum
+		sourceColumn: JAN/25Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FEV/25MRF
+		dataType: double
+		lineageTag: eab9bc4e-e251-42f7-8bf6-50f4fe0007fa
+		summarizeBy: sum
+		sourceColumn: FEV/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FEV/25Realizado
+		dataType: double
+		lineageTag: e11ea5e0-b85c-40c6-b3b6-f724afcff1b0
+		summarizeBy: sum
+		sourceColumn: FEV/25Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MAR/25MRF
+		dataType: double
+		lineageTag: 39ad1bec-8b5a-41bc-b0c1-fc34ae22f41b
+		summarizeBy: sum
+		sourceColumn: MAR/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MAR/25Realizado
+		dataType: double
+		lineageTag: ab903009-78f0-4f54-a305-46020b9111bd
+		summarizeBy: sum
+		sourceColumn: MAR/25Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ABR/25MRF
+		dataType: double
+		lineageTag: ef15473b-09fd-46c2-bdf2-b1f65d30eb63
+		summarizeBy: sum
+		sourceColumn: ABR/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ABR/25Realizad
+		dataType: int64
+		formatString: 0
+		lineageTag: 1e60192a-3c0a-4ea2-b0a8-8cf537a9b1ed
+		summarizeBy: sum
+		sourceColumn: ABR/25Realizad
+
+		annotation SummarizationSetBy = Automatic
+
+	column MAI/25MRF
+		dataType: double
+		lineageTag: 6251fd10-3e5f-4590-a5ef-e79a1f37fe6b
+		summarizeBy: sum
+		sourceColumn: MAI/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MAI/25Realizado
+		dataType: int64
+		formatString: 0
+		lineageTag: 60172ea0-305d-44d8-925e-c2df4300cd59
+		summarizeBy: sum
+		sourceColumn: MAI/25Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column JUN/25MRF
+		dataType: double
+		lineageTag: 151870fd-8723-4cef-bed4-c16e094187a6
+		summarizeBy: sum
+		sourceColumn: JUN/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column JUN/25Realizado
+		dataType: int64
+		formatString: 0
+		lineageTag: c55bb4a8-fe67-4195-b22c-5c45edd9fd92
+		summarizeBy: sum
+		sourceColumn: JUN/25Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column JUL/25MRF
+		dataType: double
+		lineageTag: c47657be-e144-4ac8-b68d-3a7f02727d80
+		summarizeBy: sum
+		sourceColumn: JUL/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column JUL/25Realizado
+		dataType: int64
+		formatString: 0
+		lineageTag: d08ed162-b19e-49b4-95dd-184dc7fc8caf
+		summarizeBy: sum
+		sourceColumn: JUL/25Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column AGO/25MRF
+		dataType: double
+		lineageTag: f3b9bcb9-133d-4500-bb76-5a8dfb3fc54e
+		summarizeBy: sum
+		sourceColumn: AGO/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AGO/25Realizado
+		dataType: int64
+		formatString: 0
+		lineageTag: 2bb927d4-5caa-42c9-9e35-3be9cb333b0a
+		summarizeBy: sum
+		sourceColumn: AGO/25Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column SET/25MRF
+		dataType: double
+		lineageTag: d36f59aa-5557-4cf0-81f8-d85606fa263a
+		summarizeBy: sum
+		sourceColumn: SET/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SET/25Realizado
+		dataType: int64
+		formatString: 0
+		lineageTag: a6fe4da2-f9c4-459f-beff-8f05c1c10ce1
+		summarizeBy: sum
+		sourceColumn: SET/25Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column OUT/25MRF
+		dataType: double
+		lineageTag: ff195d31-79e6-4064-b0ae-a8c7622e91cc
+		summarizeBy: sum
+		sourceColumn: OUT/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OUT/25Realizado
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f469a43-27dc-498f-9a9c-6a15d60d3f3d
+		summarizeBy: sum
+		sourceColumn: OUT/25Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOV/25MRF
+		dataType: double
+		lineageTag: 2a0a80bb-ae92-4792-854b-536192c59047
+		summarizeBy: sum
+		sourceColumn: NOV/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NOV/25Realizado
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d2999d8-c22c-433d-9222-c9451500d685
+		summarizeBy: sum
+		sourceColumn: NOV/25Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column DEZ/25MRF
+		dataType: double
+		lineageTag: d162b985-e0e3-4c47-b3a9-d795ca522f6a
+		summarizeBy: sum
+		sourceColumn: DEZ/25MRF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DEZ/25Realizado
+		dataType: int64
+		formatString: 0
+		lineageTag: 42e89c0a-93d9-42f8-a68c-6a52ef21b51f
+		summarizeBy: sum
+		sourceColumn: DEZ/25Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column JAN/26MRF
+		dataType: int64
+		formatString: 0
+		lineageTag: 6601e5f1-8627-4062-a013-45295d734b2c
+		summarizeBy: sum
+		sourceColumn: JAN/26MRF
+
+		annotation SummarizationSetBy = Automatic
+
+	column JAN/26Realizado
+		dataType: int64
+		formatString: 0
+		lineageTag: ed93e66c-df8c-449c-9dd7-cc20c112aca5
+		summarizeBy: sum
+		sourceColumn: JAN/26Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column FEV/26MRF
+		dataType: int64
+		formatString: 0
+		lineageTag: 540eb01d-c51b-4c79-9a26-f89367ff5f16
+		summarizeBy: sum
+		sourceColumn: FEV/26MRF
+
+		annotation SummarizationSetBy = Automatic
+
+	column FEV/26Realizado
+		dataType: int64
+		formatString: 0
+		lineageTag: 79697544-1583-4848-8632-639ea2790b7d
+		summarizeBy: sum
+		sourceColumn: FEV/26Realizado
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fOpex = m
+		mode: import
+		queryGroup: Desembolso\Opex
+		source =
+				let
+				    Fonte = Excel.Workbook(Web.Contents("https://arcelormittal.sharepoint.com/sites/ROADMAPDC2021/Shared%20Documents/General/ROADMAP%202025/Comit%C3%AA%20Digital%20-%20Roadmap%20DC%202025.xlsx"), null, true),
+				    #"Projetos Opex - 2025_Sheet" = Fonte{[Item="Projetos Opex - 2025",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos1" = Table.PromoteHeaders(#"Projetos Opex - 2025_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos1",{{"OI / CC", type text}, {"Projeto", type text}, {"Budget", type number}, {"Portfólio", type text}, {"Status", type text}, {"GG", type text}, {"G", type text}, {"CMT", type text}, {"TI", type text}, {"JAN/25#(lf)MRF", type number}, {"JAN/25#(lf)Realizado", type number}, {"FEV/25#(lf)MRF", type number}, {"FEV/25#(lf)Realizado", type number}, {"MAR/25#(lf)MRF", type number}, {"MAR/25#(lf)Realizado", type number}, {"ABR/25#(lf)MRF", type number}, {"ABR/25#(lf)Realizad", Int64.Type}, {"MAI/25#(lf)MRF", type number}, {"MAI/25#(lf)Realizado", Int64.Type}, {"JUN/25#(lf)MRF", type number}, {"JUN/25#(lf)Realizado", Int64.Type}, {"JUL/25#(lf)MRF", type number}, {"JUL/25#(lf)Realizado", Int64.Type}, {"AGO/25#(lf)MRF", type number}, {"AGO/25#(lf)Realizado", Int64.Type}, {"SET/25#(lf)MRF", type number}, {"SET/25#(lf)Realizado", Int64.Type}, {"OUT/25#(lf)MRF", type number}, {"OUT/25#(lf)Realizado", Int64.Type}, {"NOV/25#(lf)MRF", type number}, {"NOV/25#(lf)Realizado", Int64.Type}, {"DEZ/25#(lf)MRF", type number}, {"DEZ/25#(lf)Realizado", Int64.Type}, {"JAN/26#(lf)MRF", Int64.Type}, {"JAN/26#(lf)Realizado", Int64.Type}, {"FEV/26#(lf)MRF", Int64.Type}, {"FEV/26#(lf)Realizado", Int64.Type}, {"MRF FY", type number}, {"Realizado FY", type number}, {"MRF x Orçado", type number}, {"Saldo#(lf)(Real-Orçado)", type number}, {"Demanda Casulo", type text}, {"Projeto Casulo", type text}, {"Demanda T4", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado1",{"MRF FY", "Realizado FY", "MRF x Orçado", "Saldo#(lf)(Real-Orçado)", "Demanda Casulo", "Projeto Casulo", "Demanda T4"}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Colunas Removidas", each ([Projeto] <> "Total"))
+				in
+				    #"Linhas Filtradas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

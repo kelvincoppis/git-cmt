@@ -902,9 +902,10 @@ table fDemanda
 				    #"Valor Substituído" = Table.ReplaceValue(#"Coluna Condicional Adicionada2","Outras tecnologias","Soluções SAP",Replacer.ReplaceText,{"Principal tecnologia"}),
 				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído","I-CDL","CDL",Replacer.ReplaceText,{"GG #"}),
 				    #"Valor Substituído2" = Table.ReplaceValue(#"Valor Substituído1","I-CDP","CDP",Replacer.ReplaceText,{"GG #"}),
-				    #"Colunas Renomeadas8" = Table.RenameColumns(#"Valor Substituído2",{{"Fase Simplif..1", "L #"}})
+				    #"Colunas Renomeadas8" = Table.RenameColumns(#"Valor Substituído2",{{"Fase Simplif..1", "L #"}}),
+				    #"Substituir IDN por CDP" = Table.ReplaceValue(#"Colunas Renomeadas8","IDN","CDP",Replacer.ReplaceText,{"GG #"})
 				in
-				    #"Colunas Renomeadas8"
+				    #"Substituir IDN por CDP"
 
 	annotation PBI_ResultType = Table
 

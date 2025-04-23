@@ -485,6 +485,16 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "fOpex",
+          "nodeLineageTag": "0f58cf69-340a-4f93-9904-d57edea13e55",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "Todas as tabelas",
@@ -567,7 +577,7 @@
           "zIndex": 4
         }
       ],
-      "name": "Layout 1",
+      "name": "Demanda",
       "zoomValue": 70.955543900968834,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
@@ -764,7 +774,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 2
         },
         {
           "location": {
@@ -777,7 +787,7 @@
             "height": 296,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 1
         }
       ],
       "name": "Ganho por Fase",
@@ -1159,6 +1169,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "PO's",
+  "selectedDiagram": "Ganho por Fase",
   "defaultDiagram": "Todas as tabelas"
 }

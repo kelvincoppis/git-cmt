@@ -73,7 +73,7 @@ table fCapex_Resumo
 
 	partition fCapex_Resumo = m
 		mode: import
-		queryGroup: Desembolso
+		queryGroup: Desembolso\Capex
 		source =
 				let
 				    Fonte = Excel.Workbook(Web.Contents("https://arcelormittal.sharepoint.com/sites/ROADMAPDC2021/Shared%20Documents/General/ROADMAP%202025/Comit%C3%AA%20Digital%20-%20Roadmap%20DC%202025.xlsx"), null, true),

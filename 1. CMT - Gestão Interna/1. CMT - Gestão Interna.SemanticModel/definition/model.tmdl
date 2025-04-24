@@ -34,7 +34,7 @@ queryGroup Desembolso\Opex
 
 	annotation PBI_QueryGroupOrder = 1
 
-annotation PBI_QueryOrder = ["dDMNDxPRJ","fDemanda","dGerências","fProjeto","fProjeto_Tarefas","fDemanda_Tarefas","fStatusReport","fAprovações","dDataFases","GIT_Ações_desenvolvimento","GIT_Custos_CMT","GIT_Participações","GIT_OKRs_Processos","GIT_Desvio_Custo_Projetos","GIT_Treinamentos_Padrões","GIT_Treinamentos_Compliance","GIT_Hora_extra","PROA_FC","Tab_Stage","#Atualização","dCalendário","DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025","dMês","dRoadmap","dUsuáriosPlanos","dPO","dAcessoCasulo","dURL_Projeto","dURL_Demanda","fCapex","fCapex_Resumo","fCapex_Projetos","fOpex"]
+annotation PBI_QueryOrder = ["dDMNDxPRJ","fDemanda","dGerências","fProjeto","fProjeto_Tarefas","fDemanda_Tarefas","fStatusReport","fAprovações","dDataFases","GIT_Ações_desenvolvimento","GIT_Custos_CMT","GIT_Participações","GIT_OKRs_Processos","GIT_Desvio_Custo_Projetos","GIT_Treinamentos_Padrões","GIT_Treinamentos_Compliance","GIT_Hora_extra","PROA_FC","Tab_Stage","#Atualização","dCalendário","DirectQuery para AS – 0 - Gestão Desembolso - ROADMAP DC 2025","dMês","dRoadmap","dUsuáriosPlanos","dPO","dAcessoCasulo","dURL_Projeto","dURL_Demanda","fCapex","fCapex_Resumo","fCapex_Projetos","fOpex","fOpex_Resumo"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
@@ -128,6 +128,7 @@ ref table fCapex
 ref table fCapex_Resumo
 ref table fCapex_Projetos
 ref table fOpex
+ref table fOpex_Resumo
 
 ref cultureInfo pt-BR
 

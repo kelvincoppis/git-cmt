@@ -1,9 +1,9 @@
-table fOpex
-	lineageTag: 0f58cf69-340a-4f93-9904-d57edea13e55
+table fOpex_Resumo
+	lineageTag: 308be4ca-e1a6-4693-8f66-d600e56cd701
 
 	column 'OI / CC'
 		dataType: string
-		lineageTag: 9a329edd-8f84-4eed-96b9-2c48996b7b70
+		lineageTag: 4acbd1f3-6835-4fec-9bb0-78c803d57472
 		summarizeBy: none
 		sourceColumn: OI / CC
 
@@ -11,7 +11,7 @@ table fOpex
 
 	column Projeto
 		dataType: string
-		lineageTag: 92bd8f9f-6a1c-44cb-81be-48314895fc38
+		lineageTag: 1498e6c3-a10d-46a7-9186-c6d941d36ed9
 		summarizeBy: none
 		sourceColumn: Projeto
 
@@ -19,7 +19,7 @@ table fOpex
 
 	column Budget
 		dataType: double
-		lineageTag: a5aa9a62-c358-4808-8387-2f755ef87dab
+		lineageTag: ce9491bc-351d-48c3-8082-d6d0e2b791b2
 		summarizeBy: sum
 		sourceColumn: Budget
 
@@ -29,7 +29,7 @@ table fOpex
 
 	column Portfólio
 		dataType: string
-		lineageTag: cbee4549-35fc-40c1-96d4-22eda9d39d61
+		lineageTag: d1298745-97c8-4e18-beca-bae13d62f206
 		summarizeBy: none
 		sourceColumn: Portfólio
 
@@ -37,7 +37,7 @@ table fOpex
 
 	column Status
 		dataType: string
-		lineageTag: 6a295572-281b-4349-a953-a11609888360
+		lineageTag: 97884ad1-0717-4041-8c9a-881c99e9aa21
 		summarizeBy: none
 		sourceColumn: Status
 
@@ -45,7 +45,7 @@ table fOpex
 
 	column GG
 		dataType: string
-		lineageTag: 8fd246b5-c323-41c7-a999-c7408f8afe70
+		lineageTag: ff98088d-9e3c-4475-ad55-b5b4ea16e408
 		summarizeBy: none
 		sourceColumn: GG
 
@@ -53,7 +53,7 @@ table fOpex
 
 	column G
 		dataType: string
-		lineageTag: 56c68279-db60-4e22-8935-b8779a33cc25
+		lineageTag: 4c6bdeb9-ec97-44c7-aba9-fd0e6483b8c1
 		summarizeBy: none
 		sourceColumn: G
 
@@ -61,7 +61,7 @@ table fOpex
 
 	column CMT
 		dataType: string
-		lineageTag: 18373e2f-f929-4c48-95fb-208743b38c3c
+		lineageTag: ca8850b2-c4a2-4a35-9d87-6d71590d7af9
 		summarizeBy: none
 		sourceColumn: CMT
 
@@ -69,31 +69,13 @@ table fOpex
 
 	column TI
 		dataType: string
-		lineageTag: 4587154b-7cf3-41b5-984d-09b4129d121d
+		lineageTag: 81d3f639-b948-4811-b304-a7ac01010adc
 		summarizeBy: none
 		sourceColumn: TI
 
 		annotation SummarizationSetBy = Automatic
 
-	column Atributo
-		dataType: string
-		lineageTag: 7037dead-fe9a-4378-8994-1e6f83e6d03f
-		summarizeBy: none
-		sourceColumn: Atributo
-
-		annotation SummarizationSetBy = Automatic
-
-	column Valor
-		dataType: double
-		lineageTag: 62bfa086-bfdf-432f-ae38-5761f5c45512
-		summarizeBy: sum
-		sourceColumn: Valor
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	partition fOpex = m
+	partition fOpex_Resumo = m
 		mode: import
 		queryGroup: Desembolso\Opex
 		source =
@@ -102,11 +84,10 @@ table fOpex
 				    #"Projetos Opex - 2025_Sheet" = Fonte{[Item="Projetos Opex - 2025",Kind="Sheet"]}[Data],
 				    #"Cabeçalhos Promovidos1" = Table.PromoteHeaders(#"Projetos Opex - 2025_Sheet", [PromoteAllScalars=true]),
 				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos1",{{"OI / CC", type text}, {"Projeto", type text}, {"Budget", type number}, {"Portfólio", type text}, {"Status", type text}, {"GG", type text}, {"G", type text}, {"CMT", type text}, {"TI", type text}, {"JAN/25#(lf)MRF", type number}, {"JAN/25#(lf)Realizado", type number}, {"FEV/25#(lf)MRF", type number}, {"FEV/25#(lf)Realizado", type number}, {"MAR/25#(lf)MRF", type number}, {"MAR/25#(lf)Realizado", type number}, {"ABR/25#(lf)MRF", type number}, {"ABR/25#(lf)Realizad", Int64.Type}, {"MAI/25#(lf)MRF", type number}, {"MAI/25#(lf)Realizado", Int64.Type}, {"JUN/25#(lf)MRF", type number}, {"JUN/25#(lf)Realizado", Int64.Type}, {"JUL/25#(lf)MRF", type number}, {"JUL/25#(lf)Realizado", Int64.Type}, {"AGO/25#(lf)MRF", type number}, {"AGO/25#(lf)Realizado", Int64.Type}, {"SET/25#(lf)MRF", type number}, {"SET/25#(lf)Realizado", Int64.Type}, {"OUT/25#(lf)MRF", type number}, {"OUT/25#(lf)Realizado", Int64.Type}, {"NOV/25#(lf)MRF", type number}, {"NOV/25#(lf)Realizado", Int64.Type}, {"DEZ/25#(lf)MRF", type number}, {"DEZ/25#(lf)Realizado", Int64.Type}, {"JAN/26#(lf)MRF", Int64.Type}, {"JAN/26#(lf)Realizado", Int64.Type}, {"FEV/26#(lf)MRF", Int64.Type}, {"FEV/26#(lf)Realizado", Int64.Type}, {"MRF FY", type number}, {"Realizado FY", type number}, {"MRF x Orçado", type number}, {"Saldo#(lf)(Real-Orçado)", type number}, {"Demanda Casulo", type text}, {"Projeto Casulo", type text}, {"Demanda T4", type text}}),
-				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado1",{"MRF FY", "Realizado FY", "MRF x Orçado", "Saldo#(lf)(Real-Orçado)", "Demanda Casulo", "Projeto Casulo", "Demanda T4"}),
-				    #"Linhas Filtradas" = Table.SelectRows(#"Colunas Removidas", each ([Projeto] <> "Total")),
-				    #"Colunas Não Dinâmicas" = Table.UnpivotOtherColumns(#"Linhas Filtradas", {"OI / CC", "Projeto", "Budget", "Portfólio", "Status", "GG", "G", "CMT", "TI"}, "Atributo", "Valor")
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado1",{"MRF FY", "Realizado FY", "MRF x Orçado", "Saldo#(lf)(Real-Orçado)", "Demanda Casulo", "Projeto Casulo", "Demanda T4", "JAN/25#(lf)MRF", "JAN/25#(lf)Realizado", "FEV/25#(lf)MRF", "FEV/25#(lf)Realizado", "MAR/25#(lf)MRF", "MAR/25#(lf)Realizado", "ABR/25#(lf)MRF", "ABR/25#(lf)Realizad", "MAI/25#(lf)MRF", "MAI/25#(lf)Realizado", "JUN/25#(lf)MRF", "JUN/25#(lf)Realizado", "JUL/25#(lf)MRF", "JUL/25#(lf)Realizado", "AGO/25#(lf)MRF", "AGO/25#(lf)Realizado", "SET/25#(lf)MRF", "SET/25#(lf)Realizado", "OUT/25#(lf)MRF", "OUT/25#(lf)Realizado", "NOV/25#(lf)MRF", "NOV/25#(lf)Realizado", "DEZ/25#(lf)MRF", "DEZ/25#(lf)Realizado", "JAN/26#(lf)MRF", "JAN/26#(lf)Realizado", "FEV/26#(lf)MRF", "FEV/26#(lf)Realizado"}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Colunas Removidas", each ([Projeto] <> "Total") and ([#"OI / CC"] <> "-" and [#"OI / CC"] <> "CCD" and [#"OI / CC"] <> "INO.VC" and [#"OI / CC"] <> "Opex Área"))
 				in
-				    #"Colunas Não Dinâmicas"
+				    #"Linhas Filtradas"
 
 	annotation PBI_NavigationStepName = Navegação
 

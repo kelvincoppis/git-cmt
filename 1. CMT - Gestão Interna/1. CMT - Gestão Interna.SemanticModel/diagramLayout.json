@@ -495,6 +495,16 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "fOpex_Resumo",
+          "nodeLineageTag": "308be4ca-e1a6-4693-8f66-d600e56cd701",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "Todas as tabelas",
@@ -1110,21 +1120,21 @@
       "nodes": [
         {
           "location": {
-            "x": 787,
-            "y": 128
+            "x": 991,
+            "y": 0
           },
           "nodeIndex": "dCalendário",
           "nodeLineageTag": "5afdcb31-1dd9-4110-aff5-8d49be18fa99",
           "size": {
-            "height": 296,
+            "height": 198,
             "width": 234
           },
           "zIndex": 1
         },
         {
           "location": {
-            "x": 432,
-            "y": 85
+            "x": 267,
+            "y": 364
           },
           "nodeIndex": "fCapex",
           "nodeLineageTag": "4e34bdd9-6a14-4949-9a73-7142e496fcd7",
@@ -1132,12 +1142,12 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 4
         },
         {
           "location": {
-            "x": 23,
-            "y": 206
+            "x": 8,
+            "y": 367
           },
           "nodeIndex": "fCapex_Resumo",
           "nodeLineageTag": "70b77e69-d7a3-45c6-88ac-e2e026eccc41",
@@ -1145,30 +1155,56 @@
             "height": 272,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 3
         },
         {
           "location": {
-            "x": 408,
-            "y": 535
+            "x": 58,
+            "y": 695
           },
           "nodeIndex": "fCapex_Projetos",
           "nodeLineageTag": "a84a2579-f9e6-4bb6-9646-5f5d2bfe2959",
           "size": {
-            "height": 128,
+            "height": 145,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 594.45787554147535,
+            "y": 368.0152609965312
+          },
+          "nodeIndex": "fOpex",
+          "nodeLineageTag": "0f58cf69-340a-4f93-9904-d57edea13e55",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 885.26677682593822,
+            "y": 370.09767494235371
+          },
+          "nodeIndex": "fOpex_Resumo",
+          "nodeLineageTag": "308be4ca-e1a6-4693-8f66-d600e56cd701",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 6
         }
       ],
       "name": "Desembolso",
-      "zoomValue": 100,
+      "zoomValue": 79.553182037699813,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Ganho por Fase",
+  "selectedDiagram": "Desembolso",
   "defaultDiagram": "Todas as tabelas"
 }

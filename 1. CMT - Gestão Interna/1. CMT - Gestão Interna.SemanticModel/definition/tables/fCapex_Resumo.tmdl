@@ -24,7 +24,7 @@ table fCapex_Resumo
 	column Budget
 		dataType: double
 		lineageTag: d2aa0c0f-3519-445b-9221-659f5b7141f2
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Budget
 
 		annotation SummarizationSetBy = Automatic

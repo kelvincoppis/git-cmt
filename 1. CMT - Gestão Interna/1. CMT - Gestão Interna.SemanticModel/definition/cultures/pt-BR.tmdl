@@ -15229,7 +15229,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "L (Prev)": {
+			          "L Prev.": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -15239,7 +15239,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "L Prev.": {
+			          "L (Prev)": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -31380,7 +31380,9 @@ cultureInfo pt-BR
 			      },
 			      "State": "Generated",
 			      "Terms": [
-			        {},
+			        {
+			          "": {}
+			        },
 			        {
 			          "location": {
 			            "Type": "Noun",
@@ -33504,7 +33506,9 @@ cultureInfo pt-BR
 			      },
 			      "State": "Generated",
 			      "Terms": [
-			        {},
+			        {
+			          "": {}
+			        },
 			        {
 			          "location": {
 			            "Type": "Noun",
@@ -38749,7 +38753,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "↑ Produtividade": {
+			          "Ganhos Produtividade": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -38759,7 +38763,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "Ganhos Produtividade": {
+			          "↑ Produtividade": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -44815,6 +44819,48 @@ cultureInfo pt-BR
 			      "Terms": [
 			        {
 			          "Gains": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.opex_budget_mbrl": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Opex Budget (MBRL)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Budget": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.opex_actual_mbrl": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Opex Actual (MBRL)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Actual": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

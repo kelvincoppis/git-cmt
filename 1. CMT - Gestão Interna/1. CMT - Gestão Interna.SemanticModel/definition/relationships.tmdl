@@ -337,14 +337,6 @@ relationship b7d83686-7c09-daba-5002-2e3c7a64e0fe
 	fromColumn: dDMNDxPRJ.'Demanda #'
 	toColumn: dURL_Demanda.'Demanda #'
 
-relationship 94d2d27c-c2bd-6bb1-5286-bacf36c3ef87
-	fromColumn: fCapex.PEP
-	toColumn: fCapex_Projetos.PEP
-
-relationship 59ebfed9-b4c0-c890-4727-47dde9066ece
-	fromColumn: fCapex_Resumo.PEP
-	toColumn: fCapex_Projetos.PEP
-
 relationship 9fc5f182-71ef-1e55-5295-c00412d74846
 	fromColumn: dUsuáriosPlanos.E-mail
 	toColumn: dAcessoCasulo.E-mail
@@ -354,4 +346,14 @@ relationship 22ba5de2-dcab-858d-ca67-6a3f9a448c33
 	fromCardinality: one
 	fromColumn: dPO.'E-mail Co-owner'
 	toColumn: dAcessoCasulo.E-mail
+
+relationship a4267f08-1614-37cc-eafe-7e73a2e9942d
+	crossFilteringBehavior: bothDirections
+	fromColumn: fCapex.Projeto
+	toColumn: fCapex_Resumo.Projeto
+
+relationship da33f612-9135-06cd-eab2-fc632a0caf13
+	crossFilteringBehavior: bothDirections
+	fromColumn: fOpex.Projeto
+	toColumn: fOpex_Resumo.Projeto
 

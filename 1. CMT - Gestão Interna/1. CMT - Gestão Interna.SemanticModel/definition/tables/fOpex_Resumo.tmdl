@@ -20,7 +20,7 @@ table fOpex_Resumo
 	column Budget
 		dataType: double
 		lineageTag: ce9491bc-351d-48c3-8082-d6d0e2b791b2
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Budget
 
 		annotation SummarizationSetBy = Automatic

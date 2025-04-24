@@ -93,6 +93,14 @@ table fOpex
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column Tipo
+		dataType: string
+		lineageTag: 4a850829-4d60-44fe-8423-c68d27634070
+		summarizeBy: none
+		sourceColumn: Tipo
+
+		annotation SummarizationSetBy = Automatic
+
 	partition fOpex = m
 		mode: import
 		queryGroup: Desembolso\Opex
@@ -104,9 +112,10 @@ table fOpex
 				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos1",{{"OI / CC", type text}, {"Projeto", type text}, {"Budget", type number}, {"Portfólio", type text}, {"Status", type text}, {"GG", type text}, {"G", type text}, {"CMT", type text}, {"TI", type text}, {"JAN/25#(lf)MRF", type number}, {"JAN/25#(lf)Realizado", type number}, {"FEV/25#(lf)MRF", type number}, {"FEV/25#(lf)Realizado", type number}, {"MAR/25#(lf)MRF", type number}, {"MAR/25#(lf)Realizado", type number}, {"ABR/25#(lf)MRF", type number}, {"ABR/25#(lf)Realizad", Int64.Type}, {"MAI/25#(lf)MRF", type number}, {"MAI/25#(lf)Realizado", Int64.Type}, {"JUN/25#(lf)MRF", type number}, {"JUN/25#(lf)Realizado", Int64.Type}, {"JUL/25#(lf)MRF", type number}, {"JUL/25#(lf)Realizado", Int64.Type}, {"AGO/25#(lf)MRF", type number}, {"AGO/25#(lf)Realizado", Int64.Type}, {"SET/25#(lf)MRF", type number}, {"SET/25#(lf)Realizado", Int64.Type}, {"OUT/25#(lf)MRF", type number}, {"OUT/25#(lf)Realizado", Int64.Type}, {"NOV/25#(lf)MRF", type number}, {"NOV/25#(lf)Realizado", Int64.Type}, {"DEZ/25#(lf)MRF", type number}, {"DEZ/25#(lf)Realizado", Int64.Type}, {"JAN/26#(lf)MRF", Int64.Type}, {"JAN/26#(lf)Realizado", Int64.Type}, {"FEV/26#(lf)MRF", Int64.Type}, {"FEV/26#(lf)Realizado", Int64.Type}, {"MRF FY", type number}, {"Realizado FY", type number}, {"MRF x Orçado", type number}, {"Saldo#(lf)(Real-Orçado)", type number}, {"Demanda Casulo", type text}, {"Projeto Casulo", type text}, {"Demanda T4", type text}}),
 				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado1",{"MRF FY", "Realizado FY", "MRF x Orçado", "Saldo#(lf)(Real-Orçado)", "Demanda Casulo", "Projeto Casulo", "Demanda T4"}),
 				    #"Linhas Filtradas" = Table.SelectRows(#"Colunas Removidas", each ([Projeto] <> "Total")),
-				    #"Colunas Não Dinâmicas" = Table.UnpivotOtherColumns(#"Linhas Filtradas", {"OI / CC", "Projeto", "Budget", "Portfólio", "Status", "GG", "G", "CMT", "TI"}, "Atributo", "Valor")
+				    #"Colunas Não Dinâmicas" = Table.UnpivotOtherColumns(#"Linhas Filtradas", {"OI / CC", "Projeto", "Budget", "Portfólio", "Status", "GG", "G", "CMT", "TI"}, "Atributo", "Valor"),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Colunas Não Dinâmicas", "Tipo", each if Text.Contains([Atributo], "MRF") then "MRF" else "Realizado")
 				in
-				    #"Colunas Não Dinâmicas"
+				    #"Coluna Condicional Adicionada"
 
 	annotation PBI_NavigationStepName = Navegação
 

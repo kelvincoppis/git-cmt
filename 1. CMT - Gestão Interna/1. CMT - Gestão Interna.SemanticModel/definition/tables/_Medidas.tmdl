@@ -300,6 +300,36 @@ table _Medidas
 
 		annotation PBI_FormatHint = {"isCustom":true}
 
+	measure 'Ganhos Ano Atual (MBRL)' =
+			
+			CALCULATE(
+			    [Ganho Anual (MR$)],
+			    YEAR(fDemanda[Report Date L4]) = YEAR(TODAY())
+			)
+		formatString: 0.0
+		displayFolder: Ganhos
+		lineageTag: dcf5d446-7ce5-4820-bf25-b2df024c82ca
+
+	measure 'Ganhos Ano Atual (h)' =
+			
+			CALCULATE(
+			    [Ganho (h)],
+			    YEAR(fDemanda[Report Date L4]) = YEAR(TODAY())
+			)
+		formatString: #,0
+		displayFolder: Ganhos
+		lineageTag: cd61cbad-e81d-4c3b-b16a-27f12b623105
+
+	measure 'Opex Actual (MBRL)' = CALCULATE(SUM(fOpex[Valor]), fOpex[Tipo]="Realizado")/1000000
+		lineageTag: 0ea486f3-cc17-4025-952a-eddcbdfe6143
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Opex Budget (MBRL)' = 7.2
+		lineageTag: 39c0ebdd-6caa-4d06-a620-53077ea1d0b4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column '.'
 		formatString: 0
 		lineageTag: 97718db5-9d8c-454b-a4fa-cc38454021c1
